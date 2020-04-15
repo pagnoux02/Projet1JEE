@@ -25,6 +25,27 @@ public class Utilisateur {
 	private int credit;
 	
 	private boolean administrateur;
+	
+	public Utilisateur() {
+		super();
+	}
+
+	public Utilisateur(int numeroUtilisateur, String pseudo, String nom, String prenon, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
+		this();
+		this.numeroUtilisateur = numeroUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenon = prenon;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+	}
 
 	public int getNumeroUtilisateur() {
 		return numeroUtilisateur;
@@ -114,7 +135,7 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public boolean isAdministrateur() {
+	public boolean getAdministrateur() {
 		return administrateur;
 	}
 
