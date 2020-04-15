@@ -19,7 +19,7 @@ public abstract class ConnectionProvider {
 			 ConnectionProvider.dataSource = (DataSource) context.lookup("java:comp/env/jdbc/pool_cnx_avis");
 		 } catch(NamingException namingException) {
 			 namingException.printStackTrace();
-			 throw new RuntimeException("imposible de'accèeder BDD ");
+			 throw new RuntimeException("imposible de'accï¿½eder BDD");
 		 }
 	}
 

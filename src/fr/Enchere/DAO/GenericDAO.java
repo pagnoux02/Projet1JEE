@@ -15,6 +15,10 @@ public interface GenericDAO<T> {
 	
 	public String update(T t) throws DAOException,FunctionnalException;
 	
+<<<<<<< HEAD
+	public String Delete(int id) throws DAOException,FunctionnalException;
+=======
 	public String delete(int t) throws DAOException,FunctionnalException;
+>>>>>>> master
 
 }
