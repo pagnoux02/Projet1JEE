@@ -73,7 +73,7 @@ public class UtilisationDAO implements UtilisationInterfaceDAO {
 	}
 
 	@Override
-	public Utilisateur sellectByid(int id) throws DAOException, FunctionnalException {
+	public Utilisateur selectById(int id) throws DAOException, FunctionnalException {
 
 		Utilisateur utilisateur = new Utilisateur();
 		
@@ -191,7 +191,7 @@ public class UtilisationDAO implements UtilisationInterfaceDAO {
 	}
 
 	@Override
-	public String Delete(int id) throws DAOException, FunctionnalException {
+	public String delete(int id) throws DAOException, FunctionnalException {
 		
 		String string = "";
 		
