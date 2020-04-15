@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/pool_cnx_avis"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		type="javax.sql.DataSource"
+		url="jdbc:sqlserver://127.0.0.1:1433;databasename=BDD_ENCHERE"
+		username="sa"
+		password="AdrienTest"
+		maxTotal="100"
+		axIdle="30"
+		maxWaitMillis="10000" />
+</Context>
