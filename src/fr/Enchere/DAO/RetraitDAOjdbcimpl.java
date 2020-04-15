@@ -73,10 +73,10 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
             }
 
             if(ress == 0) {
-                throw new FunctionnalException("L'insertion s'est mal passé");
+                throw new FunctionnalException("L'insertion s'est mal passï¿½");
             }
 
-            string = "Success l'insertion s'est bien passé";
+            string = "Success l'insertion s'est bien passï¿½";
 
         } catch (SQLException e) {
             throw new DAOException(e.getMessage());
