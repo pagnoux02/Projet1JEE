@@ -1,11 +1,11 @@
 package fr.Enchere.BLL;
 
 import fr.Enchere.DAO.GenericDAOFactory;
-import fr.Enchere.DAO.UtilisationDAO;
+import fr.Enchere.DAO.UtilisationDAOJdbcImpl;
 
 public class UtilisateurManager {
 	
-	 public UtilisationDAO getUtilisation() {
-		 return (UtilisationDAO) GenericDAOFactory.getUtilisateurDao();
+	 public UtilisationDAOJdbcImpl getUtilisation() {
+		 return (UtilisationDAOJdbcImpl) GenericDAOFactory.getUtilisateurDao();
 	 }
 }
