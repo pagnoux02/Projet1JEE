@@ -18,7 +18,7 @@ public class GenericDAOFactory {
 	
 	public static GenericDAO<Utilisateur> getUtilisateurDao(){
 		if(GenericDAOFactory.DAOUtilisateur == null) {
-			return GenericDAOFactory.DAOUtilisateur = new UtilisationDAO();
+			return GenericDAOFactory.DAOUtilisateur = new UtilisationDAOJdbcImpl();
 		}
 		return DAOUtilisateur;
 	}
