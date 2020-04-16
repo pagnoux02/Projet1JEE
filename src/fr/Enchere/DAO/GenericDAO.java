@@ -14,7 +14,7 @@ public interface GenericDAO<T> {
 	public String insert(T t) throws DAOException,FunctionnalException;
 	
 	public String update(T t) throws DAOException,FunctionnalException;
-	
+
 	public String delete(int t) throws DAOException,FunctionnalException;
 
 

@@ -73,10 +73,10 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 			}
 
 			if(ress == 0) {
-				throw new FunctionnalException("L'insertion s'est mal passé");
+				throw new FunctionnalException("L'insertion s'est mal passï¿½");
 			}
 
-			string = "Success l'insertion s'est bien passé";
+			string = "Success l'insertion s'est bien passï¿½";
 
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
@@ -103,10 +103,10 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 			
 			
 			if(ress == 0) {
-				throw new FunctionnalException("la mise à jour c'est mal passé");
+				throw new FunctionnalException("la mise ï¿½ jour c'est mal passï¿½");
 			}
 			
-			string = "Succèes la mise a jour s'est bien passé";
+			string = "Succï¿½es la mise a jour s'est bien passï¿½";
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,7 +122,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = cnx.prepareStatement(DELETE_RETRAIT);)
 		{
-			string = "Succèes la mise a jour s'est bien passé";
+			string = "Succï¿½es la mise a jour s'est bien passï¿½";
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 
