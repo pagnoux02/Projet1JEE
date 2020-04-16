@@ -14,7 +14,7 @@ import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
 import fr.Enchere.util.GestionDAO;
 
-public class UtilisationDAO implements UtilisationInterfaceDAO {
+public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 	
 	private static final String SELECT_ALL = "select * from utilisateur";
 	
