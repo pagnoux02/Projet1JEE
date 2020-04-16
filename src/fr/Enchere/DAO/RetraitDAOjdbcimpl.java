@@ -10,15 +10,14 @@ import fr.Enchere.BO.Retrait;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
-import fr.eni.javaee.gestionlistescourses.BusinessException;
-import fr.eni.javaee.gestionlistescourses.dal.CodesResultatDAL;
+
 
 public class RetraitDAOjdbcimpl implements RetraitDao{
 
-	private static final String SELECT_BY_ID = "select rue , code_postal , ville from retraits where no_article = 1";
-	private static final String DELETE_Retrait = "delet from retraits where id=?";
-	private static final String SQL_INSERT_RETRAIT = "insert into retraits rue , code_postal values (?,?,?)";
-	
+	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = 1";
+	private static final String DELETE_RETRAIT = "delet from retraits where id=?";
+	private static final String INSERT_RETRAIT = "insert into retraits no_article,rue , code_postal, ville values (?,?,?)";
+	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where id=?";
 
 	@Override
 	public List<Retrait> selectAll() throws DAOException, FunctionnalException {
@@ -27,27 +26,28 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 	}
 
 	@Override
-	public Retrait sellectByid(int id) throws DAOException, FunctionnalException {
-			Retrait retrait;
-			try(Connection cnx = ConnectionProvider.getConnection(); 
-					PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);)
+	public Retrait selectById(int id) throws DAOException, FunctionnalException {
+		Retrait retrait = null;
+		try(Connection cnx = ConnectionProvider.getConnectionProvider(); 
+				PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID_RETRAIT);)
+		{
+
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+
+			while(rs.next())
 			{
-				
-				pstmt.setInt(1, id);
-				ResultSet rs = pstmt.executeQuery();
-				
-				
-				while(rs.next())
-				{
-					retrait = new Retrait(rs.getString("rue"), rs.getInt("code_postal"),rs.getString("Ville"));
-				}
+				retrait = new Retrait(rs.getString("rue"), rs.getInt("code_postal"),rs.getString("Ville"));
 			}
-	catch (Exception e) {
-		// TODO: handle exception
-	}
-			return retrait;
 		}
-	
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Erreur selectById retrait");
+		}
+		return retrait;
+	}
+
 
 	@Override
 	public String insert(Retrait retrait) throws DAOException, FunctionnalException {
@@ -55,59 +55,83 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		{
 			throw new FunctionnalException("erreur insert retrait vide");
 		}
+
+		String string = "";
+
+		try(Connection Connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement statementInsert = Connection.prepareStatement(INSERT_RETRAIT , PreparedStatement.RETURN_GENERATED_KEYS)){
+
+			statementInsert.setString(1, retrait.getRue());
+			statementInsert.setInt(2, retrait.getCode_postale());
+			statementInsert.setString(3, retrait.getVille());
+			int ress = statementInsert.executeUpdate();
+
+			ResultSet ressul = statementInsert.getGeneratedKeys();
+
+			if(ressul.next()) {
+				retrait.setId(ressul.getInt(1));
+			}
+
+			if(ress == 0) {
+				throw new FunctionnalException("L'insertion s'est mal passé");
+			}
+
+			string = "Success l'insertion s'est bien passé";
+
+		} catch (SQLException e) {
+			throw new DAOException(e.getMessage());
+		} catch (RuntimeException e1) {
+			throw new DAOException(e1.getMessage());
+		}
+
+		return string;
+	}
+
+	@Override
+	public String update(Retrait retrait) throws DAOException, FunctionnalException {
 		
-	    String string = "";
-
-        try(Connection Connection = ConnectionProvider.getConnectionProvider();
-                PreparedStatement statementInsert = Connection.prepareStatement(SQL_INSERT_RETRAIT , PreparedStatement.RETURN_GENERATED_KEYS)){
-
-            statementInsert.setString(1, retrait.getRue());
-            statementInsert.setInt(2, retrait.getCode_postale());
-            statementInsert.setString(3, retrait.getVille());
-            int ress = statementInsert.executeUpdate();
-
-            ResultSet ressul = statementInsert.getGeneratedKeys();
-
-            if(ressul.next()) {
-            	retrait.setId(ressul.getInt(1));
-            }
-
-            if(ress == 0) {
-                throw new FunctionnalException("L'insertion s'est mal passé");
-            }
-
-            string = "Success l'insertion s'est bien passé";
-
-        } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
-        } catch (RuntimeException e1) {
-            throw new DAOException(e1.getMessage());
-        }
-
-        return string;
-	}
-
-	@Override
-	public String update(Retrait t) throws DAOException, FunctionnalException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String Delet(int id) throws DAOException, FunctionnalException {
-		try(Connection cnx = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = cnx.prepareStatement(DELETE_Retrait);)
-		{
+		String string = "";
+		
+		try(Connection connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_RETRAIT)){
+			pstmt.setInt(1, retrait.getId());
+			pstmt.setString(2, retrait.getRue());
+			pstmt.setInt(3, retrait.getCode_postale());
+			pstmt.setString(4, retrait.getVille());
 			
+			int ress = pstmt.executeUpdate();
+			
+			
+			if(ress == 0) {
+				throw new FunctionnalException("la mise à jour c'est mal passé");
+			}
+			
+			string = "Succèes la mise a jour s'est bien passé";
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Erreur pour :" + e.getMessage());
+		}
+		
+		return string;
+	}
+
+	@Override
+	public String delete(int id) throws DAOException, FunctionnalException {
+		String string = "";
+		try(Connection cnx = ConnectionProvider.getConnectionProvider();
+				PreparedStatement pstmt = cnx.prepareStatement(DELETE_RETRAIT);)
+		{
+			string = "Succèes la mise a jour s'est bien passé";
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
-			
-			} catch (SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Erreur delete Retrait");
 		}
-		return "good";
-		
+		return string ;
+
 	}
 
 
