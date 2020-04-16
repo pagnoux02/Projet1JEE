@@ -17,4 +17,5 @@ public interface GenericDAO<T> {
 
 	public String delete(int t) throws DAOException,FunctionnalException;
 
+
 }
