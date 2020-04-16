@@ -10,8 +10,6 @@ import fr.Enchere.BO.Retrait;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
-import fr.eni.javaee.gestionlistescourses.BusinessException;
-import fr.eni.javaee.gestionlistescourses.dal.CodesResultatDAL;
 
 public class RetraitDAOjdbcimpl implements RetraitDao{
 
@@ -27,9 +25,9 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 	}
 
 	@Override
-	public Retrait sellectByid(int id) throws DAOException, FunctionnalException {
-			Retrait retrait;
-			try(Connection cnx = ConnectionProvider.getConnection(); 
+	public Retrait selectById(int id) throws DAOException, FunctionnalException {
+			Retrait retrait = null;
+			try(Connection cnx = ConnectionProvider.getConnectionProvider(); 
 					PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);)
 			{
 				
@@ -94,8 +92,8 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 	}
 
 	@Override
-	public String Delet(int id) throws DAOException, FunctionnalException {
-		try(Connection cnx = ConnectionProvider.getConnection();
+	public String delete(int id) throws DAOException, FunctionnalException {
+		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = cnx.prepareStatement(DELETE_Retrait);)
 		{
 			
