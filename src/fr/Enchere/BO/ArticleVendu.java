@@ -23,6 +23,7 @@ public class ArticleVendu {
 	private int prixVente;
 	private EtatVente etatVente;
 	private Categorie categorie;
+	private Utilisateur utilisateur;
 	
 	/**
 	 * @param nomArticle
@@ -31,9 +32,10 @@ public class ArticleVendu {
 	 * @param dateFinEncheres
 	 * @param miseAPrix
 	 * @param categorie
+	 * @param utilisateur
 	 */
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, Categorie categorie) {
+			int miseAPrix, Categorie categorie, Utilisateur utilisateur) {
 		
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -41,6 +43,7 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 	}
 
 	/**
@@ -51,13 +54,14 @@ public class ArticleVendu {
 	 * @param dateFinEncheres
 	 * @param miseAPrix
 	 * @param categorie
+	 * @param utilisateur
 	 * @param prixVente
 	 * @param etatVente
 	 */
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, Categorie categorie, int prixVente, EtatVente etatVente) {
+			LocalDate dateFinEncheres, int miseAPrix, Categorie categorie, Utilisateur utilisateur, int prixVente, EtatVente etatVente) {
 		
-		this(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorie);
+		this(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorie, utilisateur);
 		
 		this.noArticle = noArticle;
 		this.prixVente = prixVente;
@@ -188,6 +192,20 @@ public class ArticleVendu {
 	 */
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+	/**
+	 * @return the utilisateur
+	 */
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	/**
+	 * @param utilisateur the utilisateur to set
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	
 	
