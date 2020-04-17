@@ -36,7 +36,7 @@ public class AddCompte extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/AddUtilisateur.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/AddUtilisateur.jsp");
 		requestDispatcher.forward(request, response);
 	
 	}
@@ -54,7 +54,7 @@ public class AddCompte extends HttpServlet {
 		
 		utilisateur.setPseudo(request.getParameter("pseudo"));
 		utilisateur.setNom(request.getParameter("nom"));
-		utilisateur.setPrenon(request.getParameter("prenom"));
+		utilisateur.setPrenom(request.getParameter("prenom"));
 		utilisateur.setEmail(request.getParameter("email"));
 		utilisateur.setTelephone(request.getParameter("telephone"));
 		utilisateur.setRue(request.getParameter("rue"));
@@ -93,7 +93,7 @@ public class AddCompte extends HttpServlet {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);
 		}else {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/AddUtilisateur.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/AddUtilisateur.jsp");
 			requestDispatcher.forward(request, response);
 		}
 		

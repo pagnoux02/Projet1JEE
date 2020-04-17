@@ -31,11 +31,12 @@
 					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
 			</ul>
 			</core:if>
-			<core:if test="${ userTrouver == true}">
+			<core:if test="${user != null || !empty user || userTrouver == true}">
 			<ul class="right hide-on-med-and-down">
+				<li>Bienvenue : ${ user.pseudo }</li>
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}">Mon Profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</ul>
 			</core:if>
@@ -43,16 +44,16 @@
 	</nav>
 
 	<ul class="sidenav" id="mobile-demo">
-		<core:if test="${ userTrouver != true}">	
+		<core:if test="${ userTrouver != true} ">	
 				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
 			</core:if>
-			<core:if test="${ userTrouver == true}">
+			<core:if test="${user != null || !empty user || userTrouver == true}">
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}">Mon Profil</a></li>
-				<li><a href="${pageContext.request.contextPath}">Déconnexion</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</core:if>
 	</ul>
 	<script type="text/javascript">
