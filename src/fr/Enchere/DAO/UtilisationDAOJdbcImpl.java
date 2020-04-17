@@ -26,11 +26,11 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 	private static final String INSERT_UTILISATEUR = "insert into utilisateurs (pseudo,nom,prenom,email,telephone"
 			+ ",rue,code_postal,ville,mot_de_passe,credit,administrateur) values (?,?,?,?,?,?,?,?,?,?,?)";
 	
-	private static final String UPDATE_UTILISATEUR = "update utilisateurs set pseudo = ? and nom = ? and prenom = ? and email = ?"
-			+ "and telephone = ? and rue = ? and code_postal = ? and ville = ? and mot_de_passe = ? and credit = ?"
-			+ "and administrateur = ? where no_utilisateur = ?";
+	private static final String UPDATE_UTILISATEUR = "update utilisateurs set pseudo = ? , nom = ? , prenom = ? , email = ?"
+			+ ", telephone = ? , rue = ? , code_postal = ? , ville = ? , mot_de_passe = ? , credit = ?"
+			+ ", administrateur = ? where no_utilisateur = ?";
 	
-	private static final String DELETE_UTILISATEUR = "delect from utilisateurs where no_utilisateur = ?";
+	private static final String DELETE_UTILISATEUR = "delete from utilisateurs where no_utilisateur = ?";
 	
 	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ? "
 			+ "and mot_de_passe = ?";
@@ -283,10 +283,6 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				listStrings.add(ress);
 			}
 			
-			if(listStrings == null || listStrings.isEmpty()) {
-				throw new FunctionnalException("La list est null ou vide");
-			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -311,10 +307,6 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				String ress = "";
 				ress = resultal.getString("pseudo");
 				listStrings.add(ress);
-			}
-			
-			if(listStrings == null || listStrings.isEmpty()) {
-				throw new FunctionnalException("La list est null ou vide");
 			}
 			
 		} catch (SQLException e) {

@@ -85,6 +85,32 @@ public class SetDonneesUtilisationService {
 	
 	/**
 	 * 
+	 * @param id
+	 * @return
+	 * @throws BllException
+	 */
+	public String deleteUtilisateur(int id) throws BllException {
+		
+		String string = "";
+		
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
+		try {
+			string = utilisateurManager.getUtilisation().delete(id);
+		} catch (DAOException daoException) {
+			// TODO Auto-generated catch block
+			daoException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
+		} catch (FunctionnalException functionnalException) {
+			// TODO Auto-generated catch block
+			functionnalException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
+		}
+		return string;
+	}
+	
+	/**
+	 * 
 	 * @param utilisateur
 	 * @throws ParameterException
 	 */
@@ -123,4 +149,5 @@ public class SetDonneesUtilisationService {
 		
 		CheckDataUtil.checkNumeroUtilisateur(String.valueOf(utilisateur.getNumeroUtilisateur()));
 	}
+	
 }
