@@ -2,6 +2,8 @@ package fr.Enchere.DAO;
 
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Categorie;
+import fr.Enchere.BO.Enchere;
+import fr.Enchere.BO.Retrait;
 import fr.Enchere.BO.Utilisateur;
 
 public class GenericDAOFactory {
@@ -13,6 +15,10 @@ public class GenericDAOFactory {
 	private static GenericDAO<ArticleVendu> DAOArticleVendu;
 	
 	private static GenericDAO<Categorie> DAOCategorie;
+	
+	private static GenericDAO<Enchere> DAOEnchere;
+	
+	private static GenericDAO<Retrait> DAORetrait;
 	
 	// definir vos factory  
 	
@@ -37,4 +43,17 @@ public class GenericDAOFactory {
 		return DAOCategorie;
 	}
 	
+	public static GenericDAO<Enchere> getEnchereDAO(){
+		if(GenericDAOFactory.DAOEnchere == null) {
+			return GenericDAOFactory.DAOEnchere = new EnchereDAOJdbcImpl();
+		}
+		return DAOEnchere;
+	}
+	
+	public static GenericDAO<Retrait> getRetraitDAO(){
+		if(GenericDAOFactory.DAORetrait == null) {
+			return GenericDAOFactory.DAORetrait = new RetraitDAOjdbcimpl();
+		}
+		return DAORetrait;
+	}
 }

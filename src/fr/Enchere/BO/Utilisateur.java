@@ -142,6 +142,14 @@ public class Utilisateur {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur [numeroUtilisateur=" + numeroUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom
+				+ ", prenon=" + prenon + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue
+				+ ", codePostal=" + codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit="
+				+ credit + ", administrateur=" + administrateur + "]";
+	}
 	
 	
 
