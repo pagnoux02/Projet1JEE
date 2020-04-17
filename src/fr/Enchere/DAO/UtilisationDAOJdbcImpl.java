@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
+import fr.Enchere.util.Constantes;
 import fr.Enchere.util.GestionDAO;
 
 public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
@@ -29,8 +32,12 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 	
 	private static final String DELETE_UTILISATEUR = "delect from utilisateurs where no_utilisateur = ?";
 	
-	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ?"
+	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ? "
 			+ "and mot_de_passe = ?";
+	
+	private static final String SELECT_EMAIL_IN_BDD = "select email from utilisateurs";
+	
+	private static final String SELECT_PSEUDO_IN_BDD = "select pseudo from utilisateurs";
 	
 	
 	@Override
@@ -247,7 +254,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setAdministrateur(GestionDAO.recupBoolean(resultat.getString("administrateur")));
 			}
 			
-			if(utilisateur == null) {
+			if(utilisateur == null || utilisateur.getPseudo() == null || utilisateur.getPseudo().isEmpty()) {
 				throw new FunctionnalException("aucun utilisateur de trouver");
 			}
 			
@@ -258,5 +265,64 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 		}
 		
 		return utilisateur;
+	}
+
+	@Override
+	public List<String> emailInBDD() throws DAOException, FunctionnalException {
+
+		List<String> listStrings = new ArrayList<>();
+		
+		try(Connection connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement selectEmail = connection.prepareStatement(SELECT_EMAIL_IN_BDD)){
+			
+			ResultSet resultal = selectEmail.executeQuery();
+			
+			while(resultal.next()) {
+				String ress = "";
+				ress = resultal.getString("email");
+				listStrings.add(ress);
+			}
+			
+			if(listStrings == null || listStrings.isEmpty()) {
+				throw new FunctionnalException("La list est null ou vide");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
+		}
+		
+		return listStrings;
+		
+	}
+
+	@Override
+	public List<String> pseudoInBDD() throws DAOException, FunctionnalException {
+
+		List<String> listStrings = new ArrayList<>();
+		
+		try(Connection connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement selectPseudo = connection.prepareStatement(SELECT_PSEUDO_IN_BDD)){
+			
+			ResultSet resultal = selectPseudo.executeQuery();
+			
+			while(resultal.next()) {
+				String ress = "";
+				ress = resultal.getString("pseudo");
+				listStrings.add(ress);
+			}
+			
+			if(listStrings == null || listStrings.isEmpty()) {
+				throw new FunctionnalException("La list est null ou vide");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
+		}
+		
+		return listStrings;
 	}
 }

@@ -77,6 +77,8 @@ public class GetDonneesUtilisationService {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		
 		try {
+			System.out.println(CheckDataUtil.convertirMotdePasse(pass));
+			
 			utilisateur = utilisateurManager.getUtilisation().userEstDansLaBase(pseudo, CheckDataUtil.convertirMotdePasse(pass));
 		} catch (FunctionnalException functionnalException) {
 			// TODO Auto-generated catch block
@@ -93,5 +95,61 @@ public class GetDonneesUtilisationService {
 		}
 		
 		return utilisateur;
+	}
+	
+	/**
+	 * 
+	 * @param email
+	 * @throws BllException
+	 */
+	public void seleteEmailInBDD(String email) throws BllException {
+		
+		List<String> listEmail = new ArrayList<>();
+		
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
+		try {
+			listEmail = utilisateurManager.getUtilisation().emailInBDD();
+			
+			if(listEmail.contains(email)) {
+				throw new FunctionnalException("L'email exit deja !");
+			}
+		} catch (DAOException daoException) {
+			// TODO Auto-generated catch block
+			daoException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
+		} catch (FunctionnalException functionnalException) {
+			// TODO Auto-generated catch block
+			functionnalException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
+		}
+	}
+	
+	/**
+	 * 
+	 * @param email
+	 * @throws BllException
+	 */
+	public void seletePseudoInBDD(String email) throws BllException {
+		
+		List<String> listEmail = new ArrayList<>();
+		
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		
+		try {
+			listEmail = utilisateurManager.getUtilisation().pseudoInBDD();
+			
+			if(listEmail.contains(email)) {
+				throw new FunctionnalException("le pssudo exite deja !");
+			}
+		} catch (DAOException daoException) {
+			// TODO Auto-generated catch block
+			daoException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
+		} catch (FunctionnalException functionnalException) {
+			// TODO Auto-generated catch block
+			functionnalException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
+		}
 	}
 }

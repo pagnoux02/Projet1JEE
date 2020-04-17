@@ -20,6 +20,9 @@
 </head>
 <body>
 	<h3 class="center-align">ENI-Enchere</h3>
+	<core:if test="${message != null || !empty message }">
+		<h4 class="center-align">${message}</h4>
+	</core:if>
 	<div style="width: 25%; margin-left: 30%;" class="row">
 		<form class="col s12"
 			action="${pageContext.request.contextPath}/Connection" method="post">

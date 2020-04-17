@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +21,9 @@
 </head>
 <body>
 <h3 class="center-align">Créer un compte</h3>
+	<core:if test="${message != null || !empty message }">
+		<h4 class="center-align">${message}</h4>
+	</core:if>
 <div style="width: 80%; margin-left: 5%" class="row">
 	<form class="col s12" action="${pageContext.request.contextPath}/AddCompte" method="post">
 		<div class="input-field col s6">
@@ -54,11 +59,11 @@
 			<label for="impVille">Ville :</label>
 		</div>
 		<div class="input-field col s6">
-			<input id="impPass" type="text" name="pass" required="required">
+			<input id="impPass" type="password" name="pass" required="required">
 			<label for="impPass">Mot de passe :</label>
 		</div>
 		<div class="input-field col s6">
-			<input id="impCfPass" type="text" name="cfPass" required="required">
+			<input id="impCfPass" type="password" name="cfPass" required="required">
 			<label for="impCfPass">Confirmation :</label>
 		</div>
 		<div class="center-align input-field col s12">
