@@ -15,7 +15,7 @@ import fr.Enchere.JDBCConnection.ConnectionProvider;
 public class RetraitDAOjdbcimpl implements RetraitDao{
 
 	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = 1";
-	private static final String DELETE_RETRAIT = "delet from retraits where id=?";
+	private static final String DELETE_RETRAIT = "delete from retraits where id=?";
 	private static final String INSERT_RETRAIT = "insert into retraits no_article,rue , code_postal, ville values (?,?,?)";
 	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where id=?";
 

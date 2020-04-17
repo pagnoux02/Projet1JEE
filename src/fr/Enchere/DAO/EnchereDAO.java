@@ -8,10 +8,10 @@ import fr.Enchere.Exception.FunctionnalException;
 
 public interface EnchereDAO extends GenericDAO<Enchere> {
 
-	public Enchere FindUserByIdArticle(int id) throws DAOException, FunctionnalException;
+	public Enchere FindEnchereByIdArticle(int id) throws DAOException, FunctionnalException;
 	
-	public List<Enchere> SelectByIdEnchereEnCours(int id);
+	public List<Enchere> SelectByIdEnchereEnCours(int id) throws DAOException, FunctionnalException;
 	
-	public List<Enchere> SelectByIdEnchereWIn(int id);
+	public List<Enchere> SelectByIdEnchereWIn(int id) throws DAOException, FunctionnalException;
 	
 }
