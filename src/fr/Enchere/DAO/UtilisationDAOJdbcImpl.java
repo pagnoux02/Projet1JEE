@@ -16,20 +16,20 @@ import fr.Enchere.util.GestionDAO;
 
 public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 	
-	private static final String SELECT_ALL = "select * from utilisateur";
+	private static final String SELECT_ALL = "select * from utilisateurs";
 	
-	private static final String SELECT_BY_ID = "select * from utilisateur where no_utilisateur = ?";
+	private static final String SELECT_BY_ID = "select * from utilisateurs where no_utilisateur = ?";
 	
-	private static final String INSERT_UTILISATEUR = "insert into utilisateur (pseudo,nom,prenom,email,telephonne"
+	private static final String INSERT_UTILISATEUR = "insert into utilisateurs (pseudo,nom,prenom,email,telephone"
 			+ ",rue,code_postal,ville,mot_de_passe,credit,administrateur) values (?,?,?,?,?,?,?,?,?,?,?)";
 	
-	private static final String UPDATE_UTILISATEUR = "update utilisateur set pseudo = ? and nom = ? and prenom = ? and email = ?"
-			+ "and telephonne = ? and rue = ? and code_postal = ? and ville = ? and mot_de_passe = ? and credit = ?"
+	private static final String UPDATE_UTILISATEUR = "update utilisateurs set pseudo = ? and nom = ? and prenom = ? and email = ?"
+			+ "and telephone = ? and rue = ? and code_postal = ? and ville = ? and mot_de_passe = ? and credit = ?"
 			+ "and administrateur = ? where no_utilisateur = ?";
 	
-	private static final String DELETE_UTILISATEUR = "delect from utilisateur where no_utilisateur = ?";
+	private static final String DELETE_UTILISATEUR = "delect from utilisateurs where no_utilisateur = ?";
 	
-	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateur where pseudo = ?"
+	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ?"
 			+ "and mot_de_passe = ?";
 	
 	
@@ -129,7 +129,9 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			insertUtilisateur.setString(8, utilisateur.getVille());
 			insertUtilisateur.setString(9, utilisateur.getMotDePasse());
 			insertUtilisateur.setInt(10, utilisateur.getCredit());
-			insertUtilisateur.setBoolean(11, utilisateur.getAdministrateur());
+			insertUtilisateur.setByte(11, GestionDAO.recupBit(utilisateur.getAdministrateur()));
+			
+			System.out.println(GestionDAO.recupBit(utilisateur.getAdministrateur()));
 			
 			int resultat = insertUtilisateur.executeUpdate();
 			
@@ -147,6 +149,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 			throw new DAOException("Erreur pour :" + e.getMessage());
 		}
 		
@@ -171,7 +174,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			updateUtilisateur.setString(8, utilisateur.getVille());
 			updateUtilisateur.setString(9, utilisateur.getMotDePasse());
 			updateUtilisateur.setInt(10, utilisateur.getCredit());
-			updateUtilisateur.setBoolean(11, utilisateur.getAdministrateur());
+			updateUtilisateur.setByte(11, GestionDAO.recupBit(utilisateur.getAdministrateur()));
 			updateUtilisateur.setInt(12, utilisateur.getNumeroUtilisateur());
 		
 			int ress = updateUtilisateur.executeUpdate();
