@@ -48,7 +48,7 @@ public class Connection extends HttpServlet {
 				}
 			}
 		}else {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/Connection.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/Connection.jsp");
 			requestDispatcher.forward(request, response);
 		}
 	}
@@ -96,7 +96,7 @@ public class Connection extends HttpServlet {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);
 		}else {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/Connection.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");
 			requestDispatcher.forward(request, response);
 		}
 	}

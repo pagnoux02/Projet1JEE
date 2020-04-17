@@ -33,9 +33,10 @@
 			</core:if>
 			<core:if test="${ userTrouver == true}">
 			<ul class="right hide-on-med-and-down">
+				<li>Bienvenue : ${ user.pseudo }</li>
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}">Mon Profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</ul>
 			</core:if>
@@ -51,8 +52,8 @@
 			<core:if test="${ userTrouver == true}">
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}">Mon Profil</a></li>
-				<li><a href="${pageContext.request.contextPath}">Déconnexion</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</core:if>
 	</ul>
 	<script type="text/javascript">

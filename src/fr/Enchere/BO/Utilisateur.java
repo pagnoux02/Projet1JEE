@@ -8,7 +8,7 @@ public class Utilisateur {
 	
 	private String nom;
 	
-	private String prenon;
+	private String prenom;
 	
 	private String email;
 	
@@ -36,7 +36,7 @@ public class Utilisateur {
 		this.numeroUtilisateur = numeroUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
-		this.prenon = prenon;
+		this.prenom = prenon;
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
@@ -71,12 +71,12 @@ public class Utilisateur {
 		this.nom = nom;
 	}
 
-	public String getPrenon() {
-		return prenon;
+	public String getPrenom() {
+		return prenom;
 	}
 
-	public void setPrenon(String prenon) {
-		this.prenon = prenon;
+	public void setPrenom(String prenon) {
+		this.prenom = prenon;
 	}
 
 	public String getEmail() {
@@ -146,7 +146,7 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		return "Utilisateur [numeroUtilisateur=" + numeroUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom
-				+ ", prenon=" + prenon + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue
+				+ ", prenon=" + prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue
 				+ ", codePostal=" + codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit="
 				+ credit + ", administrateur=" + administrateur + "]";
 	}

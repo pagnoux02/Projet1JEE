@@ -55,7 +55,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));
@@ -95,7 +95,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));
@@ -128,7 +128,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			
 			insertUtilisateur.setString(1, utilisateur.getPseudo());
 			insertUtilisateur.setString(2, utilisateur.getNom());
-			insertUtilisateur.setString(3, utilisateur.getPrenon());
+			insertUtilisateur.setString(3, utilisateur.getPrenom());
 			insertUtilisateur.setString(4, utilisateur.getEmail());
 			insertUtilisateur.setString(5, utilisateur.getTelephone());
 			insertUtilisateur.setString(6, utilisateur.getRue());
@@ -173,7 +173,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			
 			updateUtilisateur.setString(1, utilisateur.getPseudo());
 			updateUtilisateur.setString(2, utilisateur.getNom());
-			updateUtilisateur.setString(3, utilisateur.getPrenon());
+			updateUtilisateur.setString(3, utilisateur.getPrenom());
 			updateUtilisateur.setString(4, utilisateur.getEmail());
 			updateUtilisateur.setString(5, utilisateur.getTelephone());
 			updateUtilisateur.setString(6, utilisateur.getRue());
@@ -243,7 +243,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));

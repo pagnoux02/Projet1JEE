@@ -96,7 +96,7 @@ public class SetDonneesUtilisationService {
 		
 		CheckDataUtil.checkNom(utilisateur.getNom());
 		
-		CheckDataUtil.checkPrenom(utilisateur.getPrenon());
+		CheckDataUtil.checkPrenom(utilisateur.getPrenom());
 		
 		CheckDataUtil.checkEmail(utilisateur.getEmail());
 		
