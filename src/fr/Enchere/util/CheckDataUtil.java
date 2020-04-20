@@ -12,6 +12,7 @@ public class CheckDataUtil {
 	
 	public static final Pattern PATTERNALPHAFULL = Pattern.compile("[a-zA-Z_0-9]");
 	
+	
 	public static final Pattern PATTERMNUM = Pattern.compile("[0-9]");
 	
 	public static final Pattern PATTERNPASS = Pattern.compile("[a-zA-Z_0-9]");

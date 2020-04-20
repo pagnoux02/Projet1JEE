@@ -31,7 +31,7 @@
 				<label for="impPseudo">Identifiant</label>
 			</div>
 			<div class="input-field col s12">
-				<input id="impPass" type="password" name="pass" required="required" value="${passCookie}">
+				<input id="impPass" type="password" name="pass" required="required" value="${cookie.PassENIEnchere.value}">
 				<label for="impPass">Mot de passe</label>
 			</div>
 			<div class="input-field col s6">
