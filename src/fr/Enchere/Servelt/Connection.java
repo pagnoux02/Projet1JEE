@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,11 +88,35 @@ public class Connection extends HttpServlet {
 		
 		System.out.println(string);
 		if(userTrouver) {
+			if(request.getParameter("savePass") != null) {
+				System.out.println("test");
+				System.out.println(request.getParameter("savepass"));
+				Cookie[] cookies = request.getCookies();
+				if(cookies == null) {
+					Cookie passCookie = new Cookie("PassENiEnchere", utilisateur.getMotDePasse());
+					passCookie.setMaxAge(86400);
+					response.addCookie(passCookie);
+					System.out.println("cookie crée");
+				}
+				
+				for (Cookie cookie : cookies) {
+					request.setAttribute("passCookie", cookie.getValue());
+					System.out.println(cookie.getName() + cookie.getValue());
+				}
+			}
+			
+			System.out.println("testSorte");
+			
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("userTrouver", userTrouver);
 			
 			session.setAttribute("user", utilisateur);
+			
+			System.out.println("session crée");
+			
+			String res = "";
+
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);

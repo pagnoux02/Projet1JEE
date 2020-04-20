@@ -10,14 +10,15 @@ import fr.Enchere.BO.Retrait;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
+import fr.Enchere.util.Constantes;
 
 
 public class RetraitDAOjdbcimpl implements RetraitDao{
 
-	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = 1";
-	private static final String DELETE_RETRAIT = "delete from retraits where id=?";
+	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = ?";
+	private static final String DELETE_RETRAIT = "delete from retraits where no_article=?";
 	private static final String INSERT_RETRAIT = "insert into retraits no_article,rue , code_postal, ville values (?,?,?)";
-	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where id=?";
+	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where no_article=?";
 
 	@Override
 	public List<Retrait> selectAll() throws DAOException, FunctionnalException {
@@ -76,7 +77,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 				throw new FunctionnalException("L'insertion s'est mal pass�");
 			}
 
-			string = "Success l'insertion s'est bien pass�";
+			string = Constantes.DAO_SQL_INSERT_REUSSITE;
 
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
@@ -106,7 +107,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 				throw new FunctionnalException("la mise � jour c'est mal pass�");
 			}
 			
-			string = "Succ�es la mise a jour s'est bien pass�";
+			string = Constantes.DAO_SQL_UPDATE_REUSSITE;
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,7 +123,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = cnx.prepareStatement(DELETE_RETRAIT);)
 		{
-			string = "Succ�es la mise a jour s'est bien pass�";
+			string = Constantes.DAO_SQL_DELETE_REUSSITE;
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 

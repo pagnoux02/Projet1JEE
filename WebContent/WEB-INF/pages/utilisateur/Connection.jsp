@@ -31,19 +31,19 @@
 				<label for="impPseudo">Identifiant</label>
 			</div>
 			<div class="input-field col s12">
-				<input id="impPass" type="password" name="pass" required="required">
+				<input id="impPass" type="password" name="pass" required="required" value="${passCookie}">
 				<label for="impPass">Mot de passe</label>
+			</div>
+			<div class="input-field col s6">
+				<p>
+					<label> <input type="checkbox" name="savePass" value="saveMe"/> <span>Se souvenir de moi</span>
+					</label>
+				</p>
+				<a href="${pageContext.request.contextPath }/ResetPass">Mot de passe oublier</a>
 			</div>
 			<div class="input-field col s6">
 				<input class="waves-effect waves-light btn" type="submit"
 					value="connection">
-			</div>
-			<div class="input-field col s6">
-				<p>
-					<label> <input type="checkbox" /> <span>Se souvenir de moi</span>
-					</label>
-				</p>
-				<a href="${pageContext.request.contextPath }/ResetPass">Mot de passe oublier</a>
 			</div>
 		</form>
 		<div>
