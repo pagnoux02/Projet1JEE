@@ -66,7 +66,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String sqlUpdate = ""
-			+ "UPDATE ARTICLES_VENDUS"
+			+ "UPDATE ARTICLES_VENDUS "
 			+ "SET nom_article = ?, "
 			+ "    description = ?, "
 			+ "    date_debut_encheres = ?, "
@@ -75,12 +75,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			+ "    prix_vente = ?, "
 			+ "    no_utilisateur = ?, "
 			+ "    no_categorie = ?, "
-			+ "	   etat_vente = ?"
+			+ "	   etat_vente = ? "
 			+ "WHERE no_article = ? ";
 	
 	private static final String sqlDelete = ""
-			+ "DELETE FROM ARTICLES_VENDUS"
-			+ "WHERE no_article = ?";
+			+ "DELETE FROM ARTICLES_VENDUS "
+			+ "WHERE no_article = ? ";
 	
 	@Override
 	public List<ArticleVendu> selectAll() throws DAOException, FunctionnalException {
@@ -159,6 +159,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			rqt.setInt(7, t.getUtilisateur().getNumeroUtilisateur());
 			rqt.setInt(8, t.getCategorie().getNoCategorie());
 			rqt.setString(9, t.getEtatVente().toString());
+			rqt.setInt(10, t.getNoArticle());
 			
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {

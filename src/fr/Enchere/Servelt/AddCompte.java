@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.Enchere.BLL.GetDonneesUtilisationService;
 import fr.Enchere.BLL.SetDonneesUtilisationService;
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
@@ -35,7 +36,7 @@ public class AddCompte extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/AddUtilisateur.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/AddUtilisateur.jsp");
 		requestDispatcher.forward(request, response);
 	
 	}
@@ -47,11 +48,13 @@ public class AddCompte extends HttpServlet {
 		
 		String string = "";
 		
+		boolean userAdd = false;
+		
 		Utilisateur utilisateur = new Utilisateur();
 		
 		utilisateur.setPseudo(request.getParameter("pseudo"));
 		utilisateur.setNom(request.getParameter("nom"));
-		utilisateur.setPrenon(request.getParameter("prenom"));
+		utilisateur.setPrenom(request.getParameter("prenom"));
 		utilisateur.setEmail(request.getParameter("email"));
 		utilisateur.setTelephone(request.getParameter("telephone"));
 		utilisateur.setRue(request.getParameter("rue"));
@@ -67,19 +70,32 @@ public class AddCompte extends HttpServlet {
 			
 			SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
 			
+			GetDonneesUtilisationService getDonneesUtilisationService = new GetDonneesUtilisationService();
+			
+			getDonneesUtilisationService.seleteEmailInBDD(utilisateur.getEmail());
+			
+			getDonneesUtilisationService.seletePseudoInBDD(utilisateur.getPseudo());
+			
 			string = setDonneesUtilisationService.insertUtilisateur(utilisateur);
+			
+			userAdd = true;
 		} catch (ParameterException | BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			userAdd = false;
 			string = e.getMessage();
 		}
 		
 		request.setAttribute("message", string);
 		
 		System.out.println(string);
-		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/Home.jsp");
-		requestDispatcher.forward(request, response);
+		if(userAdd) {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+			requestDispatcher.forward(request, response);
+		}else {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/AddUtilisateur.jsp");
+			requestDispatcher.forward(request, response);
+		}
 		
 	}
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,25 +20,46 @@
 <body>
 	<nav style="background-color: #26a69a;" class="testBack">
 		<div class="nav-wrapper">
-			<a href="${pageContext.request.contextPath}/Home"
-				class="brand-logo center">Courses</a> <a href="#"
+			<a href="${pageContext.request.contextPath}"
+				class="brand-logo center">ENI_ENCHERE</a> <a href="#"
 				data-target="mobile-demo" class="sidenav-trigger"><i
 				class="material-icons">menu</i></a>
-			<ul class="left hide-on-med-and-down">
-				<li><a href="${pageContext.request.contextPath}/AddListes">Ajouter
-						une Liste</a></li>
+			<core:if test="${ userTrouver != true}">	
+			<ul class="right hide-on-med-and-down">
+				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/VisualiserListes">Visualiser
-						les Liste</a></li>
+					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
 			</ul>
+			</core:if>
+			<core:if test="${user != null || !empty user || userTrouver == true}">
+			<ul class="right hide-on-med-and-down">
+				<li>Bienvenue : ${ user.pseudo }</li>
+				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
+				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
+			</ul>
+			</core:if>
 		</div>
 	</nav>
 
 	<ul class="sidenav" id="mobile-demo">
-		<li><a href="${pageContext.request.contextPath}/AddListes">Ajouter
-				une Liste</a></li>
-		<li><a href="${pageContext.request.contextPath}/VisualiserListes">Visualiser
-				les Liste</a></li>
+		<core:if test="${ userTrouver != true} ">	
+				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
+			</core:if>
+			<core:if test="${user != null || !empty user || userTrouver == true}">
+				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
+				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
+				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
+			</core:if>
 	</ul>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.sidenav').sidenav();
+		});
+	</script>
 </body>
 </html>

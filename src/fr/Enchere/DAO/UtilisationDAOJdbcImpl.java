@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
+import fr.Enchere.util.Constantes;
 import fr.Enchere.util.GestionDAO;
 
 public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
@@ -23,14 +26,18 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 	private static final String INSERT_UTILISATEUR = "insert into utilisateurs (pseudo,nom,prenom,email,telephone"
 			+ ",rue,code_postal,ville,mot_de_passe,credit,administrateur) values (?,?,?,?,?,?,?,?,?,?,?)";
 	
-	private static final String UPDATE_UTILISATEUR = "update utilisateurs set pseudo = ? and nom = ? and prenom = ? and email = ?"
-			+ "and telephone = ? and rue = ? and code_postal = ? and ville = ? and mot_de_passe = ? and credit = ?"
-			+ "and administrateur = ? where no_utilisateur = ?";
+	private static final String UPDATE_UTILISATEUR = "update utilisateurs set pseudo = ? , nom = ? , prenom = ? , email = ?"
+			+ ", telephone = ? , rue = ? , code_postal = ? , ville = ? , mot_de_passe = ? , credit = ?"
+			+ ", administrateur = ? where no_utilisateur = ?";
 	
-	private static final String DELETE_UTILISATEUR = "delect from utilisateurs where no_utilisateur = ?";
+	private static final String DELETE_UTILISATEUR = "delete from utilisateurs where no_utilisateur = ?";
 	
-	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ?"
+	private static final String SELECT_UTILISATEUR_BY_PSEUDO_AND_PASSWORD = "select * from utilisateurs where pseudo = ? "
 			+ "and mot_de_passe = ?";
+	
+	private static final String SELECT_EMAIL_IN_BDD = "select email from utilisateurs";
+	
+	private static final String SELECT_PSEUDO_IN_BDD = "select pseudo from utilisateurs";
 	
 	
 	@Override
@@ -48,7 +55,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));
@@ -88,7 +95,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));
@@ -121,7 +128,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			
 			insertUtilisateur.setString(1, utilisateur.getPseudo());
 			insertUtilisateur.setString(2, utilisateur.getNom());
-			insertUtilisateur.setString(3, utilisateur.getPrenon());
+			insertUtilisateur.setString(3, utilisateur.getPrenom());
 			insertUtilisateur.setString(4, utilisateur.getEmail());
 			insertUtilisateur.setString(5, utilisateur.getTelephone());
 			insertUtilisateur.setString(6, utilisateur.getRue());
@@ -166,7 +173,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			
 			updateUtilisateur.setString(1, utilisateur.getPseudo());
 			updateUtilisateur.setString(2, utilisateur.getNom());
-			updateUtilisateur.setString(3, utilisateur.getPrenon());
+			updateUtilisateur.setString(3, utilisateur.getPrenom());
 			updateUtilisateur.setString(4, utilisateur.getEmail());
 			updateUtilisateur.setString(5, utilisateur.getTelephone());
 			updateUtilisateur.setString(6, utilisateur.getRue());
@@ -236,7 +243,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setNumeroUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setPseudo(resultat.getString("pseudo"));
 				utilisateur.setNom(resultat.getString("nom"));
-				utilisateur.setPrenon(resultat.getString("prenom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
 				utilisateur.setEmail(resultat.getString("email"));
 				utilisateur.setTelephone(resultat.getString("telephone"));
 				utilisateur.setRue(resultat.getString("rue"));
@@ -247,7 +254,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				utilisateur.setAdministrateur(GestionDAO.recupBoolean(resultat.getString("administrateur")));
 			}
 			
-			if(utilisateur == null) {
+			if(utilisateur == null || utilisateur.getPseudo() == null || utilisateur.getPseudo().isEmpty()) {
 				throw new FunctionnalException("aucun utilisateur de trouver");
 			}
 			
@@ -258,5 +265,56 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 		}
 		
 		return utilisateur;
+	}
+
+	@Override
+	public List<String> emailInBDD() throws DAOException, FunctionnalException {
+
+		List<String> listStrings = new ArrayList<>();
+		
+		try(Connection connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement selectEmail = connection.prepareStatement(SELECT_EMAIL_IN_BDD)){
+			
+			ResultSet resultal = selectEmail.executeQuery();
+			
+			while(resultal.next()) {
+				String ress = "";
+				ress = resultal.getString("email");
+				listStrings.add(ress);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
+		}
+		
+		return listStrings;
+		
+	}
+
+	@Override
+	public List<String> pseudoInBDD() throws DAOException, FunctionnalException {
+
+		List<String> listStrings = new ArrayList<>();
+		
+		try(Connection connection = ConnectionProvider.getConnectionProvider();
+				PreparedStatement selectPseudo = connection.prepareStatement(SELECT_PSEUDO_IN_BDD)){
+			
+			ResultSet resultal = selectPseudo.executeQuery();
+			
+			while(resultal.next()) {
+				String ress = "";
+				ress = resultal.getString("pseudo");
+				listStrings.add(ress);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
+		}
+		
+		return listStrings;
 	}
 }
