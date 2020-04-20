@@ -1,19 +1,17 @@
 package fr.Enchere.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Enchere;
-import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.JDBCConnection.ConnectionProvider;
+import fr.Enchere.util.Constantes;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 
@@ -28,11 +26,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			"  FROM ENCHERES e\r\n" + 
 			" INNER JOIN ARTICLES_VENDUS av ON e.no_article = av.no_article\r\n" + 
 			" WHERE e.date_enchere > av.date_fin_encheres\r\n" + 
-			"   AND e.no_article = ?\r\n" + 
+			"   AND e.no_utilisateur = ?\r\n" + 
 			"   AND e.montant_enchere = av.prix_vente;";
 	private static final String UPDATE_ENCHERE = "update encheres set date_enchere=? , montant_enchere=? where no_utilisateur=? and no_article =?";
-	private static final  String INSERT_ENCHERE = "insert into encheres  values no_utilisateur, no_article, date_enchere, montant_enchere (?,?,?,?)";
-	private static final String DELETE_ENCHERE = "delete from encheres where id=?";
+	private static final  String INSERT_ENCHERE = "insert into encheres (no_utilisateur, no_article, date_enchere, montant_enchere) values  (?,?,?,?)";
+	private static final String DELETE_ENCHERE = "delete from encheres where no_article=?";
 
 	@Override
 	public String insert(Enchere enchere) throws DAOException, FunctionnalException {
@@ -52,7 +50,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			statementInsert.setInt(4, enchere.getMontant_enchere());
 			statementInsert.executeUpdate();
 
-			string = "Success l'insertion s'est bien passé";
+			string = Constantes.DAO_SQL_INSERT_REUSSITE;
 
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
@@ -82,7 +80,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			statementInsert.setInt(4, enchere.getNoArticle());
 			statementInsert.executeUpdate();
 
-			string = "Success l'update s'est bien passé";
+			string = Constantes.DAO_SQL_UPDATE_REUSSITE;
 
 		} catch (SQLException e) {
 			throw new DAOException(e.getMessage());
@@ -99,10 +97,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = cnx.prepareStatement(DELETE_ENCHERE);)
 		{
-			string = "Succï¿½es la mise a jour s'est bien passï¿½";
+			
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
-
+			string = Constantes.DAO_SQL_DELETE_REUSSITE ;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Erreur delete Retrait");
