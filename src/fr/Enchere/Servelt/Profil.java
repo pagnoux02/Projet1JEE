@@ -56,6 +56,7 @@ public class Profil extends HttpServlet {
 		} catch (BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			string = e.getMessage();
 		}
 
 		request.setAttribute("listUtilisateur", lisUtilisateurs);

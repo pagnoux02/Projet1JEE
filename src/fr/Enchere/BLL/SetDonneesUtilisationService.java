@@ -29,7 +29,7 @@ public class SetDonneesUtilisationService {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		
 		try {
-			checKParamInsert(utilisateur);
+			checkParamInsert(utilisateur);
 			
 			utilisateur.setMotDePasse(CheckDataUtil.convertirMotdePasse(utilisateur.getMotDePasse()));
 			
@@ -114,7 +114,7 @@ public class SetDonneesUtilisationService {
 	 * @param utilisateur
 	 * @throws ParameterException
 	 */
-	private void checKParamInsert(Utilisateur utilisateur) throws ParameterException {
+	private void checkParamInsert(Utilisateur utilisateur) throws ParameterException {
 		
 		CheckDataUtil.checkUtilisateur(utilisateur);
 		
@@ -145,7 +145,7 @@ public class SetDonneesUtilisationService {
 	 */
 	private void checkUpdate(Utilisateur utilisateur) throws ParameterException {
 		
-		checKParamInsert(utilisateur);
+		checkParamInsert(utilisateur);
 		
 		CheckDataUtil.checkNumeroUtilisateur(String.valueOf(utilisateur.getNumeroUtilisateur()));
 	}

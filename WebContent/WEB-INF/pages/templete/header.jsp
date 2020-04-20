@@ -18,13 +18,25 @@
 <title>App Enchere</title>
 </head>
 <body>
+	<ul id="dropdown1" class="dropdown-content">
+  		<li><a href="${pageContext.request.contextPath}">enchere</a></li>
+  		<li><a href="${pageContext.request.contextPath}">Article</a></li>
+  		<li class="divider"></li>
+  		<li><a href="${pageContext.request.contextPath}/Profil?idprof=${user.numeroUtilisateur}">Profil</a></li>
+	</ul>
+	<ul id="dropdown2" class="dropdown-content">
+  		<li><a href="${pageContext.request.contextPath}">enchere</a></li>
+  		<li><a href="${pageContext.request.contextPath}">Article</a></li>
+  		<li class="divider"></li>
+  		<li><a href="${pageContext.request.contextPath}/Profil?idprof=${user.numeroUtilisateur}">Profil</a></li>
+	</ul>
 	<nav style="background-color: #26a69a;" class="testBack">
 		<div class="nav-wrapper">
 			<a href="${pageContext.request.contextPath}"
 				class="brand-logo center">ENI_ENCHERE</a> <a href="#"
 				data-target="mobile-demo" class="sidenav-trigger"><i
 				class="material-icons">menu</i></a>
-			<core:if test="${ userTrouver != true}">	
+			<core:if test="${user.pseudo == null || empty user.pseudo || userTrouver == false}">	
 			<ul class="right hide-on-med-and-down">
 				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
 				<li><a
@@ -34,31 +46,40 @@
 			<core:if test="${user != null || !empty user || userTrouver == true}">
 			<ul class="right hide-on-med-and-down">
 				<li>Bienvenue : ${ user.pseudo }</li>
+				<core:if test="${user.administrateur == true}">
+					<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
+				</core:if>
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</ul>
 			</core:if>
 		</div>
 	</nav>
-
 	<ul class="sidenav" id="mobile-demo">
-		<core:if test="${ userTrouver != true} ">	
+		<core:if test="${user.pseudo == null || empty user.pseudo || userTrouver == false} ">	
 				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
 			</core:if>
 			<core:if test="${user != null || !empty user || userTrouver == true}">
+				<li>Bienvenue : ${ user.pseudo }</li>
+				<core:if test="${user.administrateur == true}">
+					<li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
+				</core:if>
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}/Profil">profil</a></li>
+				<li><a href="${pageContext.request.contextPath}">Mon profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 			</core:if>
 	</ul>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('.sidenav').sidenav();
+			
+
+			$(".dropdown-trigger").dropdown();
 		});
 	</script>
 </body>
