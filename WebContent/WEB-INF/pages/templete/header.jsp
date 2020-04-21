@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../WEB-INF/css/Mycss.css" rel="stylesheet">	
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
@@ -14,6 +15,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<link href="../WEB-INF/css/Mycss.css" rel="stylesheet">	
 <meta charset="ISO-8859-1">
 <title>App Enchere</title>
 </head>
@@ -30,15 +32,15 @@
   		<li class="divider"></li>
   		<li><a href="${pageContext.request.contextPath}/Profil?idprof=${user.numeroUtilisateur}">Profil</a></li>
 	</ul>
-	<nav style="background-color: #26a69a;" class="testBack">
+	<nav style="background-color: #26a69a;">
 		<div class="nav-wrapper">
 			<a href="${pageContext.request.contextPath}"
 				class="brand-logo center">ENI_ENCHERE</a> <a href="#"
 				data-target="mobile-demo" class="sidenav-trigger"><i
 				class="material-icons">menu</i></a>
-			<core:if test="${user.pseudo == null || empty user.pseudo || userTrouver == false}">	
+			<core:if test="${user == null || empty user || user.pseudo == null || empty user.pseudo || userTrouver == false}">	
 			<ul class="right hide-on-med-and-down">
-				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
+				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrire</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
 			</ul>
@@ -58,21 +60,21 @@
 		</div>
 	</nav>
 	<ul class="sidenav" id="mobile-demo">
-		<core:if test="${user.pseudo == null || empty user.pseudo || userTrouver == false} ">	
-				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrie</a></li>
+		<core:if test="${user.pseudo == null || empty user.pseudo || userTrouver == false}">	
+				<li><a href="${pageContext.request.contextPath}/AddCompte">S'inscrire</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/Connection">Se connecter</a></li>
-			</core:if>
-			<core:if test="${user != null || !empty user || userTrouver == true}">
+		</core:if>
+		<core:if test="${user != null || !empty user || userTrouver == true}">
 				<li>Bienvenue : ${ user.pseudo }</li>
 				<core:if test="${user.administrateur == true}">
 					<li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
 				</core:if>
 				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}">Vendre un article</a></li>
-				<li><a href="${pageContext.request.contextPath}">Mon profil</a></li>
+				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
-			</core:if>
+		</core:if>
 	</ul>
 	<script type="text/javascript">
 		$(document).ready(function () {

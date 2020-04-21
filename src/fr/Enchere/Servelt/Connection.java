@@ -129,7 +129,6 @@ public class Connection extends HttpServlet {
 			System.out.println("session crée");
 			
 			String res = "";
-
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);
