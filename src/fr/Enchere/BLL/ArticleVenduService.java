@@ -84,7 +84,7 @@ public class ArticleVenduService {
 		try {
 			checkParamInsert(articleVendu);
 			
-			s = articleVenduManager.getArticleDAO().update(articleVendu);
+			s = articleVenduManager.getArticleDAO().insert(articleVendu);
 			
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
