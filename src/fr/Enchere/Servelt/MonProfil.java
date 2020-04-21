@@ -52,6 +52,9 @@ public class MonProfil extends HttpServlet {
 		request.setAttribute("utilisateur", utilisateur);
 		
 		if (request.getParameter("modif") != null) {
+			
+			request.getAttribute("utilisateur");
+			
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("WEB-INF/pages/utilisateur/ModifProfil.jsp");
 			requestDispatcher.forward(request, response);

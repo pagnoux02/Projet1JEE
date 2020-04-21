@@ -216,5 +216,9 @@ public class CheckDataUtil {
 			throw new FunctionnalException("L'ancien mot de passe est différent de celui qui est renseigner");
 		}
 	}
+	
+	public static boolean estAdministrateur(String value) {
+		return "0".equals(value) ? true : false;
+	}
 
 }

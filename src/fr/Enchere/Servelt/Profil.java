@@ -84,6 +84,26 @@ public class Profil extends HttpServlet {
 		}
 
 		if (request.getParameter("modif") != null) {
+			
+			Utilisateur utilisateur = new Utilisateur();
+
+			try {
+				utilisateur = getDonneesUtilisationService
+						.selectById(Integer.parseInt(request.getParameter("idmod")));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				string = e.getMessage();
+			} catch (BllException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				string = e.getMessage();
+			}
+
+			request.setAttribute("message", string);
+
+			request.setAttribute("utilisateur", utilisateur);
+			
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("WEB-INF/pages/utilisateur/ModifProfil.jsp");
 			requestDispatcher.forward(request, response);
@@ -117,7 +137,7 @@ public class Profil extends HttpServlet {
 		utilisateur.setVille(request.getParameter("ville"));
 		utilisateur.setMotDePasse(request.getParameter("pass"));
 		utilisateur.setNumeroUtilisateur(Integer.parseInt(request.getParameter("IdUtil")));
-		utilisateur.setAdministrateur(false);
+		utilisateur.setAdministrateur(CheckDataUtil.estAdministrateur(request.getParameter("ad")));
 
 		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
 

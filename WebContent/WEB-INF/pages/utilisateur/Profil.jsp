@@ -60,8 +60,8 @@
 			</tr>
 		</table>
 	</div>
-		<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true">Modifier</a>
-		<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur" value="${user.numeroUtilisateur}">Supprimer le compte</a>
+		<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true&idmod=${userProfil.numeroUtilisateur}">Modifier</a>
+		<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur?idDel=${userProfil.numeroUtilisateur}">Supprimer le compte</a>
 </core:if>
 
 
