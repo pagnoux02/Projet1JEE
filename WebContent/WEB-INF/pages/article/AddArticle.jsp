@@ -25,10 +25,10 @@
 		</div>
 		<div class="input-field col s6 offset-s6">
 			<select name="cat" required="required">
-				<option value="" disabled selected>Choisir catégorie</option>
-				<option value="1">Option 1</option>
-				<option value="2">Option 2</option>
-				<option value="3">Option 3</option>
+			<option value="" disabled selected>Choisir catégorie</option>
+				<core:forEach var="cat" items="${ListCat}"> 
+					<option value="${cat.noCategorie}">${cat.libelle}</option>
+				</core:forEach>			
 			</select> <label>Choisir catégorie</label>
 		</div>
 
@@ -48,13 +48,13 @@
 		</div>
 
 		<div class="input-field col s6 offset-s6">
-			<input id="DDEnchere" type="text" class="datepicker" name="debutEnch"
+			<input id="DDEnchere" type="date" class="datepicker" name="debutEnch"
 				required="required"> <label for="DDEnchere">Début de
 				l'enchère :</label>
 		</div>
 
 		<div class="input-field col s6 offset-s6">
-			<input id="FFEnchere" type="text" class="datepicker" name="FinEnch"
+			<input id="FFEnchere" type="date" class="datepicker" name="finEnch"
 				required="required"> <label for="FFEnchere">Fin de
 				l'enchère :</label>
 		</div>
@@ -63,18 +63,12 @@
 			<div class="card blue-grey darken-1">
 				<div class="card-content white-text">
 					<span class="card-title">Retrait</span>
-					<div class="input-field col s12">
-						<input id="idArt" type="text" name="rue" required="required">
+						<input id="idArt" type="text" name="rue" required="required" value="${user.rue}">
 						<label for="idArt">Rue :</label>
-					</div>
-					<div class="input-field col s12">
-						<input id="idArt" type="text" name="codePostal" required="required">
+						<input id="idArt" type="text" name="codePostal" required="required" value="${user.codePostal}">
 						<label for="idArt">Code postal :</label>
-					</div>
-					<div class="input-field col s12">
-						<input id="idArt" type="text" name="ville" required="required">
+						<input id="idArt" type="text" name="ville" required="required" value="${user.ville}">
 						<label for="idArt">Ville :</label>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -89,11 +83,4 @@
 	$('input#input_text, textarea#textarea1').characterCounter();
 
 	$('select').formSelect();
-
-	$('.datepicker').datepicker({
-		selectMonths: true,
-		selectYears: 100,
-		format: 'dd/mm/yyyy'
-		
-	});
 </script>
