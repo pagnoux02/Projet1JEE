@@ -6,32 +6,33 @@ package fr.Enchere.BLL;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.Enchere.BO.ArticleVendu;
+import fr.Enchere.BO.Categorie;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.Exception.ParameterException;
-import fr.Enchere.util.CheckArticleVendu;
+import fr.Enchere.util.CheckCategorie;
 import fr.Enchere.util.Constantes;
 
 /**
  * @author ilang
+ *
  */
-public class ArticleVenduService {
+public class CategorieService {
 	
 	/**
-	 * @author ilang
+	 * 
 	 * @return
 	 * @throws BllException
 	 */
-	public List<ArticleVendu> getAllArticleVendu() throws BllException {
+	public List<Categorie> getAllCategorie() throws BllException {
 		
-		List<ArticleVendu> listArticleVendu = new ArrayList<>();
+		List<Categorie> listCategorie = new ArrayList<>();
 		
-		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		try {
-			listArticleVendu = articleVenduManager.getArticleDAO().selectAll();
+			listCategorie = categorieManager.getCategorie().selectAll();
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
@@ -40,7 +41,7 @@ public class ArticleVenduService {
 			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
 		}
 		
-		return listArticleVendu;
+		return listCategorie;
 	}
 	
 	/**
@@ -49,14 +50,14 @@ public class ArticleVenduService {
 	 * @return
 	 * @throws BllException
 	 */
-	public ArticleVendu getArticleVendu(int id) throws BllException {
+	public Categorie getCategorie(int id) throws BllException {
 		
-		ArticleVendu articleVendu = null;
+		Categorie categorie = null;
 		
-		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		try {
-			articleVendu = articleVenduManager.getArticleDAO().selectById(id);
+			categorie = categorieManager.getCategorie().selectById(id);
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
@@ -65,27 +66,26 @@ public class ArticleVenduService {
 			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
 		}
 		
-		return articleVendu;
+		return categorie;
 	}
 	
 	/**
 	 * 
-	 * @param articleVendu
+	 * @param categorie
 	 * @return
 	 * @throws BllException
 	 * @throws ParameterException
 	 */
-	public String newArticleVendu(ArticleVendu articleVendu) throws BllException, ParameterException {
+	public String newCategorie(Categorie categorie) throws BllException, ParameterException {
 		
 		String s = "";
 		
-		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		try {
-			checkParamInsert(articleVendu);
+			checkParamInsert(categorie);
 			
-			s = articleVenduManager.getArticleDAO().update(articleVendu);
-			
+			s = categorieManager.getCategorie().insert(categorie);
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
@@ -93,27 +93,26 @@ public class ArticleVenduService {
 			functionnalException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
 		}
-		
 		return s;
 	}
 	
 	/**
 	 * 
-	 * @param articleVendu
+	 * @param categorie
 	 * @return
 	 * @throws BllException
 	 * @throws ParameterException
 	 */
-	public String modifArticleVendu(ArticleVendu articleVendu) throws BllException, ParameterException {
+	public String modifCategorie(Categorie categorie) throws BllException, ParameterException {
 		
 		String s = "";
 		
-		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		try {
-			checkUpdate(articleVendu);
+			checkUpdate(categorie);
 			
-			s = articleVenduManager.getArticleDAO().update(articleVendu);
+			s = categorieManager.getCategorie().update(categorie);
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
@@ -121,19 +120,23 @@ public class ArticleVenduService {
 			functionnalException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
 		}
-		
 		return s;
 	}
 	
-	
-	public String supprArticleVendu(int id) throws BllException {
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws BllException
+	 */
+	public String supprCategori(int id) throws BllException {
 		
 		String s = "";
 		
-		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		CategorieManager categorieManager = new CategorieManager();
 		
 		try {
-			s = articleVenduManager.getArticleDAO().delete(id);
+			s = categorieManager.getCategorie().delete(id);
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
@@ -146,37 +149,25 @@ public class ArticleVenduService {
 	
 	/**
 	 * 
-	 * @param articleVendu
+	 * @param categorie
 	 * @throws ParameterException
 	 */
-	private void checkParamInsert(ArticleVendu articleVendu) throws ParameterException {
+	private void checkParamInsert(Categorie categorie) throws ParameterException {
 		
-		CheckArticleVendu.checkArticleVendu(articleVendu);
+		CheckCategorie.checkCategorie(categorie);
 		
-		CheckArticleVendu.checkNoArticle(articleVendu.getNomArticle());
-		
-		CheckArticleVendu.checkDescription(articleVendu.getDescription());
-		
-		CheckArticleVendu.checkDateDebutEncheres(articleVendu.getDateDebutEncheres());
-		
-		CheckArticleVendu.checkDateFinEncheres(articleVendu.getDateFinEncheres());
-		
-		CheckArticleVendu.checkMiseAPrix(articleVendu.getMiseAPrix());
-		
-		CheckArticleVendu.checkPrixVente(articleVendu.getPrixVente());
-		
-		CheckArticleVendu.checkEtatVente(articleVendu.getEtatVente());
+		CheckCategorie.checkLibelleCategorie(categorie.getLibelle());
 	}
 	
 	/**
 	 * 
-	 * @param articleVendu
+	 * @param categorie
 	 * @throws ParameterException
 	 */
-	private void checkUpdate(ArticleVendu articleVendu) throws ParameterException {
+	private void checkUpdate(Categorie categorie) throws ParameterException {
 		
-		checkParamInsert(articleVendu);
+		checkParamInsert(categorie);
 		
-		CheckArticleVendu.checkNoArticle(String.valueOf(articleVendu.getNoArticle()));
+		CheckCategorie.checkNoCategorie(String.valueOf(categorie.getNoCategorie()));
 	}
 }

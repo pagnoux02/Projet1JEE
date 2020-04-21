@@ -7,10 +7,10 @@
 	<core:if test="${message != null || !empty message }">
 		<h4 class="center-align">${message}</h4>
 	</core:if>
-<div class="input-field col s12" style="margin-left: 5%; width: 15%;">
+	<div class="input-field col s12" style="margin-left: 5%; width: 15%;">
 	<input id="searchBar" type="text" onkeyup="searchPseudo()"> <label
-		for="searchBar">Entre Le pseudo à rechercher :</label>
-</div>
+		for="searchBar">Entre Le pseudo ï¿½ rechercher :</label>
+	</div>
 <div style="margin-left: 5%; float: left;">
 	<table id="tablePseudo">
 		<tr>
@@ -26,9 +26,9 @@
 	</table>
 </div>
 
-<core:if test="${userProfil != null || !empty user }">
+<core:if test="${userProfil != null || !empty userProfil }">
 	<div style="margin-left: 30%; float: left;">
-		<h5>${user.pseudo}</h5>
+		<h5>${userProfil.pseudo}</h5>
 		<table>
 			<tr>
 				<th>Nom :</th>
@@ -60,9 +60,8 @@
 			</tr>
 		</table>
 	</div>
-	<core:if test="${userProfil.pseudo == user.pseudo}">
-		<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true">Modifier</a>
-	</core:if>
+		<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true&idmod=${userProfil.numeroUtilisateur}">Modifier</a>
+		<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur?idDel=${userProfil.numeroUtilisateur}">Supprimer le compte</a>
 </core:if>
 
 

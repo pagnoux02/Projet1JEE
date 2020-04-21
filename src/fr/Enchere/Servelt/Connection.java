@@ -2,6 +2,8 @@ package fr.Enchere.Servelt;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -90,19 +92,30 @@ public class Connection extends HttpServlet {
 		if(userTrouver) {
 			if(request.getParameter("savePass") != null) {
 				System.out.println("test");
-				System.out.println(request.getParameter("savepass"));
+				System.out.println(request.getParameter("savePass"));
+				
 				Cookie[] cookies = request.getCookies();
+				
+				Cookie passCookie = null;
+				
 				if(cookies == null) {
-					Cookie passCookie = new Cookie("PassENiEnchere", utilisateur.getMotDePasse());
-					passCookie.setMaxAge(86400);
-					response.addCookie(passCookie);
-					System.out.println("cookie crée");
+					
 				}
 				
+				List<Cookie> lisCookies = Arrays.asList(cookies);
+				
+				boolean cookieTrouver = false;
+				
 				for (Cookie cookie : cookies) {
-					request.setAttribute("passCookie", cookie.getValue());
-					System.out.println(cookie.getName() + cookie.getValue());
+					if("PassENIEnchere".equals(cookie.getName())) {
+						cookieTrouver = true;
+					}
 				}
+				if(!cookieTrouver) {
+					passCookie = new Cookie("PassENIEnchere", pass);
+					passCookie.setMaxAge(88400);
+					response.addCookie(passCookie);
+				} 
 			}
 			
 			System.out.println("testSorte");
@@ -113,10 +126,9 @@ public class Connection extends HttpServlet {
 			
 			session.setAttribute("user", utilisateur);
 			
-			System.out.println("session crée");
+			System.out.println("session crï¿½e");
 			
 			String res = "";
-
 			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);

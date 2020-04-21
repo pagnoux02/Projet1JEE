@@ -27,54 +27,54 @@ import fr.Enchere.util.Constantes;
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 	
 	private static final String sqlSelectAll = ""
-			+ "SELECT av.no_article, "
-			+ "		  av.nom_article, "
-			+ "		  av.description, "
-			+ "		  av.date_debut_encheres, "
-			+ "		  av.date_fin_encheres, "
-			+ "		  av.prix_initial, "
-			+ "		  av.prix_vente, "
-			+ "		  av.no_utilisateur, "
-			+ "		  av.no_categorie, "
-			+ "		  av.etat_vent "
+			+ "SELECT no_article, "
+			+ "		  nom_article, "
+			+ "		  description, "
+			+ "		  date_debut_encheres, "
+			+ "		  date_fin_encheres, "
+			+ "		  prix_initial, "
+			+ "		  prix_vente, "
+			+ "		  no_utilisateur, "
+			+ "		  no_categorie, "
+			+ "		  etat_vente "
 			+ "FROM ARTICLES_VENDUS ";
 	
 	private static final String sqlSelectById = ""
-			+ "SELECT av.no_article, "
-			+ "		  av.nom_article, "
-			+ "		  av.description, "
-			+ "		  av.date_debut_encheres, "
-			+ "		  av.date_fin_encheres, "
-			+ "		  av.prix_initial, "
-			+ "		  av.prix_vente, "
-			+ "		  av.no_utilisateur, "
-			+ "		  av.no_categorie, "
-			+ "		  av.etat_vent "
+			+ "SELECT no_article, "
+			+ "		  nom_article, "
+			+ "		  description, "
+			+ "		  date_debut_encheres, "
+			+ "		  date_fin_encheres, "
+			+ "		  prix_initial, "
+			+ "		  prix_vente, "
+			+ "		  no_utilisateur, "
+			+ "		  no_categorie, "
+			+ "		  etat_vente "
 			+ "FROM ARTICLES_VENDUS "
 			+ "WHERE av.no_article = ?";
 	
 	private static final String sqlInsert = ""
-			+ "INSERT INTO ARTICLES_VENDUS (av.nom_article, "
-			+ "		  						av.description, "
-			+ "		  						av.date_debut_encheres, "
-			+ "		  						av.date_fin_encheres, "
-			+ "		  						av.prix_initial, "
-			+ "		  						av.prix_vente, "
-			+ "		  						av.no_utilisateur, "
-			+ "		  						av.no_categorie, "
-			+ "								av.etat_vent) "
+			+ "INSERT INTO ARTICLES_VENDUS (nom_article, "
+			+ "								description, "
+			+ "								date_debut_encheres, "
+			+ "								date_fin_encheres, "
+			+ "								prix_initial, "
+			+ "								prix_vente, "
+			+ "								no_utilisateur, "
+			+ "								no_categorie, "
+			+ "								etat_vente) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String sqlUpdate = ""
 			+ "UPDATE ARTICLES_VENDUS "
 			+ "SET nom_article = ?, "
-			+ "    description = ?, "
-			+ "    date_debut_encheres = ?, "
-			+ "    date_fin_encheres = ?, "
-			+ "    prix_initial = ?, "
-			+ "    prix_vente = ?, "
-			+ "    no_utilisateur = ?, "
-			+ "    no_categorie = ?, "
+			+ "	   description = ?, "
+			+ "	   date_debut_encheres = ?, "
+			+ "	   date_fin_encheres = ?, "
+			+ "	   prix_initial = ?, "
+			+ "	   prix_vente = ?, "
+			+ "	   no_utilisateur = ?, "
+			+ "	   no_categorie = ?, "
 			+ "	   etat_vente = ? "
 			+ "WHERE no_article = ? ";
 	
@@ -101,14 +101,19 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 									  rs.getInt("prix_initial"),
 									  GenericDAOFactory.getCategorieDAO().selectById(rs.getInt("no_categorie")),
 									  GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("no_utilisateur")),
+									  GenericDAOFactory.getRetraitDAO().selectById(rs.getInt("no_article")),
 									  rs.getInt("prix_vente"),
 									  EtatVente.StringToEtatVente(rs.getString("etat_vente")));
 				lav.add(av);
 			}
 			
+			if(lav == null || lav.isEmpty()) {
+				throw new FunctionnalException("il n'y a aucun article � vendre");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		return lav;
 	}
@@ -132,13 +137,18 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 									  rs.getInt("prix_initial"),
 									  GenericDAOFactory.getCategorieDAO().selectById(rs.getInt("no_categorie")),
 									  GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("no_utilisateur")),
+									  GenericDAOFactory.getRetraitDAO().selectById(rs.getInt("no_article")),
 									  rs.getInt("prix_vente"),
 									  EtatVente.StringToEtatVente(rs.getString("etat_vente")));
 			}
 			
+			if(av == null) {
+				throw new FunctionnalException("l'article n'a pas �t� trouv�");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		return av;
 	}
@@ -168,11 +178,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 					t.setNoArticle(rs.getInt(1));
 				}
 				result = Constantes.DAO_SQL_INSERT_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_INSERT_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;
@@ -198,11 +210,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {
 				result = Constantes.DAO_SQL_UPDATE_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_UPDATE_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;
@@ -220,11 +234,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {
 				result = Constantes.DAO_SQL_DELETE_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_DELETE_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;

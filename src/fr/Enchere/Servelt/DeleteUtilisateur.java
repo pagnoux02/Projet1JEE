@@ -33,13 +33,6 @@ public class DeleteUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String string = "";
 		
 		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
@@ -71,4 +64,41 @@ public class DeleteUtilisateur extends HttpServlet {
 		
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+//		String string = "";
+//		
+//		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
+//		
+//		try {
+//			string = setDonneesUtilisationService.deleteUtilisateur(Integer.parseInt(request.getParameter("idDel")));
+//		} catch (NumberFormatException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			string = e.getMessage();
+//		} catch (BllException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			string = e.getMessage();
+//		}
+//		
+//		request.setAttribute("message", string);
+//		
+//		HttpSession theSession = request.getSession(false);
+//		
+//		if(theSession != null) {
+//			synchronized(theSession) {
+//				System.out.println("session deconnecter");
+//				theSession.invalidate();
+//				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");
+//				requestDispatcher.forward(request, response);
+//			}
+//		}
+//		
+//	}
+
 }
+	}
