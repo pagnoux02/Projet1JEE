@@ -26,6 +26,12 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Retrait retrait;
 	
+	
+	
+	public ArticleVendu() {
+		super();
+	}
+
 	/**
 	 * @param nomArticle
 	 * @param description
@@ -37,7 +43,7 @@ public class ArticleVendu {
 	 */
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix, Categorie categorie, Utilisateur utilisateur, Retrait retrait) {
-		
+		this();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
