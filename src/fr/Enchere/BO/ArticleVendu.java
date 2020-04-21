@@ -24,6 +24,7 @@ public class ArticleVendu {
 	private EtatVente etatVente;
 	private Categorie categorie;
 	private Utilisateur utilisateur;
+	private Retrait retrait;
 	
 	/**
 	 * @param nomArticle
@@ -35,7 +36,7 @@ public class ArticleVendu {
 	 * @param utilisateur
 	 */
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int miseAPrix, Categorie categorie, Utilisateur utilisateur) {
+			int miseAPrix, Categorie categorie, Utilisateur utilisateur, Retrait retrait) {
 		
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -44,6 +45,7 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.categorie = categorie;
 		this.utilisateur = utilisateur;
+		this.retrait = retrait;
 	}
 
 	/**
@@ -59,9 +61,9 @@ public class ArticleVendu {
 	 * @param etatVente
 	 */
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAPrix, Categorie categorie, Utilisateur utilisateur, int prixVente, EtatVente etatVente) {
+			LocalDate dateFinEncheres, int miseAPrix, Categorie categorie, Utilisateur utilisateur, Retrait retrait, int prixVente, EtatVente etatVente) {
 		
-		this(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorie, utilisateur);
+		this(nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix, categorie, utilisateur, retrait);
 		
 		this.noArticle = noArticle;
 		this.prixVente = prixVente;
@@ -206,6 +208,20 @@ public class ArticleVendu {
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+
+	/**
+	 * @return the retrait
+	 */
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	/**
+	 * @param retrait the retrait to set
+	 */
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
 	}
 	
 	

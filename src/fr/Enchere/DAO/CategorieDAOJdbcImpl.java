@@ -24,18 +24,18 @@ import fr.Enchere.util.Constantes;
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 	
 	private static final String sqlSelectAll = ""
-			+ "SELECT c.no_categorie, "
-			+ "		  c.libelle "
+			+ "SELECT no_categorie, "
+			+ "		  libelle "
 			+ "FROM CATEGORIES ";
 	
 	private static final String sqlSelectById = ""
-			+ "SELECT c.no_categorie, "
-			+ "		  c.libelle "
+			+ "SELECT no_categorie, "
+			+ "		  libelle "
 			+ "FROM CATEGORIES "
-			+ "WHERE c.no_categorie = ? ";
+			+ "WHERE no_categorie = ? ";
 	
 	private static final String sqlInsert = ""
-			+ "INSERT INTO CATEGORIES (c.libelle) "
+			+ "INSERT INTO CATEGORIES (libelle) "
 			+ "VALUES (?) ";
 	
 	private static final String sqlUpdate = ""
@@ -63,9 +63,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 				lc.add(c);
 			}
 			
+			if(lc == null || lc.isEmpty()) {
+				throw new FunctionnalException("il n'y a aucune catégorie");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		return lc;
 	}
@@ -75,7 +79,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 		ResultSet rs = null;
 		Categorie c = null;
 		try (Connection cnx = ConnectionProvider.getConnectionProvider();
-				PreparedStatement rqt = cnx.prepareStatement(sqlSelectAll);){
+				PreparedStatement rqt = cnx.prepareStatement(sqlSelectById);){
 			
 			rqt.setInt(1, id);
 			rs = rqt.executeQuery();
@@ -85,9 +89,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 								  rs.getString("libelle"));
 			}
 			
+			if(c == null) {
+				throw new FunctionnalException("la catégorie n'a pas été trouvé");
+			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		return c;
 	}
@@ -108,11 +116,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 					t.setNoCategorie(rs.getInt(1));
 				}
 				result = Constantes.DAO_SQL_INSERT_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_INSERT_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;
@@ -131,11 +141,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {
 				result = Constantes.DAO_SQL_UPDATE_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_UPDATE_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;
@@ -152,11 +164,13 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {
 				result = Constantes.DAO_SQL_DELETE_REUSSITE;
+			} else {
+				throw new FunctionnalException(Constantes.DAO_SQL_DELETE_ECHEC);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
 		return result;
