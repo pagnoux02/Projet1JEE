@@ -12,6 +12,7 @@ public class CheckDataUtil {
 	
 	public static final Pattern PATTERNALPHAFULL = Pattern.compile("[a-zA-Z_0-9]");
 	
+	
 	public static final Pattern PATTERMNUM = Pattern.compile("[0-9]");
 	
 	public static final Pattern PATTERNPASS = Pattern.compile("[a-zA-Z_0-9]");
@@ -214,6 +215,10 @@ public class CheckDataUtil {
 		if(!ancienPassUtiliControl.equals(ancienPassUtilSet)) {
 			throw new FunctionnalException("L'ancien mot de passe est différent de celui qui est renseigner");
 		}
+	}
+	
+	public static boolean estAdministrateur(String value) {
+		return "0".equals(value) ? true : false;
 	}
 
 }

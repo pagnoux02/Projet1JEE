@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <meta charset="ISO-8859-1">
-<link src="../../css/Mycss" rel="stylesheet">
+<link src="WEB-INF/css/Mycss" rel="stylesheet">
 <title>App Enchere</title>
 </head>
 <body>
@@ -31,23 +31,21 @@
 				<label for="impPseudo">Identifiant</label>
 			</div>
 			<div class="input-field col s12">
-				<input id="impPass" type="password" name="pass" required="required" value="${passCookie}">
+				<input id="impPass" type="password" name="pass" required="required" value="${cookie.PassENIEnchere.value}">
 				<label for="impPass">Mot de passe</label>
 			</div>
-			<div class="input-field col s6">
+			<div class="center-align input-field col s12">
 				<p>
 					<label> <input type="checkbox" name="savePass" value="saveMe"/> <span>Se souvenir de moi</span>
 					</label>
 				</p>
-				<a href="${pageContext.request.contextPath }/ResetPass">Mot de passe oublier</a>
+				<a href="${pageContext.request.contextPath }/MotDePasseForget">Mot de passe oublier</a>
 			</div>
-			<div class="input-field col s6">
+			<div class="center-align input-field col s12">
 				<input class="waves-effect waves-light btn" type="submit"
 					value="connection">
+					<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath }/AddCompte">Créer un compte</a>
 			</div>
 		</form>
-		<div>
-			<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath }/AddCompte">Créer un compte</a>
-		</div>
 	</div>
 </body>
