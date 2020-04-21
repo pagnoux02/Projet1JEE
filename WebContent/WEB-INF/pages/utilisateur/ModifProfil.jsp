@@ -19,7 +19,7 @@
 		</div>
 		<div class="input-field col s6">
 			<input id="impPrenom" type="text" name="prenom" required="required" value="${utilisateur.prenom}">
-			<label for="impPrenom">Prénom :</label>
+			<label for="impPrenom">Prï¿½nom :</label>
 		</div>
 		<div class="input-field col s6">
 			<input id="impEmail" type="text" name="email" required="required" value="${utilisateur.email}">
@@ -27,7 +27,7 @@
 		</div>
 		<div class="input-field col s6">
 			<input id="impTelephone" type="text" name="telephone" required="required" value="${utilisateur.telephone}">
-			<label for="impTelephone">Téléphone :</label>
+			<label for="impTelephone">Tï¿½lï¿½phone :</label>
 		</div>
 		<div class="input-field col s6">
 			<input id="impRue" type="text" name="rue" required="required" value="${utilisateur.rue}">

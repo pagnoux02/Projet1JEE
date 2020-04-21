@@ -126,7 +126,7 @@ public class Connection extends HttpServlet {
 			
 			session.setAttribute("user", utilisateur);
 			
-			System.out.println("session crée");
+			System.out.println("session crï¿½e");
 			
 			String res = "";
 			

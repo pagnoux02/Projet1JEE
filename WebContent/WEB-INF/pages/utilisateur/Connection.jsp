@@ -44,7 +44,7 @@
 			<div class="center-align input-field col s12">
 				<input class="waves-effect waves-light btn" type="submit"
 					value="connection">
-					<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath }/AddCompte">Créer un compte</a>
+					<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath }/AddCompte">Crï¿½er un compte</a>
 			</div>
 		</form>
 	</div>

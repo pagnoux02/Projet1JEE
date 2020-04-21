@@ -51,10 +51,10 @@
 				<core:if test="${user.administrateur == true}">
 					<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
 				</core:if>
-				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
+				<li><a href="${pageContext.request.contextPath}">Enchï¿½res</a></li>
 				<li><a href="${pageContext.request.contextPath}/VendreActicle">Vendre un article</a></li>
 				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
-				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Dï¿½connexion</a></li>
 			</ul>
 			</core:if>
 		</div>
@@ -70,10 +70,10 @@
 				<core:if test="${user.administrateur == true}">
 					<li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
 				</core:if>
-				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
+				<li><a href="${pageContext.request.contextPath}">Enchï¿½res</a></li>
 				<li><a href="${pageContext.request.contextPath}/VendreActicle">Vendre un article</a></li>
 				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
-				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Dï¿½connexion</a></li>
 		</core:if>
 	</ul>
 	<script type="text/javascript">
