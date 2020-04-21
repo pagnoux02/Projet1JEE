@@ -58,7 +58,7 @@ String string = "";
 			
 			EnchereManager enchereManager = new EnchereManager();
 			
-			string = enchereManager.insertEnchere(enchere);
+			string = enchereManager.deleteEnchere(1);
 		} catch (ParameterException | BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
