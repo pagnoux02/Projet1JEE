@@ -26,7 +26,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			"  FROM ENCHERES e\r\n" + 
 			" INNER JOIN ARTICLES_VENDUS av ON e.no_article = av.no_article\r\n" + 
 			" WHERE e.date_enchere > av.date_fin_encheres\r\n" + 
-			"   AND e.no_utilisateur = ?\r\n" + 
+			"   AND e.no_article = ?\r\n" + 
 			"   AND e.montant_enchere = av.prix_vente;";
 	private static final String UPDATE_ENCHERE = "update encheres set date_enchere=? , montant_enchere=? where no_utilisateur=? and no_article =?";
 	private static final  String INSERT_ENCHERE = "insert into encheres (no_utilisateur, no_article, date_enchere, montant_enchere) values  (?,?,?,?)";
@@ -125,6 +125,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				enchere.setDateEnchere(rs.getDate("date_enchere"));
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+				System.out.println(enchere.getMontant_enchere());
 			}
 		}
 		catch (SQLException e) {
@@ -170,7 +171,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 			while(rs.next())
 			{
-				
 			listEnchere.add(new Enchere(rs.getInt("e.no_utilisateur"),rs.getInt("e.no_article"),GenericDAOFactory.getArticleVenduDAO().selectById(rs.getInt("e.no_article")),
 					GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("e.no_utilisateur")),rs.getDate("date_enchere"),rs.getInt("montant_enchere") ));
 			
@@ -180,6 +180,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			e.printStackTrace();
 			throw new DAOException("Erreur select enchere courant");
 		}
+		
 		return listEnchere;
 	}
 

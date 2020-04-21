@@ -9,7 +9,7 @@
 	</core:if>
 	<div class="input-field col s12" style="margin-left: 5%; width: 15%;">
 	<input id="searchBar" type="text" onkeyup="searchPseudo()"> <label
-		for="searchBar">Entre Le pseudo à rechercher :</label>
+		for="searchBar">Entre Le pseudo ï¿½ rechercher :</label>
 	</div>
 <div style="margin-left: 5%; float: left;">
 	<table id="tablePseudo">

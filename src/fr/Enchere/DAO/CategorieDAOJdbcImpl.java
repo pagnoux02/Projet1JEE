@@ -64,7 +64,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			}
 			
 			if(lc == null || lc.isEmpty()) {
-				throw new FunctionnalException("il n'y a aucune catégorie");
+				throw new FunctionnalException("il n'y a aucune catï¿½gorie");
 			}
 			
 		} catch (SQLException e) {
@@ -90,7 +90,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 			}
 			
 			if(c == null) {
-				throw new FunctionnalException("la catégorie n'a pas été trouvé");
+				throw new FunctionnalException("la catï¿½gorie n'a pas ï¿½tï¿½ trouvï¿½");
 			}
 			
 		} catch (SQLException e) {
