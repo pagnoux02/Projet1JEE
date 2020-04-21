@@ -19,6 +19,8 @@ public class Constantes {
 	
 	public static final String DAO_SQL_DELETE_REUSSITE = "la suppression a bien été effectué";
 	
+	public static final String PATTERN_DATE_FORMATER = "dd/MM/yyyy";
+	
 	private Constantes(){
 		
 	}
