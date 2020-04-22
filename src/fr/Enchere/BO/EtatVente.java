@@ -8,7 +8,7 @@ package fr.Enchere.BO;
  * Liste les diffï¿½rents ï¿½tats de vente
  */
 public enum EtatVente {
-	CrÃ©Ã©e,
+	Créée,
 	EnCours,
 	Terminer,
 	Retrait;
@@ -16,8 +16,8 @@ public enum EtatVente {
 	public static EtatVente StringToEtatVente(String etat) {
 		EtatVente ev = null;
 		switch(etat) {
-		case "CrÃ©Ã©e":
-			ev = CrÃ©Ã©e;
+		case "Créée":
+			ev = Créée;
 			break;
 		case "EnCours":
 			ev = EnCours;
