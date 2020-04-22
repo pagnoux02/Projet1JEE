@@ -77,10 +77,10 @@ public class CheckArticleVendu {
 	 */
 	public static void checkDateDebutEncheres(LocalDate dateDebutEncheres) throws ParameterException {
 		if(dateDebutEncheres == null) {
-			throw new ParameterException("La date de début de l'anchère est null");
+			throw new ParameterException("La date de début de l'enchère est null");
 		}
-		if(dateDebutEncheres.isAfter(LocalDate.now().minusDays(1))) {
-			throw new ParameterException("La date de début de l'anchère ne peut pas être antérieur à la date du jour");
+		if(dateDebutEncheres.isBefore(LocalDate.now().minusDays(1))) {
+			throw new ParameterException("La date de début de l'enchère ne peut pas être antérieur à la date du jour");
 		}
 	}
 	
@@ -91,10 +91,10 @@ public class CheckArticleVendu {
 	 */
 	public static void checkDateFinEncheres(LocalDate dateFinEncheres) throws ParameterException {
 		if(dateFinEncheres == null) {
-			throw new ParameterException("La date de fin de l'anchère est null");
+			throw new ParameterException("La date de fin de l'enchère est null");
 		}
-		if(dateFinEncheres.isAfter(LocalDate.now())) {
-			throw new ParameterException("La date de fin de l'anchère ne peut pas être antérieur à la date du jour");
+		if(dateFinEncheres.isBefore(LocalDate.now())) {
+			throw new ParameterException("La date de fin de l'enchère ne peut pas être avant à la date du jour");
 		}
 	}
 	

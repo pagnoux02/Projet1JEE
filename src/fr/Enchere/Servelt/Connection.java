@@ -77,7 +77,7 @@ public class Connection extends HttpServlet {
 			utilisateur = getDonneesUtilisationService.selectUserInBDD(pseudo, pass);
 			
 			if(utilisateur != null && pseudo.equals(utilisateur.getPseudo()) && CheckDataUtil.convertirMotdePasse(pass).equals(utilisateur.getMotDePasse())) {
-				string = "il y a un utilisateur qui est :" + utilisateur.toString();
+				//string = "il y a un utilisateur qui est :" + utilisateur.toString();
 				userTrouver = true;
 			}
 		} catch (BllException | NoSuchAlgorithmException e) {

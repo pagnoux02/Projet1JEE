@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import fr.Enchere.BLL.ArticleVenduService;
 import fr.Enchere.BLL.CategorieService;
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Categorie;
+import fr.Enchere.BO.EtatVente;
 import fr.Enchere.BO.Retrait;
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
@@ -76,18 +78,11 @@ public class VendreActicle extends HttpServlet {
 
 		String string = "";
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		String nonArt = request.getParameter("article");
-		String des = request.getParameter("des");
-		String dateDebutStr = request.getParameter("debutEnch");
-		String dateFinStr = request.getParameter("finEnch");
-		String miseAprix = request.getParameter("miseAprix");
-		String rue = request.getParameter("rue");
-		String codePostal = request.getParameter("codePostal");
-		String ville = request.getParameter("ville");
+		String file = request.getParameter("file");
 		
-		String cat = request.getParameter("cat");
+		System.out.println(file);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dateDebutEnchere = LocalDate.parse(request.getParameter("debutEnch"), dateTimeFormatter);
@@ -128,7 +123,10 @@ public class VendreActicle extends HttpServlet {
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
+		System.out.println(utilisateur.getPseudo());
+		
 		articleVendu.setUtilisateur(utilisateur);
+		articleVendu.setEtatVente(EtatVente.Créée);
 		
 		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
@@ -149,21 +147,11 @@ public class VendreActicle extends HttpServlet {
 		
 		request.setAttribute("message", string);
 		
-		System.out.println("date1 :" + dateDebutEnchere);
-		System.out.println("date2 :" + dateFinEnchere);
-		
-		System.out.println( nonArt + des + cat);
-		System.out.println(miseAprix + rue + codePostal + ville);
-		//System.out.println("non file :" + fileName);
-		System.out.println("categorie" + categorie.getLibelle());
-		System.out.println("date1 :" + dateDebutStr + "date2 :" + dateFinStr);
-		
 		if(addArticle) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			requestDispatcher.forward(request, response);
 		}else {
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/VendreActicle");
-			requestDispatcher.forward(request, response);
+			doGet(request,response);
 		}
 	}
 }
