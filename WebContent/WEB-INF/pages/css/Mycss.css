@@ -1,5 +1,3 @@
-@charset "ISO-8859-1";
-
 .connect{
 	width: 50%;
 }
@@ -10,4 +8,15 @@
 
 .sixEmeb{
 	background-color: #26a69a;
+}
+
+.lieuRetrais{
+	background-color: #455a64;
+	padding: 2%;
+}
+
+.titleLieuRetrais{
+	color: #fff;
+	font-size: 22px;
+	/* font-weight: bold; */
 }

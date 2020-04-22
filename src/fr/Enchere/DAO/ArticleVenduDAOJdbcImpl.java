@@ -169,9 +169,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			rqt.setInt(7, t.getUtilisateur().getNumeroUtilisateur());
 			rqt.setInt(8, t.getCategorie().getNoCategorie());
 			rqt.setString(9, t.getEtatVente().toString());
-			rqt.setInt(10, t.getNoArticle());
 			
 			int nbRows = rqt.executeUpdate();
+			
+			
 			if(nbRows == 1) {
 				ResultSet rs = rqt.getGeneratedKeys();
 				if(rs.next()) {
