@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.Enchere.BO.ArticleVendu;
+import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
@@ -76,16 +77,16 @@ public class ArticleVenduService {
 	 * @throws BllException
 	 * @throws ParameterException
 	 */
-	public String newArticleVendu(ArticleVendu articleVendu) throws BllException, ParameterException {
+	public DTOOutArticle newArticleVendu(ArticleVendu articleVendu) throws BllException, ParameterException {
 		
-		String s = "";
+		DTOOutArticle dtoOutArticle = new DTOOutArticle();
 		
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
 		
 		try {
 			checkParamInsertArticle(articleVendu);
 			
-			s = articleVenduManager.getArticleDAO().insert(articleVendu);
+			dtoOutArticle = articleVenduManager.getArticleDAO().insertArticle(articleVendu);
 			
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
@@ -95,7 +96,7 @@ public class ArticleVenduService {
 			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
 		}
 		
-		return s;
+		return dtoOutArticle;
 	}
 	
 	/**
@@ -127,14 +128,18 @@ public class ArticleVenduService {
 	}
 	
 	
-	public String supprArticleVendu(int id) throws BllException {
+	public String supprArticleVendu(int id) throws BllException, ParameterException {
 		
 		String s = "";
 		
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
 		
+		RetraitManager retraitManager = new RetraitManager();
+		
 		try {
-			s = articleVenduManager.getArticleDAO().delete(id);
+			s = retraitManager.deleteEnchere(id);
+			
+			s += articleVenduManager.getArticleDAO().delete(id);
 		} catch (DAOException daoException) {
 			daoException.printStackTrace();
 			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());

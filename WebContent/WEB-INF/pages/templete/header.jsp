@@ -23,13 +23,13 @@
 <body>
 	<ul id="dropdown1" class="dropdown-content">
   		<li><a href="${pageContext.request.contextPath}">Enchere</a></li>
-  		<li><a href="${pageContext.request.contextPath}/">Article</a></li>
+  		<li><a href="${pageContext.request.contextPath}/AdministrationArticle">Article</a></li>
   		<li class="divider"></li>
   		<li><a href="${pageContext.request.contextPath}/Profil?idprof=${user.numeroUtilisateur}">Profil</a></li>
 	</ul>
 	<ul id="dropdown2" class="dropdown-content">
   		<li><a href="${pageContext.request.contextPath}">Enchere</a></li>
-  		<li><a href="${pageContext.request.contextPath}">Article</a></li>
+  		<li><a href="${pageContext.request.contextPath}/AdministrationArticle">Article</a></li>
   		<li class="divider"></li>
   		<li><a href="${pageContext.request.contextPath}/Profil?idprof=${user.numeroUtilisateur}">Profil</a></li>
 	</ul>
@@ -52,7 +52,7 @@
 				<core:if test="${user.administrateur == true}">
 					<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
 				</core:if>
-				<li><a href="${pageContext.request.contextPath}">Enchères</a></li>
+				<li><a href="${pageContext.request.contextPath}/ListEnchereCo">Listes des Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}/VendreActicle">Vendre un article</a></li>
 				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
 				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
@@ -71,10 +71,10 @@
 				<core:if test="${user.administrateur == true}">
 					<li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Administration<i class="material-icons right">arrow_drop_down</i></a></li>
 				</core:if>
-				<li><a href="${pageContext.request.contextPath}">Enchï¿½res</a></li>
+				<li><a href="${pageContext.request.contextPath}/ListEnchereCo">Listes des Enchères</a></li>
 				<li><a href="${pageContext.request.contextPath}/VendreActicle">Vendre un article</a></li>
 				<li><a href="${pageContext.request.contextPath}/MonProfil?idprof=${user.numeroUtilisateur}">Mon profil</a></li>
-				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Dï¿½connexion</a></li>
+				<li><a href="${pageContext.request.contextPath}/Connection?LogOut=true">Déconnexion</a></li>
 		</core:if>
 	</ul>
 	<script type="text/javascript">

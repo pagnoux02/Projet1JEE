@@ -43,5 +43,5 @@
 		</table>
 	</div>
 	<div>
-	<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true">Modifier</a>
+	<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true&idmod=${user.numeroUtilisateur}">Modifier</a>
 	</div>

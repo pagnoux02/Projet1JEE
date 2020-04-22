@@ -25,12 +25,12 @@
 			</div>
 		</div>
 		<div class="input-field col s6">
-			<select name="cat" required="required">
+			<select id="testForm" name="cat" required="required">
 				<option value="" disabled selected>Choisir catégorie</option>
 				<core:forEach var="cat" items="${ListCat}">
 					<option value="${cat.noCategorie}">${cat.libelle}</option>
 				</core:forEach>
-			</select> <label>Choisir catégorie</label>
+			</select> <label for="testForm">Choisir catégorie</label>
 		</div>
 
 		<div class="file-field input-field col s6">
