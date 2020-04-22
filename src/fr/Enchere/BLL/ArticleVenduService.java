@@ -83,7 +83,7 @@ public class ArticleVenduService {
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
 		
 		try {
-			checkParamInsert(articleVendu);
+			checkParamInsertArticle(articleVendu);
 			
 			s = articleVenduManager.getArticleDAO().insert(articleVendu);
 			
@@ -112,7 +112,7 @@ public class ArticleVenduService {
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
 		
 		try {
-			checkUpdate(articleVendu);
+			checkUpdateArticle(articleVendu);
 			
 			s = articleVenduManager.getArticleDAO().update(articleVendu);
 		} catch (DAOException daoException) {
@@ -150,7 +150,7 @@ public class ArticleVenduService {
 	 * @param articleVendu
 	 * @throws ParameterException
 	 */
-	private void checkParamInsert(ArticleVendu articleVendu) throws ParameterException {
+	public void checkParamInsertArticle(ArticleVendu articleVendu) throws ParameterException {
 		
 		CheckArticleVendu.checkArticleVendu(articleVendu);
 		
@@ -174,9 +174,9 @@ public class ArticleVenduService {
 	 * @param articleVendu
 	 * @throws ParameterException
 	 */
-	private void checkUpdate(ArticleVendu articleVendu) throws ParameterException {
+	public void checkUpdateArticle(ArticleVendu articleVendu) throws ParameterException {
 		
-		checkParamInsert(articleVendu);
+		checkParamInsertArticle(articleVendu);
 		
 		CheckArticleVendu.checkNoArticle(String.valueOf(articleVendu.getNoArticle()));
 	}
