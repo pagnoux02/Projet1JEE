@@ -15,10 +15,16 @@ public class Categorie {
 	private int noCategorie;
 	private String Libelle;
 	
+	
+	public Categorie() {
+		super();
+	}
+
 	/**
 	 * @param libelle
 	 */
 	public Categorie(String libelle) {
+		this();
 		this.Libelle = libelle;
 	}
 	

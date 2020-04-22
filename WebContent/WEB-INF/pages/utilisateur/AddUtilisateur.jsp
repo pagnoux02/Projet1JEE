@@ -17,7 +17,7 @@
 <meta charset="ISO-8859-1">
 <link src="../../css/Mycss" rel="stylesheet">
 <meta charset="ISO-8859-1">
-<title>ajouter un utilisateur</title>
+<title>Nouvelle vente</title>
 </head>
 <body>
 <h3 class="center-align">Créer un compte</h3>

@@ -5,7 +5,7 @@ package fr.Enchere.BO;
 
 /**
  * @author ilang
- * Liste les différents états de vente
+ * Liste les diffï¿½rents ï¿½tats de vente
  */
 public enum EtatVente {
 	Créée,
