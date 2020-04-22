@@ -1,0 +1,13 @@
+.vertical-center {
+	vertical-align: middle
+}
+
+.modal-footer {
+	display: table;
+	width: 100%;
+}
+
+.wrapper-div {
+	display: table-cell;
+	vertical-align: middle
+}

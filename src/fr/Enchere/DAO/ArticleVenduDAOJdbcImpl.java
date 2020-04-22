@@ -51,7 +51,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			+ "		  no_categorie, "
 			+ "		  etat_vente "
 			+ "FROM ARTICLES_VENDUS "
-			+ "WHERE av.no_article = ?";
+			+ "WHERE no_article = ?";
 	
 	private static final String sqlInsert = ""
 			+ "INSERT INTO ARTICLES_VENDUS (nom_article, "
