@@ -35,10 +35,10 @@ public class CheckDataUtil {
 	 */
 	public static void  checkNumeroUtilisateur(String numeroUtilisateur) throws ParameterException {
 		if(numeroUtilisateur == null || numeroUtilisateur.isEmpty()) {
-			throw new ParameterException("Le numero utilisateur est null ou �gal � 0");
+			throw new ParameterException("Le numero utilisateur est null ou égal à 0");
 		}
 		if(!PATTERMNUM.matcher(numeroUtilisateur).find()) {
-			throw new ParameterException("Le numero de l'utilisateur doit �tre des chiffres");
+			throw new ParameterException("Le numero de l'utilisateur doit étre des chiffres");
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le pseudo est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(pseudo).find() || pseudo.trim().length() > 30) {
-			throw new ParameterException("Le pseudo doit �tre des carat�res aphanumerique et pas d�passer 30 caract�res");
+			throw new ParameterException("Le pseudo doit �tre des caratères aphanumerique et pas dépasser 30 caract�res");
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class CheckDataUtil {
 			throw new ParameterException("le nom est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(noString).find() || noString.trim().length() > 30) {
-			throw new ParameterException("Le nom doit �tre des caract�res alphanumerique et pas d�passer 30 caract�res");
+			throw new ParameterException("Le nom doit étre des caractéres alphanumerique et pas d�passer 30 caractères");
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le prenom est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(preString).find() || preString.trim().length() > 30 ) {
-			throw new ParameterException("Le prenom doit est des caract�res alphanumerique et pas d�passer 30 caract�res");
+			throw new ParameterException("Le prenom doit est des caractères alphanumerique et pas dépasser 30 caractères");
 		}
 	}
 	
@@ -94,7 +94,7 @@ public class CheckDataUtil {
 			throw new ParameterException("L'email est vide ou null");
 		}
 		if(emailString.trim().length() > 50) {
-			throw new ParameterException("L'email doit pas depasser 50 caract�res");
+			throw new ParameterException("L'email doit pas depasser 50 caractères");
 		}
 	}
 	
@@ -108,7 +108,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le numero de telephone est vide ou null");
 		}
 		if(!PATTERMNUM.matcher(telephonne).find() || telephonne.trim().length() > 15) {
-			throw new ParameterException("le numero dot �tre des chiffres et pas d�passer 15 caract�res");
+			throw new ParameterException("le numero dot étre des chiffres et pas dépasser 15 caract�res");
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class CheckDataUtil {
 			throw new ParameterException("La rue est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(rue).find() || rue.trim().length() > 30 ) {
-			throw new ParameterException("La rue doit �tre des caract�res alphanumerique et pas d�passer 30 caract�res");
+			throw new ParameterException("La rue doit �tre des caractéres alphanumerique et pas dépasser 30 caractères");
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le code posta est vide ou null");
 		}
 		if(!PATTERMNUM.matcher(codePostal).find() || codePostal.trim().length() > 10) {
-			throw new ParameterException("Le code postal doit des chiffres et pas d�passer 10 caract�res");
+			throw new ParameterException("Le code postal doit des chiffres et pas dépasser 10 caractères");
 		}
 	}
 	
@@ -150,7 +150,7 @@ public class CheckDataUtil {
 			throw new ParameterException("La ville est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(ville).find() || ville.trim().length() > 30 ) {
-			throw new ParameterException("La ville doit �tre des carat�res alphanumerique et pas d�passer 30 caract�res");
+			throw new ParameterException("La ville doit étre des caratères alphanumerique et pas dépasser 30 caractères");
 		}
 	}
 	
@@ -159,7 +159,7 @@ public class CheckDataUtil {
 			throw new ParameterException("le mot de pass est vide ou null");
 		}
 		if(!PATTERNPASS.matcher(pass).find() || pass.trim().length() > 256 ) {
-			throw new ParameterException("La mot de passe doit �tre des carat�res alphanumeric sans espace et pas d�passer 256 caract�res");
+			throw new ParameterException("La mot de passe doit étre des caratères alphanumeric sans espace et pas dépasser 256 caractères");
 		}
 	}
 	
@@ -173,7 +173,7 @@ public class CheckDataUtil {
 			throw new ParameterException("le mot de pass confirmation est vide ou null");
 		}
 		if(!PATTERNPASS.matcher(pass).find() || pass.trim().length() > 256 ) {
-			throw new ParameterException("La mot de passe confirmation doit �tre des carat�res alphanumeric sans espace et pas d�passer 256 caract�res");
+			throw new ParameterException("La mot de passe confirmation doit étre des caratères alphanumeric sans espace et pas dépasser 256 caractères");
 		}
 	}
 	
@@ -185,7 +185,7 @@ public class CheckDataUtil {
 	 */
 	public static void checkMotdePasseEqualeMotDePasseConfirmation(String Motdepasse, String MotdePasseConf) throws ParameterException {
 		if(!Motdepasse.equals(MotdePasseConf)) {
-			throw new ParameterException("Le mot de passe de confirmation est disff�rent du mot de passe");
+			throw new ParameterException("Le mot de passe de confirmation est différent du mot de passe");
 		}
 	}
 	
@@ -213,7 +213,7 @@ public class CheckDataUtil {
 	
 	public static void checkAncienMotdePasse(String ancienPassUtiliControl, String ancienPassUtilSet) throws FunctionnalException {
 		if(!ancienPassUtiliControl.equals(ancienPassUtilSet)) {
-			throw new FunctionnalException("L'ancien mot de passe est diff�rent de celui qui est renseigner");
+			throw new FunctionnalException("L'ancien mot de passe est différent de celui qui est renseigner");
 		}
 	}
 	

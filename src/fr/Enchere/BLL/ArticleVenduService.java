@@ -12,6 +12,7 @@ import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
 import fr.Enchere.Exception.ParameterException;
 import fr.Enchere.util.CheckArticleVendu;
+import fr.Enchere.util.CheckDataUtil;
 import fr.Enchere.util.Constantes;
 
 /**
@@ -153,7 +154,7 @@ public class ArticleVenduService {
 		
 		CheckArticleVendu.checkArticleVendu(articleVendu);
 		
-		CheckArticleVendu.checkNoArticle(articleVendu.getNomArticle());
+		CheckArticleVendu.checkNomArticle(articleVendu.getNomArticle());
 		
 		CheckArticleVendu.checkDescription(articleVendu.getDescription());
 		
