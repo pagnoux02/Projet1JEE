@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import fr.Enchere.BLL.EnchereManager;
+import fr.Enchere.BLL.EnchereService;
 import fr.Enchere.BO.Enchere;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.ParameterException;
@@ -55,10 +56,10 @@ String string = "";
 		System.out.println(enchere);
 		
 		try {
+			EnchereService es = new EnchereService();
 			
-			EnchereManager enchereManager = new EnchereManager();
 			
-			string = enchereManager.deleteEnchere(1);
+			string = es.deleteEnchere(1);
 		} catch (ParameterException | BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
