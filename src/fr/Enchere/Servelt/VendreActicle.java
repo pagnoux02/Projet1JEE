@@ -17,8 +17,10 @@ import javax.servlet.http.Part;
 
 import fr.Enchere.BLL.ArticleVenduService;
 import fr.Enchere.BLL.CategorieService;
+import fr.Enchere.BLL.RetraitManager;
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Categorie;
+import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.BO.EtatVente;
 import fr.Enchere.BO.Retrait;
 import fr.Enchere.BO.Utilisateur;
@@ -119,20 +121,23 @@ public class VendreActicle extends HttpServlet {
 		retrait.setRue(request.getParameter("rue"));
 		retrait.setCode_postale(Integer.parseInt(request.getParameter("codePostal")));
 		retrait.setVille(request.getParameter("ville"));
+		
 		articleVendu.setRetrait(retrait);
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
-		System.out.println(utilisateur.getPseudo());
+		//System.out.println(utilisateur.getPseudo());
 		
 		articleVendu.setUtilisateur(utilisateur);
 		articleVendu.setEtatVente(EtatVente.Créée);
+		
+		DTOOutArticle dtoOutArticle = new DTOOutArticle();
 		
 		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
 		boolean addArticle = false;
 		try {
-			string = articleVenduService.newArticleVendu(articleVendu);
+			dtoOutArticle = articleVenduService.newArticleVendu(articleVendu);
 			addArticle = true;
 			
 		} catch (BllException e) {
@@ -145,10 +150,26 @@ public class VendreActicle extends HttpServlet {
 			string = e.getMessage();
 		}
 		
+		retrait.setId(dtoOutArticle.getIdArticle());
+		
+		RetraitManager retraitManager = new RetraitManager();
+		
+		try {
+			string = retraitManager.insertEnchere(retrait);
+		} catch (BllException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			string = e1.getMessage();
+		} catch (ParameterException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			string = e1.getMessage();
+		}
+		
 		request.setAttribute("message", string);
 		
 		if(addArticle) {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/AdministrationArticle");
 			requestDispatcher.forward(request, response);
 		}else {
 			doGet(request,response);

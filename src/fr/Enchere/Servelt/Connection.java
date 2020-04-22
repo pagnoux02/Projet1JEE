@@ -130,7 +130,7 @@ public class Connection extends HttpServlet {
 			
 			String res = "";
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
 			requestDispatcher.forward(request, response);
 		}else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");

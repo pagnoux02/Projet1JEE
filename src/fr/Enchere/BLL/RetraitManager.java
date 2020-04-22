@@ -1,13 +1,9 @@
 package fr.Enchere.BLL;
 
+import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.BO.Retrait;
 import fr.Enchere.DAO.GenericDAOFactory;
 import fr.Enchere.DAO.RetraitDAOjdbcimpl;
-import fr.Enchere.Exception.BllException;
-import fr.Enchere.Exception.DAOException;
-import fr.Enchere.Exception.FunctionnalException;
-import fr.Enchere.Exception.ParameterException;
-import fr.Enchere.util.Constantes;
 
 public class RetraitManager {
 	
@@ -16,6 +12,7 @@ public class RetraitManager {
 	 }
 
 		public String insertEnchere(Retrait retrait) throws BllException, ParameterException  {
+			
 			
 			String string = "";
 			

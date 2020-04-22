@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.Enchere.BO.ArticleVendu;
+import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.BO.EtatVente;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
@@ -154,9 +155,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 	}
 
 	@Override
-	public String insert(ArticleVendu t) throws DAOException, FunctionnalException {
+	public DTOOutArticle insertArticle(ArticleVendu t) throws DAOException, FunctionnalException {
 		
-		String result = Constantes.DAO_SQL_INSERT_ECHEC;
+		DTOOutArticle dtoOutArticle = new DTOOutArticle();
+
 		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement rqt = cnx.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);){
 			
@@ -177,8 +179,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 				ResultSet rs = rqt.getGeneratedKeys();
 				if(rs.next()) {
 					t.setNoArticle(rs.getInt(1));
+					dtoOutArticle.setIdArticle(t.getNoArticle());
 				}
-				result = Constantes.DAO_SQL_INSERT_REUSSITE;
+				dtoOutArticle.setMessage(Constantes.DAO_SQL_INSERT_REUSSITE);
 			} else {
 				throw new FunctionnalException(Constantes.DAO_SQL_INSERT_ECHEC);
 			}
@@ -188,7 +191,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			throw new DAOException(Constantes.ERREUR_DAO_POUR + e.getMessage());
 		}
 		
-		return result;
+		return dtoOutArticle;
 	}
 
 	@Override
@@ -233,11 +236,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			rqt.setInt(1, t);
 			
 			int nbRows = rqt.executeUpdate();
-			if(nbRows == 1) {
-				result = Constantes.DAO_SQL_DELETE_REUSSITE;
-			} else {
+			if(nbRows == 0) {
 				throw new FunctionnalException(Constantes.DAO_SQL_DELETE_ECHEC);
 			}
+			result = Constantes.DAO_SQL_DELETE_REUSSITE;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -245,6 +247,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public String insert(ArticleVendu t) throws DAOException, FunctionnalException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

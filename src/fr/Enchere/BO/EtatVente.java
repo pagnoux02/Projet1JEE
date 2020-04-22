@@ -16,7 +16,7 @@ public enum EtatVente {
 	public static EtatVente StringToEtatVente(String etat) {
 		EtatVente ev = null;
 		switch(etat) {
-		case "Cr��e":
+		case "Créée":
 			ev = Créée;
 			break;
 		case "EnCours":
