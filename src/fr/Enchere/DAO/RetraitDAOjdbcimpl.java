@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.BO.Retrait;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
@@ -17,8 +18,8 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 
 	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = ?";
 	private static final String DELETE_RETRAIT = "delete from retraits where no_article=?";
-	private static final String INSERT_RETRAIT = "insert into retraits no_article,rue , code_postal, ville values (?,?,?)";
-	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where no_article=?";
+	private static final String INSERT_RETRAIT = "insert into retraits (no_article ,rue , code_postal, ville) values (?,?,?,?)";
+	private static final String UPDATE_RETRAIT = "update retraits set rue= ? , code_postal= ?, ville=? where no_article=?";
 
 	@Override
 	public List<Retrait> selectAll() throws DAOException, FunctionnalException {
@@ -52,6 +53,8 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 
 	@Override
 	public String insert(Retrait retrait) throws DAOException, FunctionnalException {
+		
+		
 		if(retrait==null)
 		{
 			throw new FunctionnalException("erreur insert retrait vide");
@@ -60,18 +63,13 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		String string = "";
 
 		try(Connection Connection = ConnectionProvider.getConnectionProvider();
-				PreparedStatement statementInsert = Connection.prepareStatement(INSERT_RETRAIT , PreparedStatement.RETURN_GENERATED_KEYS)){
-
-			statementInsert.setString(1, retrait.getRue());
-			statementInsert.setInt(2, retrait.getCode_postale());
-			statementInsert.setString(3, retrait.getVille());
+				PreparedStatement statementInsert = Connection.prepareStatement(INSERT_RETRAIT)){
+			
+			statementInsert.setInt(1, retrait.getId());
+			statementInsert.setString(2, retrait.getRue());
+			statementInsert.setInt(3, retrait.getCode_postale());
+			statementInsert.setString(4, retrait.getVille());
 			int ress = statementInsert.executeUpdate();
-
-			ResultSet ressul = statementInsert.getGeneratedKeys();
-
-			if(ressul.next()) {
-				retrait.setId(ressul.getInt(1));
-			}
 
 			if(ress == 0) {
 				throw new FunctionnalException("L'insertion s'est mal pass�");
@@ -95,10 +93,11 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		
 		try(Connection connection = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_RETRAIT)){
-			pstmt.setInt(1, retrait.getId());
-			pstmt.setString(2, retrait.getRue());
-			pstmt.setInt(3, retrait.getCode_postale());
-			pstmt.setString(4, retrait.getVille());
+			
+			pstmt.setString(1, retrait.getRue());
+			pstmt.setInt(2, retrait.getCode_postale());
+			pstmt.setString(3, retrait.getVille());
+			pstmt.setInt(4, retrait.getId());
 			
 			int ress = pstmt.executeUpdate();
 			
