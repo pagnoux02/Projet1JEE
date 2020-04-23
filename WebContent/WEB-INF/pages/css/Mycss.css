@@ -25,3 +25,20 @@
 	margin-left: 5%;
 	/* float: left; */
 }
+
+.testCol{
+	float: left;
+	margin-right: 10px;
+	width: 30%;
+}
+
+.lebalCard{
+	font-size: 16px;
+	font-weight: blod;
+	text-transform: uppercase;
+	color: #00c853;
+}
+
+.upper{
+	text-transform: uppercase;
+}

@@ -179,8 +179,13 @@ public class VendreActicle extends HttpServlet {
 		request.setAttribute("message", string);
 		
 		if(addArticle) {
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/AdministrationArticle");
-			requestDispatcher.forward(request, response);
+			
+			if(utilisateur.getAdministrateur()) {
+				RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/AdministrationArticle");
+				requestDispatcher.forward(request, response);
+			}else {
+				response.sendRedirect(request.getContextPath() + "/ListEnchereCo");
+			}
 		}else {
 			doGet(request,response);
 		}

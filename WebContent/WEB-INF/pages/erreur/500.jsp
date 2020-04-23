@@ -15,6 +15,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<h1 class="center-align">Erreur 404 pages non trouver</h1>
+<h1 class="center-align">Erreur 500 erreur serveur intern</h1>
 <a href="${pageContext.request.contextPath}/ListEnchereCo">Retour Acceuil</a>
 </html>

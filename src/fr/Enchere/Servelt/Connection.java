@@ -47,7 +47,7 @@ public class Connection extends HttpServlet {
 				synchronized(theSession) {
 					System.out.println("session deconnecter");
 					theSession.invalidate();
-					response.sendRedirect("index.jsp");
+					response.sendRedirect(request.getContextPath() + "/Connection");
 				}
 			}
 		}else {
@@ -130,8 +130,7 @@ public class Connection extends HttpServlet {
 			
 			String res = "";
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
-			requestDispatcher.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/ListEnchereCo");
 		}else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");
 			requestDispatcher.forward(request, response);

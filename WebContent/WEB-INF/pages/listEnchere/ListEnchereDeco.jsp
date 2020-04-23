@@ -37,50 +37,39 @@
 		</form>
 	</div>
 	<br />
-	<div class="row">
-
-		<div class="col s6">
-			<div class="col s2"></div>
-			<div class="card blue-grey darken-1 col s8">
-				<div class="col s4"></div>
-
-				<div class="col s8">
+	<c:if test="${listArt != null || !empty listArt }">
+	<c:forEach var="article"  items="${listArt}">
+	<div>
+		<div class="container">
+		<div class="">
+			<a href="${pageContext.request.contextPath}/Connection">
+			<div class="col s12 m4 testCol">
+				<div class="card blue-grey darken-1">
 					<div class="card-content white-text">
-						<span class="card-title">Nom Article </span>
-						<p>Prix : X points</p>
-						<p>Fin de l'enchère : Date</p>
-						<br>
+						<span class="card-title upper">${article.nomArticle}</span>
 						<p>
-							Vendeur : <a>Pseudo</a>
+							<label class="lebalCard">Prix :</label>
+							<span>${article.prixVente} points</span>
+							<br/>
+							<label class="lebalCard">Fin de l'enchère :</label>
+							<span>${article.dateFinEncheres}</span>
+							<br/>
+							<label class="lebalCard">Vendeur :</label>
+							<span>${article.utilisateur.pseudo}</span>
 						</p>
-
 					</div>
 				</div>
 			</div>
-			<div class="col s2"></div>
+			</a>
 		</div>
-
-		<div class="col s6">
-			<div class="col s2"></div>
-			<div class="card blue-grey darken-1 col s8">
-				<div class="col s4"></div>
-
-				<div class="col s8">
-					<div class="card-content white-text">
-						<span class="card-title">Nom Article </span>
-						<p>Prix : X points</p>
-						<p>Fin de l'enchère : Date</p>
-						<br>
-						<p>
-							Vendeur : <a>Pseudo</a>
-						</p>
-
-					</div>
-				</div>
-			</div>
-			<div class="col s2"></div>
 		</div>
 	</div>
+	</c:forEach>
+	</c:if>
+	<c:if test="${listArt == null || empty listArt }">
+		<h3 class="center-align">il y a aucun Article au enchère</h3>
+	</c:if>
+	
 	<script> $(document).ready(function(){
     $('select').formSelect();
   });
