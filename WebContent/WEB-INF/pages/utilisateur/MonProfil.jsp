@@ -45,6 +45,12 @@
 				<th>Ville :</th>
 				<td>${utilisateur.ville}</td>
 			</tr>
+			<core:if test="${utilisateur.numeroUtilisateur == user.numeroUtilisateur}">
+				<tr>
+					<th>Credit :</th>
+					<td>${utilisateur.credit}</td>
+				</tr>
+			</core:if>
 		</table>
 	</div>
 	<div>

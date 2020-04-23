@@ -77,11 +77,11 @@
 			
 			if ((tdPseudo) || (des) || (dateDebEn) || (dateFinEn) || (miseAprix) || (prixVente) || (etatVente) || (categorie) 
 					|| (nonVendeur) || (lieuRet)) {
-				if ((tdPseudo.innerHTML.toUpperCase().indexOf(filter) > -1) || des.innerHTML.toUpperCase().indexOf(filter) > -1) ||
-				(dateDebEn.innerHTML.toUpperCase().indexOf(filter) > -1) || dateFinEn.innerHTML.toUpperCase().indexOf(filter) > -1) || 
-				(miseAprix.innerHTML.toUpperCase().indexOf(filter) > -1) || prixVente.innerHTML.toUpperCase().indexOf(filter) > -1) ||
-				(etatVente.innerHTML.toUpperCase().indexOf(filter) > -1) || categorie.innerHTML.toUpperCase().indexOf(filter) > -1) ||
-				(nonVendeur.innerHTML.toUpperCase().indexOf(filter) > -1) || lieuRet.innerHTML.toUpperCase().indexOf(filter) > -1)) {
+				if ((tdPseudo.innerHTML.toUpperCase().indexOf(filter) > -1) || (des.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(dateDebEn.innerHTML.toUpperCase().indexOf(filter) > -1) || (dateFinEn.innerHTML.toUpperCase().indexOf(filter) > -1) || 
+				(miseAprix.innerHTML.toUpperCase().indexOf(filter) > -1) || (prixVente.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(etatVente.innerHTML.toUpperCase().indexOf(filter) > -1) || (categorie.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(nonVendeur.innerHTML.toUpperCase().indexOf(filter) > -1) || (lieuRet.innerHTML.toUpperCase().indexOf(filter) > -1)) {
 					tr[i].style.display = "";
 				} else {
 					tr[i].style.display = "none";
