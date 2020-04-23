@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.Enchere.BLL.ArticleVenduService;
+import fr.Enchere.BLL.EnchereService;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.ParameterException;
 
@@ -35,10 +36,14 @@ public class DeleteArticle extends HttpServlet {
 		
 		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
+		EnchereService enchereService = new EnchereService();
+		
 		String string = "";
 		
 		try {
-			string = articleVenduService.supprArticleVendu(Integer.parseInt(request.getParameter("idDel")));
+			string = enchereService.deleteEnchere(Integer.parseInt(request.getParameter("idDel")));
+			
+			string += articleVenduService.supprArticleVendu(Integer.parseInt(request.getParameter("idDel")));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
