@@ -5,7 +5,7 @@
 <link href="WEB-INF/css/François.css" rel="stylesheet">
 <jsp:include page="../templete/header.jsp"></jsp:include>
 <body>
-	<c:if test="${ now == 0}">
+	<c:if test="${ now == 0 || now == 2 }">
 		<h3 class="center-align">Détail vente</h3>
 	</c:if>
 	<c:if
@@ -30,7 +30,8 @@
 			</div>
 
 			<div class="col s9">
-				<form action="${pageContext.request.contextPath}/DetailEnchere"
+				<form
+					action="${pageContext.request.contextPath}/DetailEnchere?idArtEnch=${Article.noArticle}&idUser=${userSession.numeroUtilisateur}"
 					method="post">
 					<label class="lbltxt">${Article.nomArticle}</label><br /> <label
 						class="lbltxt"><span class="infoBlack">Description
@@ -49,25 +50,40 @@
 					<c:if test="${Enchere.montant_enchere > 0 }">
 						<label class="lbltxt"><span class="infoBlack">Meilleur
 								offre :</span> ${Enchere.montant_enchere}<c:if
-						test="${Enchere.noUtilisateur != userSession.numeroUtilisateur || now == 0}"> <a class="duBlanc" href="${pageContext.request.contextPath}/MonProfil?idprof=${article.utilisateur.numeroUtilisateur}">>par ${Enchere.utilisateur.pseudo}  </a>
+								test="${Enchere.noUtilisateur != userSession.numeroUtilisateur || now == 0}">
+								<a class="duBlanc"
+									href="${pageContext.request.contextPath}/MonProfil?idprof=${Article.utilisateur.numeroUtilisateur}">par
+									${Enchere.utilisateur.pseudo} </a>
 							</c:if></label>
 						<br />
 					</c:if>
 
 					<label class="lbltxt"><span class="infoBlack">Mise à
 							prix :</span> ${Article.miseAPrix}</label><br />
-					<c:if
+					 <label class="lbltxt"><span class="infoBlack">Retrait :</span> ${Article.retrait.rue}</label><br /> 
+					 <label class="lbltxt"> ${Article.retrait.code_postale} ${Article.retrait.ville}</label><br /> 
+					 <c:if
 						test="${Enchere.noUtilisateur != userSession.numeroUtilisateur || now == 0}">
 						<label class="lbltxt"><span class="infoBlack">Fin
 								de l'enchere:</span> ${Article.dateFinEncheres}</label>
 						<br />
 					</c:if>
+					 
+					 <label class="lbltxt"><span
+						class="infoBlack">Vendeur :</span> ${Article.utilisateur.pseudo} </label>
+					<br />
+					
+					<c:if
+						test="${Enchere.noUtilisateur == userSession.numeroUtilisateur && now == 1}">
+						<label class="lbltxt"><span class="infoBlack">Tel :</span>
+							${Article.utilisateur.telephone} </label>
+						<br />
 
-					<label class="lbltxt"><span class="infoBlack">Retrait
-							:</span> ${Article.retrait.rue}</label><br /> <label class="lbltxt">
-						${Article.retrait.code_postale} ${Article.retrait.ville}</label><br /> <label
-						class="lbltxt"><span class="infoBlack">Vendeur :</span>
-						${Article.utilisateur.pseudo} </label> <br />
+						<a href="${pageContext.request.contextPath}/ListEnchereCo"
+							class="waves-effect waves-light btn-large">Back</a>
+					</c:if>
+
+
 					<c:if test="${now == 0}">
 						<label class="lbltxt" for="credit"><span class="infoBlack">Ma
 								Proposition </span> </label>
@@ -80,17 +96,13 @@
 							name="btnValidation" value="Enchérir">Enchérir</button>
 
 					</c:if>
-					<c:if
-						test="${Enchere.noUtilisateur == userSession.numeroUtilisateur && now == 1}">
-						<label class="lbltxt"><span class="infoBlack">Tel :</span>
-							${Article.utilisateur.telephone} </label>
-						<br />
-
-						<a href="${pageContext.request.contextPath}/ListEnchereCo"
-							class="waves-effect waves-light btn-large">Back</a>
+					<c:if test="${now == 2 }">
+						<label class="lbltxt"><span class="infoBlack">Debut
+								de l'enchere :</span> ${Article.dateDebutEncheres} </label>
+						<br>
 					</c:if>
-						<c:if
-						test="${Enchere.noUtilisateur != Article.utilisateur.numeroUtilisateur && Enchere.noUtilisateur != userSession.numeroUtilisateur && now == 1}">
+					<c:if
+						test="${Enchere.noUtilisateur != Article.utilisateur.numeroUtilisateur && Enchere.noUtilisateur != userSession.numeroUtilisateur && now == 1 || now == 2 }">
 						<a href="${pageContext.request.contextPath}/ListEnchereCo"
 							class="waves-effect waves-light btn-large">Back</a>
 					</c:if>
@@ -99,7 +111,7 @@
 						<input type="submit" name="btnValidation" value="Retrait effectué"
 							class="waves-effect waves-light btn-large">
 					</c:if>
-					
+
 
 				</form>
 			</div>
