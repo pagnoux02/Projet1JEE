@@ -17,7 +17,7 @@
 <style>
   <jsp:include page="../css/Mycss.css" />
   <jsp:include page="../css/ilan.css" />
-  <jsp:include page="../css/Fran�ois.css" />
+  <jsp:include page="../css/Francois.css" />
 </style>
 <meta charset="UTF-8">
 <title>App Enchere</title>
