@@ -2,8 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="WEB-INF/css/Mycss.css" rel="stylesheet">
+<link href="WEB-INF/css/François.css" rel="stylesheet">
 <jsp:include page="../templete/header.jsp"></jsp:include>
+<body>
  <c:if test = "${Enchere.noUtilisateur == 0 && now < Article.dateFinEncheres}">
 <h3 class="center-align">Détail vente</h3>
 </c:if>
@@ -12,57 +13,60 @@
 </c:if>
 <c:if test = "${Enchere.noUtilisateur != userSession.numeroUtilisateur && now > Article.dateFinEncheres}">
 <h3 class="center-align">${Enchere.noUtilisateur} a remporté l'enchere</h3>
+
 </c:if>
     <div class="row">
-
+	
       <div class="col s12">
+ 	
  
- 
-          
+          	
   <div class="col s3">
          <img class="materialboxed" width="250" height="250" src="https://cdn.discordapp.com/emojis/602470070475554846.png?v=1">
       </div>
 
   <div class="col s9"><form action="${pageContext.request.contextPath}/DetailEnchere" method="post">
   <label class="lbltxt">${Article.nomArticle}</label><br/>
-<label class="lbltxt">Description : ${Article.description}</label><br/>
+<label class="lbltxt"><span class="infoBlack">Description :</span> ${Article.description}</label><br/>
 
  <c:if test = "${Enchere.noUtilisateur == 0 && now < Article.dateFinEncheres}">
-<label class="lbltxt">Catégorie : ${Article.categorie.libelle}</label><br/>
+<label class="lbltxt"><span class="infoBlack">Catégorie :</span> ${Article.categorie.libelle}</label><br/>
 </c:if>
 <c:if test = "${Enchere.montant_enchere == 0 }">
-<label class="lbltxt">Meilleur offre : aucune </label><br/>
+<label class="lbltxt"><span class="infoBlack">Meilleur offre :</span>  aucune </label><br/>
 </c:if>
 <c:if test = "${Enchere.montant_enchere > 0 }">
-<label class="lbltxt">Meilleur offre : ${Enchere.montant_enchere} par ${Enchere.utilisateur.pseudo} </label><br/>
+<label class="lbltxt"><span class="infoBlack">Meilleur offre :</span>  ${Enchere.montant_enchere} par ${Enchere.utilisateur.pseudo} </label><br/>
 </c:if>
 
- <label class="lbltxt">Mise à prix : ${Article.miseAPrix}</label><br/>
+ <label class="lbltxt"><span class="infoBlack">Mise à prix :</span>  ${Article.miseAPrix}</label><br/>
   <c:if test = "${Enchere.noUtilisateur != userSession.numeroUtilisateur || now < Article.dateFinEncheres}">
-  <label class="lbltxt">Fin de l'enchere: ${Article.dateFinEncheres}</label><br/> </c:if>
-<label>Retrait : </label><br/>
-<%-- <label>Retrait : ${Article.retrait.rue}</label><br/> --%>
-<%-- <label> ${Article.retrait.code_postale}  ${Article.retrait.ville}</label> --%>
+  <label class="lbltxt"><span class="infoBlack">Fin de l'enchere:</span>  ${Article.dateFinEncheres}</label><br/> </c:if>
 
-<label >Vendeur : ${Article.utilisateur.pseudo} </label> <br/>
+<label class="lbltxt" ><span class="infoBlack">Retrait :</span>  ${Article.retrait.rue}</label><br/> 
+<label class="lbltxt" > ${Article.retrait.code_postale}  ${Article.retrait.ville}</label><br/> 
+
+<label class="lbltxt" ><span class="infoBlack">Vendeur :</span>  ${Article.utilisateur.pseudo} </label> <br/>
  <c:if test = "${Enchere.noUtilisateur == 0 && now < Article.dateFinEncheres}">
-<label for="credit">Ma Proposition </label>
+<label class="lbltxt" for="credit"><span class="infoBlack">Ma Proposition </span> </label>
 
 <input type="number" id="credit" name="credit"
        min="${Enchere.montant_enchere}" max="${userSession.credit}" >
-       <input type="submit" value="Enchérir" class="waves-effect waves-light btn-large">
+
+                  <button class="btn waves-effect waves-light" type="submit" name="btnValidation"  value="Enchérir">Enchérir
+  </button>
   
 </c:if>
 <c:if test = "${Enchere.noUtilisateur == userSession.numeroUtilisateur && now > Article.dateFinEncheres}">
-<label >Tel : ${Article.utilisateur.telephone} </label><br/>
-<input type="submit" value="Back" class="waves-effect waves-light btn-large">
+<label class="lbltxt"><span class="infoBlack">Tel :</span>  ${Article.utilisateur.telephone} </label><br/>
+<input type="submit" name="btnValidation" value="Back" class="waves-effect waves-light btn-large">
 </c:if>
 <c:if test = "${Enchere.noUtilisateur != userSession.numeroUtilisateur && now > Article.dateFinEncheres}">
-<input type="submit" value="Retrait effectué" class="waves-effect waves-light btn-large">
+<input type="submit" name="btnValidation" value="Retrait effectué" class="waves-effect waves-light btn-large">
 </c:if>
 
    </form>
       </div>
 
 </div>
-   </div>
+   </div></body>
