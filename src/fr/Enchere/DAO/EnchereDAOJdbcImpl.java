@@ -28,7 +28,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			" WHERE e.date_enchere > av.date_fin_encheres\r\n" + 
 			"   AND e.no_article = ?\r\n" + 
 			"   AND e.montant_enchere = av.prix_vente;";
-	private static final String SELECT_By_idUtiArti = "";
+	private static final String SELECT_By_idUtiArti = "select no_article, no_utilisateur ,date_enchere, montant_enchere from encheres where no_article = ? and no_utilisateur = ? ";
 	private static final String UPDATE_ENCHERE = "update encheres set date_enchere=? , montant_enchere=? where no_utilisateur=? and no_article =?";
 	private static final  String INSERT_ENCHERE = "insert into encheres (no_utilisateur, no_article, date_enchere, montant_enchere) values  (?,?,?,?)";
 	private static final String DELETE_ENCHERE = "delete from encheres where no_article=?";
@@ -126,6 +126,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				enchere.setDateEnchere(rs.getDate("date_enchere"));
 				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+				enchere.setUtilisateur(GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("no_utilisateur")));
+
 				System.out.println(enchere.getMontant_enchere());
 			}
 		}
@@ -199,8 +201,30 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	@Override
 	public Enchere FindEnchere(int idArt, int idUti) throws DAOException, FunctionnalException {
-		// TODO Auto-generated method stub
-		return null;
+		Enchere enchere = new Enchere();
+		try(Connection cnx = ConnectionProvider.getConnectionProvider(); 
+				PreparedStatement pstmt = cnx.prepareStatement(SELECT_By_idUtiArti);)
+		{
+
+			pstmt.setInt(1, idArt);
+			pstmt.setInt(2, idUti);
+			ResultSet rs = pstmt.executeQuery();
+
+
+			if(rs.next())
+			{
+				enchere.setNoArticle(rs.getInt("no_article")); 
+				enchere.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				enchere.setDateEnchere(rs.getDate("date_enchere"));
+				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+			
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Erreur findUser  enchere");
+		}
+		return enchere;
 	}
 
 }
