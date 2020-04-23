@@ -40,11 +40,11 @@
 					</div>
 					<div class="col s6">
 						<label> <input id="radVente" class="with-gap"
-							name="grp-achatVente" type="radio" /> <span>Mes ventes</span>
+							name="grp-achatVente" type="radio"/> <span>Mes ventes</span>
 						</label>
 					</div>
 					<div id="divAchat" class="col s6">
-						<label> <input class="filled-in" type="checkbox" /> <span>enchères
+						<label> <input class="filled-in" type="checkbox"/> <span>enchères
 								ouvertes</span>
 						</label> <label> <input class="filled-in" type="checkbox" /> <span>mes
 								enchère en cours</span>
@@ -71,6 +71,7 @@
 		<div class="col s12"></div>
 	</div>
 	<c:if test="${listArt != null || !empty listArt }">
+	<div id="tableArticle">
 	<c:forEach var="article"  items="${listArt}">
 	<div>
 		<div class="container">
@@ -79,16 +80,16 @@
 			<div class="col s12 m4 testCol">
 				<div class="card blue-grey darken-1">
 					<div class="card-content white-text">
-						<span class="card-title upper">${article.nomArticle}</span>
+						<span id="myTitle" class="card-title upper cardTitle">${article.nomArticle}</span>
 						<p>
 							<label class="lebalCard">Prix :</label>
-							<span>${article.prixVente} points</span>
+							<span class="duBlanc">${article.prixVente} points</span>
 							<br/>
 							<label class="lebalCard">Fin de l'enchère :</label>
-							<span>${article.dateFinEncheres}</span>
+							<span class="duBlanc">${article.dateFinEncheres}</span>
 							<br/>
-							<label class="lebalCard">Vendeur :</label>
-							<span>${article.utilisateur.pseudo}</span>
+							<label class="lebalCard ">Vendeur :</label>
+							<span><a class="duBlanc" href="${pageContext.request.contextPath}/MonProfil?idprof=${article.utilisateur.numeroUtilisateur}">${article.utilisateur.pseudo}</a></span>
 						</p>
 					</div>
 				</div>
@@ -98,6 +99,7 @@
 		</div>
 	</div>
 	</c:forEach>
+	</div>
 	</c:if>
 	<c:if test="${listArt == null || empty listArt }">
 		<h3 class="center-align">il y a aucun Article au enchère</h3>

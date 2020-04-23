@@ -138,6 +138,7 @@ public class Profil extends HttpServlet {
 		utilisateur.setMotDePasse(request.getParameter("pass"));
 		utilisateur.setNumeroUtilisateur(Integer.parseInt(request.getParameter("IdUtil")));
 		utilisateur.setAdministrateur(CheckDataUtil.estAdministrateur(request.getParameter("ad")));
+		utilisateur.setCredit(Integer.parseInt(request.getParameter("credit")));
 
 		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
 

@@ -92,8 +92,7 @@ public class AddCompte extends HttpServlet {
 		if(userAdd) {
 			//RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
-			
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Connection");
 			requestDispatcher.forward(request, response);
 		}else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/utilisateur/AddUtilisateur.jsp");
