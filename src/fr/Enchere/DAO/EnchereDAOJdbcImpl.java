@@ -28,6 +28,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			" WHERE e.date_enchere > av.date_fin_encheres\r\n" + 
 			"   AND e.no_article = ?\r\n" + 
 			"   AND e.montant_enchere = av.prix_vente;";
+	private static final String SELECT_By_idUtiArti = "";
 	private static final String UPDATE_ENCHERE = "update encheres set date_enchere=? , montant_enchere=? where no_utilisateur=? and no_article =?";
 	private static final  String INSERT_ENCHERE = "insert into encheres (no_utilisateur, no_article, date_enchere, montant_enchere) values  (?,?,?,?)";
 	private static final String DELETE_ENCHERE = "delete from encheres where no_article=?";
@@ -159,7 +160,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return listEnchere;
 	}
-//	enchères remportées
+//	enchï¿½res remportï¿½es
 	@Override
 	public List<Enchere> SelectByIdEnchereWIn(int id) throws DAOException, FunctionnalException {
 		List<Enchere> listEnchere = new ArrayList<Enchere>();
@@ -192,6 +193,12 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	@Override
 	public Enchere selectById(int id) throws DAOException, FunctionnalException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Enchere FindEnchere(int idArt, int idUti) throws DAOException, FunctionnalException {
 		// TODO Auto-generated method stub
 		return null;
 	}
