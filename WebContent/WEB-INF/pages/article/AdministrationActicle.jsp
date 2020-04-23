@@ -4,6 +4,7 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../templete/header.jsp"></jsp:include>
 <h3 class="center-align">Administration Article</h3>
+	<core:if test="${listArticles != null && !empty listArticles}">
 	<core:if test="${message != null || !empty message }">
 		<h4 class="center-align">${message}</h4>
 	</core:if>
@@ -41,10 +42,16 @@
 					<td>${article.retrait.code_postale}</td>
 					<td>${article.retrait.ville}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}"><i class="material-icons">edit</i></a>
+						<a href="${pageContext.request.contextPath}/VendreActicle?isModif=true&idArt=${article.noArticle}"><i class="material-icons">edit</i></a>
 						<a href="${pageContext.request.contextPath}/DeleteArticle?idDel=${article.noArticle}"><i class="material-icons">close</i></a>
 					</td>
 				</tr>
 		</core:forEach>
 		</table>
 	</div>
+	</core:if>
+	<core:if test="${listArticles == null || empty listArticles}">
+		<div class="miseEnformeDiv">
+			<h3 class="center-align">IL y à aucun artilce</h3>
+		</div>
+	</core:if>	

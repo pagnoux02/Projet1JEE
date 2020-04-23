@@ -19,7 +19,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 	private static final String SELECT_BY_ID_RETRAIT = "select rue , code_postal , ville from retraits where no_article = ?";
 	private static final String DELETE_RETRAIT = "delete from retraits where no_article=?";
 	private static final String INSERT_RETRAIT = "insert into retraits (no_article ,rue , code_postal, ville) values (?,?,?,?)";
-	private static final String UPDATE_RETRAIT = "update ARTICLES set rue=? , code_postal=?, ville=? where no_article=?";
+	private static final String UPDATE_RETRAIT = "update retraits set rue= ? , code_postal= ?, ville=? where no_article=?";
 
 	@Override
 	public List<Retrait> selectAll() throws DAOException, FunctionnalException {
@@ -93,10 +93,11 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 		
 		try(Connection connection = ConnectionProvider.getConnectionProvider();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_RETRAIT)){
-			pstmt.setInt(1, retrait.getId());
-			pstmt.setString(2, retrait.getRue());
-			pstmt.setInt(3, retrait.getCode_postale());
-			pstmt.setString(4, retrait.getVille());
+			
+			pstmt.setString(1, retrait.getRue());
+			pstmt.setInt(2, retrait.getCode_postale());
+			pstmt.setString(3, retrait.getVille());
+			pstmt.setInt(4, retrait.getId());
 			
 			int ress = pstmt.executeUpdate();
 			

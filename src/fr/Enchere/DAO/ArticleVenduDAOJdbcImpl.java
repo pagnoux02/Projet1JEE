@@ -201,15 +201,16 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 		try(Connection cnx = ConnectionProvider.getConnectionProvider();
 				PreparedStatement rqt = cnx.prepareStatement(sqlUpdate);){
 			
-			rqt.setString(1, t.getDescription());
-			rqt.setDate(2, Date.valueOf(t.getDateDebutEncheres()));
-			rqt.setDate(3, Date.valueOf(t.getDateFinEncheres()));
-			rqt.setInt(4, t.getMiseAPrix());
-			rqt.setInt(2, t.getPrixVente());
-			rqt.setInt(3, t.getUtilisateur().getNumeroUtilisateur());
-			rqt.setInt(7, t.getCategorie().getNoCategorie());
-			rqt.setString(8, t.getEtatVente().toString());
-			rqt.setString(9, t.getNomArticle());
+			rqt.setString(1, t.getNomArticle());
+			rqt.setString(2, t.getDescription());
+			rqt.setDate(3, Date.valueOf(t.getDateDebutEncheres()));
+			rqt.setDate(4, Date.valueOf(t.getDateFinEncheres()));
+			rqt.setInt(5, t.getMiseAPrix());
+			rqt.setInt(6, t.getPrixVente());
+			rqt.setInt(7, t.getUtilisateur().getNumeroUtilisateur());
+			rqt.setInt(8, t.getCategorie().getNoCategorie());
+			rqt.setString(9, t.getEtatVente().toString());
+			rqt.setInt(10, t.getNoArticle());
 			
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1) {
