@@ -2,6 +2,7 @@ package fr.Enchere.Servelt;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,14 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.Enchere.BLL.ArticleVenduManager;
 import fr.Enchere.BLL.EnchereManager;
-import fr.Enchere.BLL.EnchereService;
+
 import fr.Enchere.BLL.GetDonneesUtilisationService;
-import fr.Enchere.BLL.UtilisateurManager;
+import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Enchere;
+import fr.Enchere.BO.EtatVente;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
-import fr.Enchere.Exception.ParameterException;
+
 
 
 /**
@@ -36,23 +38,40 @@ public class DetailEnchere extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    private int idUserSession =1002;
+    private int idArticle=2;
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		// TODO Auto-generated method stub
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
 		EnchereManager enchereManager = new EnchereManager();
 		GetDonneesUtilisationService utilisateur = new GetDonneesUtilisationService();
 		
 		try {
-			request.setAttribute("Article", articleVenduManager.getArticleDAO().selectById(1));
-			Enchere e = new Enchere();
-			e=enchereManager.getEnchere().FindEnchereByIdArticle(1);
-			request.setAttribute("Enchere", e);
-			request.setAttribute("userSession", utilisateur.selectById(1003));
-			request.setAttribute("now", LocalDate.now());
+			
+		ArticleVendu Av = articleVenduManager.getArticleDAO().selectById(idArticle);
+		
+		request.setAttribute("Article",Av );
+		Enchere e = new Enchere();
+		e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
+		request.setAttribute("Enchere", e);
+		request.setAttribute("userSession", utilisateur.selectById(idUserSession));
+		if(Av.getDateFinEncheres().isBefore(LocalDate.now())) {
+			request.setAttribute("now", 0);
+			System.out.println("before");
+		}
+		if(Av.getDateFinEncheres().isAfter(LocalDate.now())) {
+			request.setAttribute("now", 1);
+			System.out.println("after");
+		}
+			
+			
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,23 +93,34 @@ public class DetailEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// TODO Auto-generated method stub
 		String leRetour = request.getParameter("btnValidation");
-		ArticleVenduManager articleVenduManager2= new ArticleVenduManager();
-		EnchereManager enchereManager2 = new EnchereManager();
-		GetDonneesUtilisationService utilisateur2 = new GetDonneesUtilisationService();
+		EnchereManager enchereManagerStart = new EnchereManager();
+		ArticleVenduManager articleVenduManagerStart= new ArticleVenduManager();
+		//btn encherir 
 		if( leRetour.equals("Enchérir")) {
-
 			String credit = request.getParameter("credit");
 			
-			
-			
 			Enchere e = new Enchere();
+			//insertion 
 			try {
-				e=enchereManager2.getEnchere().FindEnchereByIdArticle(1);
-				e.setMontant_enchere(Integer.parseInt(credit));
-				enchereManager2.getEnchere().insert(e);
-				System.out.println(enchereManager2.getEnchere().update(e));
+
+				e=enchereManagerStart.getEnchere().FindEnchere(idArticle, idUserSession);
+				if ( e.getNoArticle() == 0|| e.getNoUtilisateur() == 0) {
+					ArticleVendu av = new ArticleVendu();
+					
+					Enchere e2 = new Enchere(idUserSession , idArticle , java.sql.Date.valueOf(LocalDate.now()),Integer.parseInt(credit));
+					enchereManagerStart.getEnchere().insert(e2);
+					System.out.println("insert");
+				}
+				else {
+					e.setMontant_enchere(Integer.parseInt(credit));
+					enchereManagerStart.getEnchere().update(e);
+					System.out.println("update");
+				}
+				
+				
 
 			} catch (DAOException e1) {
 				// TODO Auto-generated catch block
@@ -106,14 +136,28 @@ public class DetailEnchere extends HttpServlet {
 		}
 		
 		
-		
+		//affichage 
 		try {
-			request.setAttribute("Article", articleVenduManager2.getArticleDAO().selectById(1));
+			
+			ArticleVenduManager articleVenduManager= new ArticleVenduManager();
+			EnchereManager enchereManager = new EnchereManager();
+			GetDonneesUtilisationService utilisateur = new GetDonneesUtilisationService();
 			Enchere e = new Enchere();
-			e=enchereManager2.getEnchere().FindEnchereByIdArticle(1);
+			
+			ArticleVendu Av = articleVenduManager.getArticleDAO().selectById(idArticle);
+			request.setAttribute("Article", articleVenduManager.getArticleDAO().selectById(idArticle));
+			
+			e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
 			request.setAttribute("Enchere", e);
-			request.setAttribute("userSession", utilisateur2.selectById(1003));
-			request.setAttribute("now", LocalDate.now());
+			request.setAttribute("userSession", utilisateur.selectById(idUserSession));
+			if(Av.getDateFinEncheres().isBefore(LocalDate.now())) {
+				request.setAttribute("now", 0);
+				System.out.println("before");
+			}
+			if(Av.getDateFinEncheres().isAfter(LocalDate.now())) {
+				request.setAttribute("now", 1);
+				System.out.println("after");
+			}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

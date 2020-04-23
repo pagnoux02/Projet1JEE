@@ -10,13 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.Enchere.BLL.ArticleVenduManager;
-import fr.Enchere.BLL.EnchereManager;
-import fr.Enchere.BLL.GetDonneesUtilisationService;
-import fr.Enchere.BO.Enchere;
-import fr.Enchere.Exception.BllException;
-import fr.Enchere.Exception.DAOException;
-import fr.Enchere.Exception.FunctionnalException;
+
 
 /**
  * Servlet implementation class ListEnchereDeco
