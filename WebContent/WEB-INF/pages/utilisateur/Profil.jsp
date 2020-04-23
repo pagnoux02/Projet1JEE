@@ -58,6 +58,10 @@
 				<th>Ville :</th>
 				<td>${userProfil.ville}</td>
 			</tr>
+			<tr>
+				<th>Credits :</th>
+				<td>${userProfil.credit}</td>
+			</tr>
 		</table>
 	</div>
 		<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true&idmod=${userProfil.numeroUtilisateur}">Modifier</a>

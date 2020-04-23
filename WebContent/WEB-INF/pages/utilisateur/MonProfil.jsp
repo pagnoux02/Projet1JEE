@@ -3,7 +3,12 @@
 <jsp:include page="../templete/header.jsp"></jsp:include>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<core:if test="${ utilisateur.numeroUtilisateur == user.numeroUtilisateur}">
 <h3 class="center-align">Mon profil</h3>
+</core:if>
+<core:if test="${ utilisateur.numeroUtilisateur != user.numeroUtilisateur}">
+<h3 class="center-align"> Le profil</h3>
+</core:if>
 	<core:if test="${message != null || !empty message }">
 		<h4 class="center-align">${message}</h4>
 	</core:if>
@@ -43,5 +48,7 @@
 		</table>
 	</div>
 	<div>
+	<core:if test="${ utilisateur.numeroUtilisateur == user.numeroUtilisateur}">
 	<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil?modif=true&idmod=${user.numeroUtilisateur}">Modifier</a>
+	</core:if>
 	</div>

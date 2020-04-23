@@ -19,7 +19,7 @@
 		</div>
 		<div class="input-field col s6">
 			<input id="impPrenom" type="text" name="prenom" required="required" value="${utilisateur.prenom}">
-			<label for="impPrenom">Prï¿½nom :</label>
+			<label for="impPrenom">Prénom :</label>
 		</div>
 		<div class="input-field col s6">
 			<input id="impEmail" type="text" name="email" required="required" value="${utilisateur.email}">
@@ -27,7 +27,7 @@
 		</div>
 		<div class="input-field col s6">
 			<input id="impTelephone" type="text" name="telephone" required="required" value="${utilisateur.telephone}">
-			<label for="impTelephone">Tï¿½lï¿½phone :</label>
+			<label for="impTelephone">Téléphone :</label>
 		</div>
 		<div class="input-field col s6">
 			<input id="impRue" type="text" name="rue" required="required" value="${utilisateur.rue}">
@@ -62,15 +62,24 @@
     		</select>
    			 <label>Si administrateur</label>
  		 </div>
+ 		 <div class="input-field col s6">
+ 		 	<input id="plusCre" type="number" name="credit" required="required" value="${utilisateur.credit}">
+ 		 	<label for="plusCre">Credit :</label>
+ 		 </div>
  		 </core:if>
 		</div>
 		<div class="input-field col s6">
-			<input id="impCfPass" type="hidden" name="IdUtil" required="required" value="${user.numeroUtilisateur }">
+			<input id="impCfPass" type="hidden" name="IdUtil" required="required" value="${utilisateur.numeroUtilisateur }">
 		</div>
 		<div class="center-align input-field col s12">
 			<input class="waves-effect waves-light btn" id="impPseudo" type="submit" name="Btn" value="Modifier">
 			<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur" value="${user.numeroUtilisateur}">Supprimer mon compte</a>
-			<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil">Annuler</a>		
+			<core:if test="${user.administrateur == true }">
+				<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil">Annuler</a>
+			</core:if>
+			<core:if test="${user.administrateur == false }">
+				<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}">Annuler</a>
+			</core:if>	
 		</div>
 	</form>
 </div>

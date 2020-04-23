@@ -1,6 +1,8 @@
 package fr.Enchere.Servelt;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.Enchere.BLL.ArticleVenduService;
+import fr.Enchere.BO.ArticleVendu;
+import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
-import fr.Enchere.Exception.ParameterException;
 
 /**
  * Servlet implementation class ListEnchereCo
@@ -30,8 +34,36 @@ public class ListEnchereCo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispacher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
-		requestDispacher.forward(request, response);
+		
+		List<ArticleVendu> listArticles = new ArrayList<>();
+		
+		String string = "";
+		
+		ArticleVenduService articleVenduService = new ArticleVenduService();
+		
+		try {
+			listArticles = articleVenduService.getAllArticleVendu();
+		} catch (BllException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
+		}
+		
+		request.setAttribute("message", string);
+		
+		request.setAttribute("listArt", listArticles);
+		
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
+		
+		if(utilisateur != null && !utilisateur.getPseudo().isEmpty()) {
+			RequestDispatcher requestDispacher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
+			requestDispacher.forward(request, response);
+		}else {
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ListEnchereDeco");
+			requestDispatcher.forward(request, response);
+					
+		}
+		
 	}
 
 	/**
@@ -40,13 +72,6 @@ public class ListEnchereCo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String s = "";
-		
-//		try {
-//			
-//		} catch (ParameterException | BllException e) {
-//			e.printStackTrace();
-//			s = e.getMessage();
-//		}
 		
 		request.setAttribute("message", s);
 	}

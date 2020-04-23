@@ -14,4 +14,6 @@ public interface EnchereDAO extends GenericDAO<Enchere> {
 	
 	public List<Enchere> SelectByIdEnchereWIn(int id) throws DAOException, FunctionnalException;
 	
+	public Enchere FindEnchere(int idArt , int idUti) throws DAOException, FunctionnalException;
+	
 }

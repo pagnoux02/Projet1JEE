@@ -125,6 +125,25 @@ public class EnchereService {
 		return listEncheres;
 	}
 	
+	public Enchere FindEnchere(int idart, int idUti)throws BllException {
+		Enchere enchere = new Enchere();
+		EnchereManager em = new EnchereManager();
+		try {
+			enchere = em.getEnchere().FindEnchere(idart,idUti);
+		} catch (FunctionnalException functionnalException) {
+			// TODO Auto-generated catch block
+			functionnalException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
+		} catch (DAOException daoException) {
+			// TODO Auto-generated catch block
+			daoException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
+		} 
+		return enchere;
+	}
+	
+
+	
 private void CheckInsertUpdateEnchere(Enchere enchere) throws ParameterException {
 		
 	CheckEnchere.checkEncheres(enchere);

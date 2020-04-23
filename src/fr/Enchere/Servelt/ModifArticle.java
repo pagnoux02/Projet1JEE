@@ -3,8 +3,6 @@ package fr.Enchere.Servelt;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import fr.Enchere.BLL.ArticleVenduService;
 import fr.Enchere.BLL.CategorieService;
@@ -21,25 +17,24 @@ import fr.Enchere.BLL.RetraitManager;
 import fr.Enchere.BLL.RetraitService;
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Categorie;
-import fr.Enchere.BO.DTOOutArticle;
 import fr.Enchere.BO.EtatVente;
 import fr.Enchere.BO.Retrait;
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.ParameterException;
-import fr.Enchere.util.Constantes;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 /**
- * Servlet implementation class VendreActicle
+ * Servlet implementation class ModifArticle
  */
-@WebServlet("/VendreActicle")
-public class VendreActicle extends HttpServlet {
+@WebServlet("/ModifArticle")
+public class ModifArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VendreActicle() {
+    public ModifArticle() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,33 +44,30 @@ public class VendreActicle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("test");
+		ArticleVendu articleVendu = new ArticleVendu();
+		
+		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
 		String string = "";
 		
-		List<Categorie> lisCategories = new ArrayList<>();
-		
-		CategorieService categorieService = new CategorieService();
-		
 		try {
-			lisCategories = categorieService.getAllCategorie();
+			articleVendu = articleVenduService.getArticleVendu(Integer.parseInt(request.getParameter("idArt")));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
 		} catch (BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			string = e.getMessage();
-			
 		}
 		
-		request.setAttribute("ListCat", lisCategories);
+		request.setAttribute("message", string);
 		
-		if(request.getParameter("isModif") != null) {
-			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/ModifArticle");
-			requestDispatcher.forward(request, response);
-					
-		}else {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/article/AddArticle.jsp");
-			requestDispatcher.forward(request, response);
-		}
+		request.setAttribute("updArticle", articleVendu);
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/article/AddArticle.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 	/**
@@ -83,6 +75,9 @@ public class VendreActicle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+		System.out.println("servlet Update article");
+		
 		String string = "";
 		
 		String file = request.getParameter("file");
@@ -100,6 +95,8 @@ public class VendreActicle extends HttpServlet {
 		Categorie categorie = new Categorie();
 		
 		CategorieService categorieService = new CategorieService();
+		
+		boolean modifArt = false;
 		
 		try {
 			categorie = categorieService.getCategorie(Integer.parseInt(request.getParameter("cat")));
@@ -121,12 +118,13 @@ public class VendreActicle extends HttpServlet {
 		articleVendu.setDateFinEncheres(dateFinEnchere);
 		articleVendu.setMiseAPrix(Integer.parseInt(request.getParameter("miseAprix")));
 		articleVendu.setCategorie(categorie);
+		articleVendu.setPrixVente(Integer.parseInt(request.getParameter("NumPrixVentes")));
 		
 		Retrait retrait = new Retrait();
 		retrait.setRue(request.getParameter("rue"));
 		retrait.setCode_postale(Integer.parseInt(request.getParameter("codePostal")));
 		retrait.setVille(request.getParameter("ville"));
-		
+		retrait.setId(Integer.parseInt(request.getParameter("idArtMdf")));
 		articleVendu.setRetrait(retrait);
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
@@ -134,60 +132,51 @@ public class VendreActicle extends HttpServlet {
 		//System.out.println(utilisateur.getPseudo());
 		
 		articleVendu.setUtilisateur(utilisateur);
-		articleVendu.setEtatVente(EtatVente.Créée);
+		articleVendu.setEtatVente(EtatVente.StringToEtatVente(request.getParameter("etatVen")));
+		articleVendu.setNoArticle(Integer.parseInt(request.getParameter("idArtMdf")));
 		
-		DTOOutArticle dtoOutArticle = new DTOOutArticle();
+		System.out.println(articleVendu.toString());
 		
 		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
-		boolean addArticle = false;
 		try {
-			dtoOutArticle = articleVenduService.newArticleVendu(articleVendu);
-			addArticle = true;
-			
+			string = articleVenduService.modifArticleVendu(articleVendu);
+			modifArt = true;
 		} catch (BllException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			string = e.getMessage();
-			addArticle = false;
+			modifArt = false;
 		} catch (ParameterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			string = e.getMessage();
-			addArticle = false;
+			modifArt = false;
 		}
-		
-		retrait.setId(dtoOutArticle.getIdArticle());
 		
 		RetraitService retraitService = new RetraitService();
 		
 		try {
-			string = retraitService.insertEnchere(retrait);
-			addArticle = true;
-		} catch (BllException e1) {
+			string += retraitService.updateEnchere(retrait);
+		} catch (BllException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			string = e1.getMessage();
-			addArticle = false;
-		} catch (ParameterException e1) {
+			e.printStackTrace();
+			string = e.getMessage();
+			modifArt = false;
+		} catch (ParameterException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			string = e1.getMessage();
-			addArticle = false;
+			e.printStackTrace();
+			string = e.getMessage();
+			modifArt = true;
 		}
 		
 		request.setAttribute("message", string);
 		
-		if(addArticle) {
-			
-			if(utilisateur.getAdministrateur()) {
-				RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/AdministrationArticle");
-				requestDispatcher.forward(request, response);
-			}else {
-				response.sendRedirect(request.getContextPath() + "/ListEnchereCo");
-			}
+		if(modifArt) {
+			RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/AdministrationArticle");
+			requestDispatcher.forward(request, response);
 		}else {
-			doGet(request,response);
+			doGet(request, response);
 		}
 	}
 }
