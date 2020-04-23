@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.DTOOutArticle;
+import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
 import fr.Enchere.Exception.DAOException;
 import fr.Enchere.Exception.FunctionnalException;
@@ -68,6 +69,26 @@ public class ArticleVenduService {
 		}
 		
 		return articleVendu;
+	}
+	
+	public List<ArticleVendu> getArticleVenduFilter(Utilisateur currentUser, String search, int idCategorie, String achatsVentes, boolean chkOpenBid,
+			boolean chkMyCurrentBid, boolean chkMyWonBid, boolean chkMyCurrentSales, boolean chkMyNotStartedSales, boolean chkMyEndedSales) throws BllException {
+		
+		List<ArticleVendu> listArticleVendu = new ArrayList<>();
+		
+		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+		
+		try {
+			listArticleVendu = articleVenduManager.getArticleDAO().selectFilter(currentUser, search, idCategorie, achatsVentes, chkOpenBid, chkMyCurrentBid, chkMyWonBid, chkMyCurrentSales, chkMyNotStartedSales, chkMyEndedSales);
+		} catch (DAOException daoException) {
+			daoException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_DAO_POUR + daoException.getMessage());
+		} catch (FunctionnalException functionnalException) {
+			functionnalException.printStackTrace();
+			throw new BllException(Constantes.ERREUR_FUNCTIONELLE_POUR + functionnalException.getMessage());
+		}
+		
+		return listArticleVendu;
 	}
 	
 	/**
