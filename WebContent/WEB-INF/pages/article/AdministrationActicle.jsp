@@ -9,11 +9,11 @@
 		<h4 class="center-align">${message}</h4>
 	</core:if>
 	<div class="miseEnformeDiv input-field col s12">
-	<input id="searchBar" type="text" onkeyup="searchPseudo()"> <label
+	<input id="searchBar" type="text" onkeyup="searchArticle()"> <label
 		for="searchBar">Entre L'article à rechercher :</label>
 	</div>
 	<div class="miseEnformeDiv">
-	<table class="table" id="tablePseudo">
+	<table class="table" id="tableArticle">
 		<tr>
 			<th>Nom Article</th>
 			<th>description</th>
@@ -54,4 +54,39 @@
 		<div class="miseEnformeDiv">
 			<h3 class="center-align">IL y à aucun artilce</h3>
 		</div>
-	</core:if>	
+	</core:if>
+	<script type="text/javascript">
+	function searchArticle() {
+
+		var input, filter, table, tr, td, i;
+		input = document.getElementById("searchBar"); //contenu de l'input dans la barre de recherche
+		filter = input.value.toUpperCase(); //
+		table = document.getElementById("tableArticle"); //contenu de latable
+		tr = table.getElementsByTagName("tr"); //contenu de la ligne
+		for (i = 0; i < tr.length; i++) {
+			tdPseudo = tr[i].getElementsByTagName("td")[0];
+			des = tr[i].getElementsByTagName("td")[1];
+			dateDebEn = tr[i].getElementsByTagName("td")[2];
+			dateFinEn = tr[i].getElementsByTagName("td")[3];
+			miseAprix = tr[i].getElementsByTagName("td")[4];
+			prixVente = tr[i].getElementsByTagName("td")[5];
+			etatVente = tr[i].getElementsByTagName("td")[6];
+			categorie = tr[i].getElementsByTagName("td")[7];
+			nonVendeur = tr[i].getElementsByTagName("td")[8];
+			lieuRet = tr[i].getElementsByTagName("td")[9];
+			
+			if ((tdPseudo) || (des) || (dateDebEn) || (dateFinEn) || (miseAprix) || (prixVente) || (etatVente) || (categorie) 
+					|| (nonVendeur) || (lieuRet)) {
+				if ((tdPseudo.innerHTML.toUpperCase().indexOf(filter) > -1) || des.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(dateDebEn.innerHTML.toUpperCase().indexOf(filter) > -1) || dateFinEn.innerHTML.toUpperCase().indexOf(filter) > -1) || 
+				(miseAprix.innerHTML.toUpperCase().indexOf(filter) > -1) || prixVente.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(etatVente.innerHTML.toUpperCase().indexOf(filter) > -1) || categorie.innerHTML.toUpperCase().indexOf(filter) > -1) ||
+				(nonVendeur.innerHTML.toUpperCase().indexOf(filter) > -1) || lieuRet.innerHTML.toUpperCase().indexOf(filter) > -1)) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+</script>	
