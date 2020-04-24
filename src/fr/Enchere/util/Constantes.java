@@ -7,17 +7,17 @@ public class Constantes {
 	
 	public static final String ERREUR_FUNCTIONELLE_POUR = "Erreur functionelle pour : "; 
 	
-	public static final String DAO_SQL_INSERT_ECHEC = "aucune insertion n'a été effectué";
+	public static final String DAO_SQL_INSERT_ECHEC = "aucune insertion n'a Ã©tÃ© effectuÃ©";
 	
-	public static final String DAO_SQL_INSERT_REUSSITE = "l'insertion a bien été effectué";
+	public static final String DAO_SQL_INSERT_REUSSITE = "l'insertion a bien Ã©tÃ© effectuÃ©";
 	
-	public static final String DAO_SQL_UPDATE_ECHEC = "aucune modification n'a été effectué";
+	public static final String DAO_SQL_UPDATE_ECHEC = "aucune modification n'a Ã©tÃ© effectuÃ©";
 	
-	public static final String DAO_SQL_UPDATE_REUSSITE = "la modification a bien été effectué";
+	public static final String DAO_SQL_UPDATE_REUSSITE = "la modification a bien Ã©tÃ© effectuÃ©";
 	
-	public static final String DAO_SQL_DELETE_ECHEC = "aucune suppression n'a été effectué";
+	public static final String DAO_SQL_DELETE_ECHEC = "aucune suppression n'a Ã©tÃ© effectuÃ©";
 	
-	public static final String DAO_SQL_DELETE_REUSSITE = "la suppression a bien été effectué";
+	public static final String DAO_SQL_DELETE_REUSSITE = "la suppression a bien Ã©tÃ© effectuÃ©";
 	
 	public static final String PATTERN_DATE_FORMATER = "dd/MM/yyyy";
 	

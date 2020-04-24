@@ -64,17 +64,22 @@ public class DetailEnchere extends HttpServlet {
 		e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
 		request.setAttribute("Enchere", e);
 		request.setAttribute("userSession", utilisateur.selectById(idUserSession));
-		if(LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
+		
+		// Si datefin > now & datedebut <now  ou datedebut == now
+		if((LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) || (Av.getDateDebutEncheres().isEqual(LocalDate.now()) )) {
 			request.setAttribute("now", 0);
 			System.out.println("before");
 		}
-		if(LocalDate.now().isAfter(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
+		// si datefin < now
+		if((LocalDate.now().isAfter(Av.getDateFinEncheres()) ) ){
 			request.setAttribute("now", 1);
 			System.out.println("after");
 		}
+		// si date debut > datenow
 		if(Av.getDateDebutEncheres().isAfter(LocalDate.now())) {
 			request.setAttribute("now", 2);
 		}
+		 
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,12 +159,17 @@ public class DetailEnchere extends HttpServlet {
 			e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
 			request.setAttribute("Enchere", e);
 			request.setAttribute("userSession", utilisateur.selectById(idUserSession));
-			if(LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
+			// Si datefin > now & datedebut <now  ou datedebut == now
+			if((LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) || (Av.getDateDebutEncheres().isEqual(LocalDate.now()) )) {
 				request.setAttribute("now", 0);
+				System.out.println("before");
 			}
-			if(LocalDate.now().isAfter(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
+			// si datefin < now
+			if((LocalDate.now().isAfter(Av.getDateFinEncheres()) ) ){
 				request.setAttribute("now", 1);
+				System.out.println("after");
 			}
+			// si date debut > datenow
 			if(Av.getDateDebutEncheres().isAfter(LocalDate.now())) {
 				request.setAttribute("now", 2);
 			}

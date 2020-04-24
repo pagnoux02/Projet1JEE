@@ -67,7 +67,7 @@
 	</c:forEach>
 	</c:if>
 	<c:if test="${listArt == null || empty listArt }">
-		<h3 class="center-align">il y a aucun Article au enchère</h3>
+		<h3 class="center-align">il y a aucun Article aux enchères</h3>
 	</c:if>
 	
 	<script> $(document).ready(function(){
