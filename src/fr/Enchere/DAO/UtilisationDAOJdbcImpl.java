@@ -152,7 +152,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				throw new FunctionnalException("L'insertion c'est mal passer");
 			}
 			
-			string = "Succèes l'insertion a été pris en compte";
+			string = "Succï¿½es l'insertion a ï¿½tï¿½ pris en compte";
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,10 +187,10 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			int ress = updateUtilisateur.executeUpdate();
 			
 			if(ress == 0) {
-				throw new FunctionnalException("la mise à jour c'est mal passer");
+				throw new FunctionnalException("la mise ï¿½ jour c'est mal passer");
 			}
 			
-			string = "Succèes la mise a jour c'est bien passer";
+			string = "Succï¿½es la mise a jour c'est bien passer";
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

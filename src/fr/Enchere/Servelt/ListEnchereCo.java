@@ -2,7 +2,9 @@ package fr.Enchere.Servelt;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.Enchere.BLL.ArticleVenduService;
 import fr.Enchere.BLL.CategorieService;
+import fr.Enchere.BLL.EnchereService;
 import fr.Enchere.BO.ArticleVendu;
 import fr.Enchere.BO.Categorie;
+import fr.Enchere.BO.Enchere;
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
 
@@ -43,17 +47,40 @@ public class ListEnchereCo extends HttpServlet {
 		
 		ArticleVenduService articleVenduService = new ArticleVenduService();
 		
-		try {
-			listArticles = articleVenduService.getAllArticleVendu();
-		} catch (BllException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			string = e.getMessage();
+		if(request.getAttribute("listArt") == null) {
+		
+			try {
+				listArticles = articleVenduService.getAllArticleVendu();
+			} catch (BllException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				string = e.getMessage();
+			}
+			request.setAttribute("message", string);
+		
+			request.setAttribute("listArt", listArticles);
 		}
 		
-		request.setAttribute("message", string);
+		EnchereService enchereService = new EnchereService();
 		
-		request.setAttribute("listArt", listArticles);
+		List<Enchere> listEncheres = new ArrayList<>();
+		
+		for (ArticleVendu articleVendu : listArticles) {
+			
+			try {
+				Enchere enchere = enchereService.SelectEnchereMax(articleVendu.getNoArticle());
+				listEncheres.add(enchere);
+			} catch (BllException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				string = e.getMessage();
+			}
+			
+			
+		}
+		
+		request.setAttribute("listEnchere", listEncheres);
+		
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
@@ -134,6 +161,7 @@ public class ListEnchereCo extends HttpServlet {
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
 		requestDispatcher.forward(request, response);
+		
 	}
 	
 	/**
