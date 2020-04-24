@@ -15,9 +15,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <meta charset="ISO-8859-1">
-<link src="../../css/Mycss" rel="stylesheet">
-<meta charset="ISO-8859-1">
-<title>Nouvelle vente</title>
+<title>Créer un compte</title>
 </head>
 <body>
 <h3 class="center-align">Créer un compte</h3>

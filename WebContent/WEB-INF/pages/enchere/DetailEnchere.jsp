@@ -5,13 +5,17 @@
 <link href="WEB-INF/css/François.css" rel="stylesheet">
 <jsp:include page="../templete/header.jsp"></jsp:include>
 <body>
+${now} 
+<!-- si enchere en cours  ou enchere pas encore commence -->
 	<c:if test="${ now == 0 || now == 2 }">
 		<h3 class="center-align">Détail vente</h3>
 	</c:if>
+	<!-- Si l'utilisateur est gagnant et que l'enchere est fini -->
 	<c:if
 		test="${Enchere.noUtilisateur == userSession.numeroUtilisateur && now == 1}">
 		<h3 class="center-align">Vous avez remporté la vente</h3>
 	</c:if>
+	<!-- si l'utilisateur est different est que l'enchere est fini  -->
 	<c:if
 		test="${Enchere.noUtilisateur != userSession.numeroUtilisateur && now == 1}">
 		<h3 class="center-align">${Enchere.utilisateur.pseudo} a remporté
@@ -36,23 +40,25 @@
 					<label class="lbltxt">${Article.nomArticle}</label><br /> <label
 						class="lbltxt"><span class="infoBlack">Description
 							:</span> ${Article.description}</label><br />
-
+							<!-- enchere en cours -->
 					<c:if test="${now == 0}">
 						<label class="lbltxt"><span class="infoBlack">Catégorie
 								:</span> ${Article.categorie.libelle}</label>
 						<br />
 					</c:if>
+
 					<c:if test="${Enchere.montant_enchere == 0 }">
 						<label class="lbltxt"><span class="infoBlack">Meilleur
 								offre :</span> aucune </label>
 						<br />
 					</c:if>
+
 					<c:if test="${Enchere.montant_enchere > 0 }">
 						<label class="lbltxt"><span class="infoBlack">Meilleur
-								offre :</span> ${Enchere.montant_enchere}<c:if
-								test="${Enchere.noUtilisateur != userSession.numeroUtilisateur || now == 0}">
-								<a class="duBlanc"
-									href="${pageContext.request.contextPath}/MonProfil?idprof=${Article.utilisateur.numeroUtilisateur}">par
+								offre :</span> ${Enchere.montant_enchere}
+								<!-- si l'utilisateur est different de l'user session et que l'enchere est en cours -->
+								<c:if test="${now == 0 ||  now == 1}">
+								<a href="${pageContext.request.contextPath}/MonProfil?idprof=${Article.utilisateur.numeroUtilisateur}">par
 									${Enchere.utilisateur.pseudo} </a>
 							</c:if></label>
 						<br />
