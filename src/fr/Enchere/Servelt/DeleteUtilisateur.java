@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.Enchere.BLL.ArticleVenduService;
+import fr.Enchere.BLL.EnchereService;
 import fr.Enchere.BLL.SetDonneesUtilisationService;
 import fr.Enchere.Exception.BllException;
 
@@ -36,6 +38,10 @@ public class DeleteUtilisateur extends HttpServlet {
 		String string = "";
 		
 		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
+		
+		ArticleVenduService articleVenduService = new ArticleVenduService();
+		
+		EnchereService enchereService = new EnchereService();
 		
 		try {
 			string = setDonneesUtilisationService.deleteUtilisateur(Integer.parseInt(request.getParameter("idDel")));
@@ -69,36 +75,35 @@ public class DeleteUtilisateur extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		String string = "";
-//		
-//		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
-//		
-//		try {
-//			string = setDonneesUtilisationService.deleteUtilisateur(Integer.parseInt(request.getParameter("idDel")));
-//		} catch (NumberFormatException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			string = e.getMessage();
-//		} catch (BllException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			string = e.getMessage();
-//		}
-//		
-//		request.setAttribute("message", string);
-//		
-//		HttpSession theSession = request.getSession(false);
-//		
-//		if(theSession != null) {
-//			synchronized(theSession) {
-//				System.out.println("session deconnecter");
-//				theSession.invalidate();
-//				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");
-//				requestDispatcher.forward(request, response);
-//			}
-//		}
-//		
-//	}
+		String string = "";
+		
+		SetDonneesUtilisationService setDonneesUtilisationService = new SetDonneesUtilisationService();
+		
+		try {
+			string = setDonneesUtilisationService.deleteUtilisateur(Integer.parseInt(request.getParameter("idDel")));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
+		} catch (BllException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
+		}
+		
+		request.setAttribute("message", string);
+		
+		HttpSession theSession = request.getSession(false);
+		
+		if(theSession != null) {
+			synchronized(theSession) {
+				System.out.println("session deconnecter");
+				theSession.invalidate();
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/pages/utilisateur/Connection.jsp");
+				requestDispatcher.forward(request, response);
+			}
+		}
+		
+	}
 
 }
-	}
