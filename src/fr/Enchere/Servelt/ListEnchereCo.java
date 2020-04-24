@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.Enchere.BLL.ArticleVenduService;
+import fr.Enchere.BLL.CategorieService;
 import fr.Enchere.BO.ArticleVendu;
+import fr.Enchere.BO.Categorie;
 import fr.Enchere.BO.Utilisateur;
 import fr.Enchere.Exception.BllException;
 
@@ -55,6 +57,23 @@ public class ListEnchereCo extends HttpServlet {
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
+		List<Categorie> listCategories = new ArrayList<>();
+		
+		CategorieService categorieService = new CategorieService();
+		
+		try {
+			listCategories = categorieService.getAllCategorie();
+		} catch (BllException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
+		}
+		
+		request.setAttribute("message", string);
+		
+		request.setAttribute("listCat", listCategories);
+		
+		
 		if(utilisateur != null && !utilisateur.getPseudo().isEmpty()) {
 			RequestDispatcher requestDispacher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
 			requestDispacher.forward(request, response);
@@ -71,9 +90,59 @@ public class ListEnchereCo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String s = "";
+		String string = "";
 		
-		request.setAttribute("message", s);
+		String search = request.getParameter("search");
+		
+		int catId = Integer.parseInt(request.getParameter("categorie"));
+		
+		String achatVente = request.getParameter("grp-achatVente");
+		
+		boolean enchereOuvert = estCheck(request.getParameter("enOuv"));
+		
+		boolean enchereEnCour = estCheck(request.getParameter("enCour"));
+		
+		boolean enchereRemporter = estCheck(request.getParameter("enRepor"));
+		
+		boolean venteEnCour = estCheck(request.getParameter("veCour"));
+		
+		boolean venteNonDebuter = estCheck(request.getParameter("nonDebut"));
+		
+		boolean venteTerm = estCheck(request.getParameter("veTerm"));
+		
+//		System.out.println(search + catId + achatVente + enchereOuvert + "  " + enchereEnCour + "  " + enchereRemporter + "  " + 
+//				venteEnCour + "  " + venteNonDebuter + "  " + venteTerm);
+		
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
+				
+		ArticleVenduService articleVenduService = new ArticleVenduService();
+		
+		List<ArticleVendu> listArticleVendus = new ArrayList<>();
+		
+		try {
+			listArticleVendus = articleVenduService.getArticleVenduFilter(utilisateur, search, catId, achatVente, enchereOuvert,
+					enchereEnCour, enchereRemporter, venteEnCour, venteNonDebuter, venteTerm);
+		} catch (BllException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			string = e.getMessage();
+		}
+		
+		request.setAttribute("message", string);
+		
+		request.setAttribute("listArt", listArticleVendus);
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/listEnchere/ListEnchereCo.jsp");
+		requestDispatcher.forward(request, response);
+	}
+	
+	/**
+	 * 
+	 * @param string
+	 * @return
+	 */
+	private boolean estCheck(String string) {
+		return string == null || string.isEmpty() ? false : true;
 	}
 
 }

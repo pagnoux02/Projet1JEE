@@ -13,11 +13,11 @@
 		<div class="col s12">
 			<h6>Flitres :</h6>
 		</div>
-		<form>
-			<div class="col s6 cole">
+		<form action="${pageContext.request.contextPath}/ListEnchereCo" method="post">
+			<div class="col s6">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">search</i> <input type="text"
-						id="text-filter"> <label for="text-filter">Le nom
+						id="text-filter" name="search"> <label for="text-filter">Le nom
 						de l'article contient</label>
 				</div>
 				<div class="col s12">
@@ -25,39 +25,40 @@
 						<span><br />Catégorie : </span>
 					</div>
 					<div class="input-field col s9">
-						<select id="list-categorie">
-							<option value="oui">oui</option>
-							<option value="oui">oui</option>
-							<option value="oui">oui</option>
+						<select id="list-categorie" name="categorie">
+						<option value="" disabled selected  >Choisir categorie</option>
+							<c:forEach var="cat" items="${listCat}">
+								<option value="${cat.noCategorie}">${cat.libelle}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
 				<div class="col s12">
 					<div class="col s6">
 						<label> <input id="radAchat" class="with-gap"
-							name="grp-achatVente" type="radio" checked /> <span>Achats</span>
+							name="grp-achatVente" value="achat" type="radio" checked /> <span>Achats</span>
 						</label>
 					</div>
 					<div class="col s6">
 						<label> <input id="radVente" class="with-gap"
-							name="grp-achatVente" type="radio"/> <span>Mes ventes</span>
+							name="grp-achatVente" value="vente" type="radio"/> <span>Mes ventes</span>
 						</label>
 					</div>
 					<div id="divAchat" class="col s6">
-						<label> <input class="filled-in" type="checkbox"/> <span>enchères
+						<label> <input class="filled-in" type="checkbox" name="enOuv" value="ouvert"/> <span>enchères
 								ouvertes</span>
-						</label> <label> <input class="filled-in" type="checkbox" /> <span>mes
+						</label> <label> <input class="filled-in" type="checkbox" name="enCour" value="enCour" /> <span>mes
 								enchère en cours</span>
-						</label> <label> <input class="filled-in" type="checkbox" /> <span>mes
+						</label> <label> <input class="filled-in" type="checkbox" name="enRepor" value="enRepor" /> <span>mes
 								enchère remportées</span>
 						</label>
 					</div>
 					<div id="divVente" class="col s6">
-						<label> <input class="filled-in" type="checkbox" disabled />
+						<label> <input class="filled-in" type="checkbox" name="veCour" value="veCour" disabled />
 							<span>mes ventes en cours</span>
-						</label> <label> <input class="filled-in" type="checkbox" disabled />
+						</label> <label> <input class="filled-in" type="checkbox" name="nonDebut" value="nonDeb" disabled />
 							<span>ventes non débutées</span>
-						</label> <label> <input class="filled-in" type="checkbox" disabled />
+						</label> <label> <input class="filled-in" type="checkbox" name="veTerm" value="veTerm" disabled />
 							<span>ventes terminées</span>
 						</label>
 					</div>
