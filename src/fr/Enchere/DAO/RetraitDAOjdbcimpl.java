@@ -103,7 +103,7 @@ public class RetraitDAOjdbcimpl implements RetraitDao{
 			
 			
 			if(ress == 0) {
-				throw new FunctionnalException("la mise � jour c'est mal pass�");
+				throw new FunctionnalException("la mise à jour c'est mal passé");
 			}
 			
 			string = Constantes.DAO_SQL_UPDATE_REUSSITE;

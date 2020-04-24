@@ -52,7 +52,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le pseudo est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(pseudo).find() || pseudo.trim().length() > 30) {
-			throw new ParameterException("Le pseudo doit �tre des caratères aphanumerique et pas dépasser 30 caract�res");
+			throw new ParameterException("Le pseudo doit être des caratères aphanumerique et pas dépasser 30 caract�res");
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class CheckDataUtil {
 			throw new ParameterException("le nom est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(noString).find() || noString.trim().length() > 30) {
-			throw new ParameterException("Le nom doit étre des caractéres alphanumerique et pas d�passer 30 caractères");
+			throw new ParameterException("Le nom doit être des caractéres alphanumerique et pas dépasser 30 caractères");
 		}
 	}
 	
@@ -108,7 +108,7 @@ public class CheckDataUtil {
 			throw new ParameterException("Le numero de telephone est vide ou null");
 		}
 		if(!PATTERMNUM.matcher(telephonne).find() || telephonne.trim().length() > 15) {
-			throw new ParameterException("le numero dot étre des chiffres et pas dépasser 15 caract�res");
+			throw new ParameterException("le numero dot étre des chiffres et pas dépasser 15 caractères");
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class CheckDataUtil {
 			throw new ParameterException("La rue est vide ou null");
 		}
 		if(!PATTERNALPHAFULL.matcher(rue).find() || rue.trim().length() > 30 ) {
-			throw new ParameterException("La rue doit �tre des caractéres alphanumerique et pas dépasser 30 caractères");
+			throw new ParameterException("La rue doit être des caractéres alphanumerique et pas dépasser 30 caractères");
 		}
 	}
 	
