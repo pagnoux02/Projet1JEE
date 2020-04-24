@@ -73,7 +73,7 @@
 		</div>
 		<div class="center-align input-field col s12">
 			<input class="waves-effect waves-light btn" id="impPseudo" type="submit" name="Btn" value="Modifier">
-			<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur" value="${user.numeroUtilisateur}">Supprimer mon compte</a>
+			<a class="waves-effect waves-light btn red" href="${pageContext.request.contextPath}/DeleteUtilisateur?idDel=${utilisateur.numeroUtilisateur}">Supprimer mon compte</a>
 			<core:if test="${user.administrateur == true }">
 				<a class="waves-effect waves-light btn" href="${pageContext.request.contextPath}/Profil">Annuler</a>
 			</core:if>

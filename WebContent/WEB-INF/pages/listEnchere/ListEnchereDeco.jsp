@@ -22,10 +22,11 @@
 						<span><br />Catégorie : </span>
 					</div>
 					<div class="input-field col s9">
-						<select id="list-categorie">
-							<option value="oui">oui</option>
-							<option value="oui">oui</option>
-							<option value="oui">oui</option>
+						<select id="list-categorie" name="categorie">
+						<option value="" disabled selected  >Choisir categorie</option>
+							<c:forEach var="cat" items="${listCat}">
+								<option value="${cat.noCategorie}">${cat.libelle}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
