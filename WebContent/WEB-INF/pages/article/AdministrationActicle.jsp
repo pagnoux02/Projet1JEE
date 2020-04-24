@@ -52,7 +52,7 @@
 	</core:if>
 	<core:if test="${listArticles == null || empty listArticles}">
 		<div class="miseEnformeDiv">
-			<h3 class="center-align">IL y à aucun artilce</h3>
+			<h3 class="center-align">Il n'y a aucun article</h3>
 		</div>
 	</core:if>
 	<script type="text/javascript">
