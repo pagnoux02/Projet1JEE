@@ -35,10 +35,10 @@ public class CheckArticleVendu {
 	 */
 	public static void checkNoArticle(String noArticle) throws ParameterException {
 		if(noArticle == null || noArticle.isEmpty()) {
-			throw new ParameterException("Le numero de l'article est null ou égal à 0");
+			throw new ParameterException("Le numero de l'article est null ou Ã©gal Ã  0");
 		}
 		if(!PATTERMNUM.matcher(noArticle).find()) {
-			throw new ParameterException("Le numero de l'article doit être composé de chiffres");
+			throw new ParameterException("Le numero de l'article doit Ãªtre composÃ© de chiffres");
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class CheckArticleVendu {
 			throw new ParameterException("Le nom de l'article est null ou vide");
 		}
 		if(!PATTERNALPHAFULL.matcher(nomArticle).find()) {
-			throw new ParameterException("Le nom de l'article contient des charactères invalides");
+			throw new ParameterException("Le nom de l'article contient des charactÃ¨res invalides");
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class CheckArticleVendu {
 			throw new ParameterException("La description de l'article est null ou vide");
 		}
 		if(!PATTERNALPHAFULL.matcher(description).find()) {
-			throw new ParameterException("La description de l'article contient des charactères invalides");
+			throw new ParameterException("La description de l'article contient des charactÃ¨res invalides");
 		}
 	}
 	
@@ -77,10 +77,10 @@ public class CheckArticleVendu {
 	 */
 	public static void checkDateDebutEncheres(LocalDate dateDebutEncheres) throws ParameterException {
 		if(dateDebutEncheres == null) {
-			throw new ParameterException("La date de début de l'enchère est null");
+			throw new ParameterException("La date de dÃ©but de l'enchÃ¨re est null");
 		}
 		if(dateDebutEncheres.isBefore(LocalDate.now().minusDays(1))) {
-			throw new ParameterException("La date de début de l'enchère ne peut pas être antérieur à la date du jour");
+			throw new ParameterException("La date de dÃ©but de l'enchÃ¨re ne peut pas Ãªtre antÃ©rieur a la date du jour");
 		}
 	}
 	
@@ -91,10 +91,10 @@ public class CheckArticleVendu {
 	 */
 	public static void checkDateFinEncheres(LocalDate dateFinEncheres) throws ParameterException {
 		if(dateFinEncheres == null) {
-			throw new ParameterException("La date de fin de l'enchère est null");
+			throw new ParameterException("La date de fin de l'enchÃ¨re est null");
 		}
 		if(dateFinEncheres.isBefore(LocalDate.now())) {
-			throw new ParameterException("La date de fin de l'enchère ne peut pas être avant à la date du jour");
+			throw new ParameterException("La date de fin de l'enchÃ¨re ne peut pas Ãªtre avant Ã  la date du jour");
 		}
 	}
 	
@@ -105,7 +105,7 @@ public class CheckArticleVendu {
 	 */
 	public static void checkMiseAPrix(int miseAPrix) throws ParameterException {
 		if(miseAPrix < 0) {
-			throw new ParameterException("La mise à prix ne peut être inférieur à 0");
+			throw new ParameterException("La mise Ã  prix ne peut Ãªtre infÃ©rieur Ã  0");
 		}
 	}
 	
@@ -116,7 +116,7 @@ public class CheckArticleVendu {
 	 */
 	public static void checkPrixVente(int prixVente) throws ParameterException {
 		if(prixVente < 0) {
-			throw new ParameterException("Le prix de vente ne peut être inférieur à 0");
+			throw new ParameterException("Le prix de vente ne peut Ãªtre infÃ©rieur Ã  0");
 		}
 	}
 	
@@ -127,7 +127,7 @@ public class CheckArticleVendu {
 	 */
 	public static void checkEtatVente(EtatVente etatVente) throws ParameterException {
 		if(etatVente == null) {
-			throw new ParameterException("L'état de vente ne peut être null");
+			throw new ParameterException("L'Ã©tat de vente ne peut Ãªtre null");
 		}
 	}
 }
