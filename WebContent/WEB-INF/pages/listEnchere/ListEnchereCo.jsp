@@ -36,12 +36,12 @@
 				<div class="col s12">
 					<div class="col s6">
 						<label> <input id="radAchat" class="with-gap"
-							name="grp-achatVente" value="achat" type="radio" checked /> <span>Achats</span>
+							name="grp-achatVente" value="achats" type="radio" checked /> <span>Achats</span>
 						</label>
 					</div>
 					<div class="col s6">
 						<label> <input id="radVente" class="with-gap"
-							name="grp-achatVente" value="vente" type="radio"/> <span>Mes ventes</span>
+							name="grp-achatVente" value="ventes" type="radio"/> <span>Mes ventes</span>
 						</label>
 					</div>
 					<div id="divAchat" class="col s6">
@@ -84,7 +84,13 @@
 						<span id="myTitle" class="card-title upper cardTitle">${article.nomArticle}</span>
 						<p>
 							<label class="lebalCard">Prix :</label>
-							<span class="duBlanc">${article.prixVente} points</span>
+							<c:forEach var="listEnchere" items="${listEnchere}">
+								<c:if test="${listEnchere.noArticle ==  article.noArticle}">
+									<c:if test="${listEnchere.montant_enchere > 0}">
+										<span class="duBlanc"> ${listEnchere.montant_enchere} points</span>
+									</c:if>
+								</c:if>
+							</c:forEach>
 							<br/>
 							<label class="lebalCard">Fin de l'enchère :</label>
 							<span class="duBlanc">${article.dateFinEncheres}</span>

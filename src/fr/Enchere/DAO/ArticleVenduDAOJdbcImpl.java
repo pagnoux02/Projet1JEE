@@ -96,9 +96,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			+ "		  av.no_categorie, "
 			+ "		  av.etat_vente "
 			+ "FROM ARTICLES_VENDUS av "
-			+ "INNER JOIN ENCHERES e ON e.no_article = av.no_article "
-			+ "INNER JOIN CATEGORIES c ON c.no_categorie = av.no_categorie "
-			+ "WHERE av.nom_article = ? ";
+			+ "LEFT JOIN ENCHERES e ON e.no_article = av.no_article "
+			+ "LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie "
+			+ "WHERE av.nom_article LIKE ? ";
 	
 	private static final String sqlFilterUserClause = ""
 			+ "AND av.no_utilisateur = ? ";
@@ -110,16 +110,16 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			+ "AND av.no_categorie = ? ";
 	
 	private static final String sqlFilterOpenBidClause = ""
-			+ "AND av.date_debut_encheres < NOW() ";
+			+ "AND av.date_debut_encheres < GETDATE() ";
 	
 	private static final String sqlFilterNotOpenBidClause = ""
-			+ "AND av.date_debut_encheres > NOW() ";
+			+ "AND av.date_debut_encheres > GETDATE() ";
 	
 	private static final String sqlFilterEndedBidClause = ""
-			+ "AND av.date_fin_encheres < NOW() ";
+			+ "AND av.date_fin_encheres < GETDATE() ";
 	
 	private static final String sqlFilterNotEndedBidClause = ""
-			+ "AND av.date_fin_encheres > NOW() ";
+			+ "AND av.date_fin_encheres > GETDATE() ";
 	
 	private static final String sqlFilterWonBidClause = ""
 			+ "AND e.montant_enchere = av.prix_vente ";
@@ -398,6 +398,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 				}
 			}
 			
+			System.out.println(FilterQuery + "||" + search + "||" + idCategorie + "||" + currentUser.getNumeroUtilisateur());
+
 			try (Connection cnx = ConnectionProvider.getConnectionProvider();
 					PreparedStatement rqt = cnx.prepareStatement(FilterQuery);){
 				
@@ -468,17 +470,17 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 				rs = rqt.executeQuery();
 				
 				while(rs.next()) {
-					av = new ArticleVendu(rs.getInt("av.no_article"),
-										  rs.getString("av.nom_article"),
-										  rs.getString("av.description"),
-										  rs.getDate("av.date_debut_encheres").toLocalDate(),
-										  rs.getDate("av.date_fin_encheres").toLocalDate(),
-										  rs.getInt("av.prix_initial"),
-										  GenericDAOFactory.getCategorieDAO().selectById(rs.getInt("av.no_categorie")),
-										  GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("av.no_utilisateur")),
-										  GenericDAOFactory.getRetraitDAO().selectById(rs.getInt("av.no_article")),
-										  rs.getInt("av.prix_vente"),
-										  EtatVente.StringToEtatVente(rs.getString("av.etat_vente")));
+					av = new ArticleVendu(rs.getInt("no_article"),
+										  rs.getString("nom_article"),
+										  rs.getString("description"),
+										  rs.getDate("date_debut_encheres").toLocalDate(),
+										  rs.getDate("date_fin_encheres").toLocalDate(),
+										  rs.getInt("prix_initial"),
+										  GenericDAOFactory.getCategorieDAO().selectById(rs.getInt("no_categorie")),
+										  GenericDAOFactory.getUtilisateurDao().selectById(rs.getInt("no_utilisateur")),
+										  GenericDAOFactory.getRetraitDAO().selectById(rs.getInt("no_article")),
+										  rs.getInt("prix_vente"),
+										  EtatVente.StringToEtatVente(rs.getString("etat_vente")));
 					lav.add(av);
 				}
 				
