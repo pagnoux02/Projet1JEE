@@ -31,10 +31,10 @@ public class CheckCategorie {
 	  */
 	public static void checkNoCategorie(String noCategorie) throws ParameterException {
 		if(noCategorie == null || noCategorie.isEmpty()) {
-			throw new ParameterException("Le numero de la categorie est null ou égal à 0");
+			throw new ParameterException("Le numero de la categorie est null ou Ã©gal Ã  0");
 		}
 		if(!PATTERMNUM.matcher(noCategorie).find()) {
-			throw new ParameterException("Le numero de la categorie doit être composé de chiffres");
+			throw new ParameterException("Le numero de la categorie doit Ãªtre composÃ© de chiffres");
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class CheckCategorie {
 			throw new ParameterException("Le libelle de la categorie est null ou vide");
 		}
 		if(!PATTERNALPHAFULL.matcher(Libelle).find()) {
-			throw new ParameterException("Le libelle de la categorie contient des charactères invalides");
+			throw new ParameterException("Le libelle de la categorie contient des charactÃ¨res invalides");
 		}
 	}
 }

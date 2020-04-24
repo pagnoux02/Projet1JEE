@@ -152,7 +152,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 				throw new FunctionnalException("L'insertion c'est mal passer");
 			}
 			
-			string = "Succ�es l'insertion a �t� pris en compte";
+			string = "Succès l'insertion a été pris en compte";
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -187,10 +187,10 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			int ress = updateUtilisateur.executeUpdate();
 			
 			if(ress == 0) {
-				throw new FunctionnalException("la mise � jour c'est mal passer");
+				throw new FunctionnalException("la mise à jour s'est mal passé");
 			}
 			
-			string = "Succ�es la mise a jour c'est bien passer";
+			string = "Succès la mise a jour c'est bien passé";
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -213,10 +213,10 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			int ress = deleteUtilisateur.executeUpdate();
 			
 			if(ress == 0) {
-				throw new FunctionnalException("La suppretion c'est mal passer");
+				throw new FunctionnalException("La suppretion s'est mal passé");
 			}
 			
-			string = "La suppretion c'est bien passer";
+			string = "La suppression s'est bien passé";
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -255,7 +255,7 @@ public class UtilisationDAOJdbcImpl implements UtilisationInterfaceDAO {
 			}
 			
 			if(utilisateur == null || utilisateur.getPseudo() == null || utilisateur.getPseudo().isEmpty()) {
-				throw new FunctionnalException("aucun utilisateur de trouver");
+				throw new FunctionnalException("aucun utilisateur trouvé");
 			}
 			
 			
