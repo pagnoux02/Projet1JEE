@@ -39,14 +39,16 @@ public class DetailEnchere extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private int idUserSession =1002;
-    private int idArticle=2;
+   
     
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	int  idArticle = Integer.parseInt(request.getParameter("idArtEnch"));
+	int idUserSession = Integer.parseInt(request.getParameter("idUser"));
+	
 	
 		// TODO Auto-generated method stub
 		ArticleVenduManager articleVenduManager = new ArticleVenduManager();
@@ -54,24 +56,25 @@ public class DetailEnchere extends HttpServlet {
 		GetDonneesUtilisationService utilisateur = new GetDonneesUtilisationService();
 		
 		try {
-			
-		ArticleVendu Av = articleVenduManager.getArticleDAO().selectById(idArticle);
+			ArticleVendu Av = new ArticleVendu();
+		 Av = articleVenduManager.getArticleDAO().selectById(idArticle);
 		
 		request.setAttribute("Article",Av );
 		Enchere e = new Enchere();
 		e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
 		request.setAttribute("Enchere", e);
 		request.setAttribute("userSession", utilisateur.selectById(idUserSession));
-		if(Av.getDateFinEncheres().isBefore(LocalDate.now())) {
+		if(LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
 			request.setAttribute("now", 0);
 			System.out.println("before");
 		}
-		if(Av.getDateFinEncheres().isAfter(LocalDate.now())) {
+		if(LocalDate.now().isAfter(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
 			request.setAttribute("now", 1);
 			System.out.println("after");
 		}
-			
-			
+		if(Av.getDateDebutEncheres().isAfter(LocalDate.now())) {
+			request.setAttribute("now", 2);
+		}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,6 +96,8 @@ public class DetailEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int  idArticle = Integer.parseInt(request.getParameter("idArtEnch"));
+		int idUserSession = Integer.parseInt(request.getParameter("idUser"));
 		
 		// TODO Auto-generated method stub
 		String leRetour = request.getParameter("btnValidation");
@@ -108,8 +113,7 @@ public class DetailEnchere extends HttpServlet {
 
 				e=enchereManagerStart.getEnchere().FindEnchere(idArticle, idUserSession);
 				if ( e.getNoArticle() == 0|| e.getNoUtilisateur() == 0) {
-					ArticleVendu av = new ArticleVendu();
-					
+								
 					Enchere e2 = new Enchere(idUserSession , idArticle , java.sql.Date.valueOf(LocalDate.now()),Integer.parseInt(credit));
 					enchereManagerStart.getEnchere().insert(e2);
 					System.out.println("insert");
@@ -143,20 +147,21 @@ public class DetailEnchere extends HttpServlet {
 			EnchereManager enchereManager = new EnchereManager();
 			GetDonneesUtilisationService utilisateur = new GetDonneesUtilisationService();
 			Enchere e = new Enchere();
-			
-			ArticleVendu Av = articleVenduManager.getArticleDAO().selectById(idArticle);
+			ArticleVendu Av = new ArticleVendu();
+			Av = articleVenduManager.getArticleDAO().selectById(idArticle);
 			request.setAttribute("Article", articleVenduManager.getArticleDAO().selectById(idArticle));
 			
 			e=enchereManager.getEnchere().FindEnchereByIdArticle(idArticle);
 			request.setAttribute("Enchere", e);
 			request.setAttribute("userSession", utilisateur.selectById(idUserSession));
-			if(Av.getDateFinEncheres().isBefore(LocalDate.now())) {
+			if(LocalDate.now().isBefore(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
 				request.setAttribute("now", 0);
-				System.out.println("before");
 			}
-			if(Av.getDateFinEncheres().isAfter(LocalDate.now())) {
+			if(LocalDate.now().isAfter(Av.getDateFinEncheres()) && Av.getDateDebutEncheres().isBefore(LocalDate.now())) {
 				request.setAttribute("now", 1);
-				System.out.println("after");
+			}
+			if(Av.getDateDebutEncheres().isAfter(LocalDate.now())) {
+				request.setAttribute("now", 2);
 			}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
