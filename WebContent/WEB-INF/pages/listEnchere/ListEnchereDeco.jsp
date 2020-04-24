@@ -49,7 +49,13 @@
 						<span class="card-title upper cardTitle">${article.nomArticle}</span>
 						<p>
 							<label class="lebalCard">Prix :</label>
-							<span>${article.prixVente} points</span>
+							<c:forEach var="listEnchere" items="${listEnchere}">
+								<c:if test="${listEnchere.noArticle ==  article.noArticle}">
+									<c:if test="${listEnchere.montant_enchere > 0}">
+										<span class="duBlanc"> ${listEnchere.montant_enchere} points</span>
+									</c:if>
+								</c:if>
+							</c:forEach>
 							<br/>
 							<label class="lebalCard">Fin de l'enchère :</label>
 							<span>${article.dateFinEncheres}</span>

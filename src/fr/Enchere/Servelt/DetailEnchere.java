@@ -117,7 +117,7 @@ public class DetailEnchere extends HttpServlet {
 			try {
 
 				e=enchereManagerStart.getEnchere().FindEnchere(idArticle, idUserSession);
-				if ( e.getNoArticle() == 0|| e.getUtilisateur().getNumeroUtilisateur() == 0) {
+				if ( e.getNoArticle() == 0|| e.getNoUtilisateur() == 0) {
 								
 					Enchere e2 = new Enchere(idUserSession , idArticle , java.sql.Date.valueOf(LocalDate.now()),Integer.parseInt(credit));
 					enchereManagerStart.getEnchere().insert(e2);
