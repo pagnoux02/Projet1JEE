@@ -153,7 +153,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			}
 			
 			if(lav == null || lav.isEmpty()) {
-				throw new FunctionnalException("il n'y a aucun article � vendre");
+				throw new FunctionnalException("il n'y a aucun article à vendre");
 			}
 			
 		} catch (SQLException e) {
@@ -188,7 +188,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			}
 			
 			if(av == null) {
-				throw new FunctionnalException("l'article n'a pas �t� trouv�");
+				throw new FunctionnalException("l'article n'a pas été trouvé");
 			}
 			
 		} catch (SQLException e) {
@@ -483,7 +483,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 				}
 				
 				if(lav == null || lav.isEmpty()) {
-					throw new FunctionnalException("il n'y a aucun article � vendre");
+					throw new FunctionnalException("il n'y a aucun article à vendre");
 				}
 				
 			} catch (SQLException e) {
